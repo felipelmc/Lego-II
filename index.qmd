@@ -1,0 +1,13 @@
+---
+title: "Apresentação do curso"
+bibliography: bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+---
+
+> Este curso tem por objetivo fornecer um panorama de diversos Modelos de Regressão e suas aplicações nas ciências sociais. Na Parte 1, abordaremos o Modelo de Regressão Linear Múltipla. Revisaremos suas características básicas nas primeiras aulas, aprofundando a compreensão de seus pressupostos e propriedades matemáticas. Na Parte 2, trataremos do problema da incerteza e da inferência estatística em modelos de regressão. Na Parte 3, veremos extensões dos modelos de regressão, para modelar relações não lineares, fazer predições e extrapolações. Na Parte 4, abordaremos modelos para dados categóricos ou censurados. Na Parte 5, abordaremos modelos para dados em painel/longitudinais (i.e. nos quais observamos unidades analíticas ao longo do tempo) [[ementa]](https://iesp.uerj.br/disciplina/lego-ii-2025-2/)
+
+**Professor:** Rogério Jerônimo Barbosa (IESP-UERJ) [[homepage]](https://iesp.uerj.br/pesquisador/rogerio-jeronimo-barbosa/)
+
+**Semestre:** 2025.2

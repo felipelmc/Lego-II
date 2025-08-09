@@ -1,0 +1,42 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Lego II"
+  author: Felipe Lamarca
+  chapters:
+    - index.qmd
+    - part: Nivelamento
+      chapters:
+        - aulas/nivelamento.qmd
+    # - part: Aulas
+    #   chapters:
+    #     - aulas/aula-1.qmd
+    #     - aulas/aula-2.qmd
+    #     - aulas/aula-5.qmd
+    #     - aulas/aula-6.qmd
+    #     - aulas/aula-7.qmd
+    #     - aulas/aula-8.qmd
+    #     - aulas/aula-9.qmd
+    #     - aulas/aula-10.qmd
+    #     - aulas/aula-11.qmd
+    #     - aulas/aula-12.qmd
+    #     - aulas/aula-13.qmd
+    # - part: Listas
+    #   chapters:
+    #     - listas/nivelamento/lista-nivelamento.qmd
+    #     - listas/lista-1/lista1.qmd
+    #     - listas/lista-2/lista2.qmd
+    #     - listas/lista-3/lista3.qmd
+    #     - listas/lista-4/lista4.qmd
+format:
+  html:
+    theme: 
+      light: cosmo
+      dark: [cosmo, theme-dark.scss]
+    css: styles.css
+    toc: true
+
+
+

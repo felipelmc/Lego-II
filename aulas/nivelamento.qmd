@@ -1,0 +1,21 @@
+---
+title: "Nivelamento"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 11pt
+---
+
+A disciplina de Lego II inicia com aulas intensivas de nivelamento em matemática ao longo de uma semana. As aulas trataram dos fundamentos de álgebra linear [@strang2016introduction] e cálculo.
+
+- Aula 1: vetores e a ideia da combinação linear [[pdf]](pdf-aulas-nivelamento/Nivelamento%20Lego%20II%20-%20Aula%201.pdf)
+- Aula 2: dependência linear e resolvendo $A x = b$ por Gauss-Jordan [[pdf]](pdf-aulas-nivelamento/Nivelamento%20Lego%20II%20-%20Aula%202.pdf)
+- Aula 3: produto escalar, norma de vetores, ortogonalidade e multiplicação de matrizes [[pdf]](pdf-aulas-nivelamento/Nivelamento%20Lego%20II%20-%20Aula%203.pdf)
+- Aula 4: matrizes especiais -- transposta, identidade, simétrica e inversa [[pdf]](pdf-aulas-nivelamento/Nivelamento%20Lego%20II%20-%20Aula%204.pdf)
+- Aula 5: funções, limite e um pouco de derivada [[pdf]](pdf-aulas-nivelamento/Nivelamento%20Lego%20II%20-%20Aula%205.pdf)
+
+# Referências {.unnumbered}
+
+::: {#refs}
+:::

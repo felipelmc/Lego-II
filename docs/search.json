@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Lego II",
+    "section": "",
+    "text": "Este curso tem por objetivo fornecer um panorama de diversos Modelos de Regressão e suas aplicações nas ciências sociais. Na Parte 1, abordaremos o Modelo de Regressão Linear Múltipla. Revisaremos suas características básicas nas primeiras aulas, aprofundando a compreensão de seus pressupostos e propriedades matemáticas. Na Parte 2, trataremos do problema da incerteza e da inferência estatística em modelos de regressão. Na Parte 3, veremos extensões dos modelos de regressão, para modelar relações não lineares, fazer predições e extrapolações. Na Parte 4, abordaremos modelos para dados categóricos ou censurados. Na Parte 5, abordaremos modelos para dados em painel/longitudinais (i.e. nos quais observamos unidades analíticas ao longo do tempo) [ementa]\n\nProfessor: Rogério Jerônimo Barbosa (IESP-UERJ) [homepage]\nSemestre: 2025.2",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Apresentação do curso</span>"
+    ]
+  },
+  {
+    "objectID": "aulas/nivelamento.html",
+    "href": "aulas/nivelamento.html",
+    "title": "2  Nivelamento",
+    "section": "",
+    "text": "A disciplina de Lego II inicia com aulas intensivas de nivelamento em matemática ao longo de uma semana. As aulas trataram dos fundamentos de álgebra linear (Strang 2016) e cálculo.\n\nAula 1: vetores e a ideia da combinação linear [pdf]\nAula 2: dependência linear e resolvendo \\(A x = b\\) por Gauss-Jordan [pdf]\nAula 3: produto escalar, norma de vetores, ortogonalidade e multiplicação de matrizes [pdf]\nAula 4: matrizes especiais – transposta, identidade, simétrica e inversa [pdf]\nAula 5: funções, limite e um pouco de derivada [pdf]\n\n\nReferências\n\n\nStrang, Gilbert. 2016. Introduction to Linear Algebra. 5th ed.\nWellesley, MA: Wellesley-Cambridge Press.",
+    "crumbs": [
+      "Nivelamento",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Nivelamento</span>"
+    ]
+  }
+]
