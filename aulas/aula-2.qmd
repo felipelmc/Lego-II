@@ -1,0 +1,53 @@
+---
+title: "Um pouco mais de cálculo"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 12pt
+---
+
+# Anotações de aula {.unnumbered}
+
+"Notebook notes", com um aprofundamento em cálculo, [neste link](pdf-aulas/Lego%20II%20-%20Aula%202.pdf). As demais partes da aula trataram brevemente da ideia de _processo gerador de dados_.
+
+```{r}
+set.seed(42)
+```
+
+Vamos simular o processo gerador de dados (*data generating process*) de renda
+
+```{r}
+n = 1000
+erros = rnorm(n, mean = 0, sd = 200)
+educ = rpois(n, lambda = 7)
+
+# a distribuição dos erros é normal com média 0 e sd 200
+hist(erros)
+
+# processo gerador de dados
+renda = 1000 + 150*educ + erros
+```
+
+De fato, se estimarmos uma reta de regressão utilizando esses dados, devemos nos aproximar bem dos coeficientes definidos no processo gerador:
+
+```{r}
+lm(renda ~ educ)
+```
+
+Agora, vamos criar uma nova variável que, predeterminadamente, já está correlacionada com os nossos erros. Isto é, trata-se de uma especificação que viola o ML4 (conforme vimos na última aula). Isso desrespeita a independência entre os erros e os regressores.
+
+```{r}
+library(faux)
+
+n = 1000
+erros = rnorm(n, mean = 0, sd = 200)
+educ = rnorm_pre(erros, mu = 7, r = -.8)
+renda = 1000 + 150*educ + erros
+
+lm(renda ~ educ)
+```
+
+Quando a regressão estimada não respeita os pressupostos, os resultados obtidos são absolutamente diversos em relação ao processo que efetivamente gerou o dado. O estimador utilizado para fazer a estimativa aplica uma *assumption* que o seu dado não respeitava.
+
+Na regressão, temos uma espécie de "máquina" para representar o mecanismo das coisas. O que significa essa estimativa, então? Essa resposta está no cálculo; por isso, precisamos falar um pouco dele antes.

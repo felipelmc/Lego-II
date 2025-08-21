@@ -14,10 +14,54 @@
     "href": "aulas/nivelamento.html",
     "title": "2  Nivelamento",
     "section": "",
-    "text": "A disciplina de Lego II inicia com aulas intensivas de nivelamento em matemática ao longo de uma semana. As aulas trataram dos fundamentos de álgebra linear (Strang 2016) e cálculo.\n\nAula 1: vetores e a ideia da combinação linear [pdf]\nAula 2: dependência linear e resolvendo \\(A x = b\\) por Gauss-Jordan [pdf]\nAula 3: produto escalar, norma de vetores, ortogonalidade e multiplicação de matrizes [pdf]\nAula 4: matrizes especiais – transposta, identidade, simétrica e inversa [pdf]\nAula 5: funções, limite e um pouco de derivada [pdf]\n\n\nReferências\n\n\nStrang, Gilbert. 2016. Introduction to Linear Algebra. 5th ed.\nWellesley, MA: Wellesley-Cambridge Press.",
+    "text": "A disciplina de Lego II inicia com aulas intensivas de nivelamento em matemática ao longo de uma semana. As aulas trataram dos fundamentos de álgebra linear (Strang 2016) e cálculo.\n\nAula 1: vetores e a ideia da combinação linear [pdf]\nAula 2: dependência linear e resolvendo \\(A x = b\\) por Gauss-Jordan [pdf]\nAula 3: produto escalar, norma de vetores, ortogonalidade e multiplicação de matrizes [pdf]\nAula 4: matrizes especiais – transposta, identidade, simétrica e inversa [pdf]\nAula 5: funções, limite e um pouco de derivada [pdf]\n\nRetomamos e aprofundamos alguns temas importantes de cálculo na aula 2 do curso. [pdf]\n\n\n\n\nStrang, Gilbert. 2016. Introduction to Linear Algebra. 5th ed. Wellesley, MA: Wellesley-Cambridge Press.",
     "crumbs": [
       "Nivelamento",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Nivelamento</span>"
+    ]
+  },
+  {
+    "objectID": "aulas/aula-1.html",
+    "href": "aulas/aula-1.html",
+    "title": "3  Derivando os estimadores da regressão",
+    "section": "",
+    "text": "Wooldridge (2020), chapter 2\n\\[\ny = \\beta_0 + \\beta_1 x + u\n\\]\nThis is a statement about the distribution of the unobserved factors in the population.",
+    "crumbs": [
+      "Aulas",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Derivando os estimadores da regressão</span>"
+    ]
+  },
+  {
+    "objectID": "aulas/aula-1.html#pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov",
+    "href": "aulas/aula-1.html#pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov",
+    "title": "3  Derivando os estimadores da regressão",
+    "section": "3.1 Pressupostos do modelo linear, ou os Supostos de Gauss-Markov",
+    "text": "3.1 Pressupostos do modelo linear, ou os Supostos de Gauss-Markov\n*ML.1:** Linearidade\n\\[\n\\mathbb{E}[Y | X] = f(x) = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\dots + \\beta_k x_k\n\\]\nML.2: Os casos do seu banco de dados foram gerados pelo mesmo processo gerador e são independentes e identicamente distribuídos (iid).\nML.3: \\(X^TX\\) é invertível\nML.4: o vetor de erros é ortogonal (i.e., \\(\\text{cos}(\\theta) = 0\\)) aos vetores-coluna que compõem a matriz \\(X\\). Isto é: os betas captam o efeito de \\(X\\) assumindo tudo mais constante (ceteris paribus). Isso quase certamente é falso.\nSatisfeitos todos esses pressupostos, a regressão oferece o efeito causal; no entanto, como normalmente não satisfazemos todos eles, o resultado é outra coisa. O que isso significa exatamente é o tema do curso.\n\n\n\n\nWooldridge, Jeffrey M. 2020. Introductory Econometrics: A Modern Approach. 7th ed. Boston, MA: Cengage Learning.",
+    "crumbs": [
+      "Aulas",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Derivando os estimadores da regressão</span>"
+    ]
+  },
+  {
+    "objectID": "aulas/aula-2.html",
+    "href": "aulas/aula-2.html",
+    "title": "4  Um pouco mais de cálculo",
+    "section": "",
+    "text": "Anotações de aula\n“Notebook notes”, com um aprofundamento em cálculo, neste link. As demais partes da aula trataram brevemente da ideia de processo gerador de dados.\n\nset.seed(42)\n\nVamos simular o processo gerador de dados (data generating process) de renda\n\nn = 1000\nerros = rnorm(n, mean = 0, sd = 200)\neduc = rpois(n, lambda = 7)\n\n# a distribuição dos erros é normal com média 0 e sd 200\nhist(erros)\n\n\n\n\n\n\n\n# processo gerador de dados\nrenda = 1000 + 150*educ + erros\n\nDe fato, se estimarmos uma reta de regressão utilizando esses dados, devemos nos aproximar bem dos coeficientes definidos no processo gerador:\n\nlm(renda ~ educ)\n\n\nCall:\nlm(formula = renda ~ educ)\n\nCoefficients:\n(Intercept)         educ  \n     1004.0        148.7  \n\n\nAgora, vamos criar uma nova variável que, predeterminadamente, já está correlacionada com os nossos erros. Isto é, trata-se de uma especificação que viola o ML4 (conforme vimos na última aula). Isso desrespeita a independência entre os erros e os regressores.\n\nlibrary(faux)\n\nWarning: pacote 'faux' foi compilado no R versão 4.4.3\n\n\n\n************\nWelcome to faux. For support and examples visit:\nhttps://debruine.github.io/faux/\n- Get and set global package options with: faux_options()\n************\n\nn = 1000\nerros = rnorm(n, mean = 0, sd = 200)\neduc = rnorm_pre(erros, mu = 7, r = -.8)\nrenda = 1000 + 150*educ + erros\n\nlm(renda ~ educ)\n\n\nCall:\nlm(formula = renda ~ educ)\n\nCoefficients:\n(Intercept)         educ  \n   2116.673       -8.889  \n\n\nQuando a regressão estimada não respeita os pressupostos, os resultados obtidos são absolutamente diversos em relação ao processo que efetivamente gerou o dado. O estimador utilizado para fazer a estimativa aplica uma assumption que o seu dado não respeitava.\nNa regressão, temos uma espécie de “máquina” para representar o mecanismo das coisas. O que significa essa estimativa, então? Essa resposta está no cálculo; por isso, precisamos falar um pouco dele antes.",
+    "crumbs": [
+      "Aulas",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Um pouco mais de cálculo</span>"
+    ]
+  },
+  {
+    "objectID": "aulas/bibliography.html",
+    "href": "aulas/bibliography.html",
+    "title": "5  Bibliografia",
+    "section": "",
+    "text": "Strang, Gilbert. 2016. Introduction to Linear Algebra. 5th ed.\nWellesley, MA: Wellesley-Cambridge Press.\n\n\nWooldridge, Jeffrey M. 2020. Introductory Econometrics: A Modern\nApproach. 7th ed. Boston, MA: Cengage Learning.",
+    "crumbs": [
+      "Aulas",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Bibliografia</span>"
     ]
   }
 ]

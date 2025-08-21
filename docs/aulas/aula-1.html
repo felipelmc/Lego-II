@@ -8,7 +8,7 @@
 
 <meta name="author" content="Felipe Lamarca">
 
-<title>2&nbsp; Nivelamento – Lego II</title>
+<title>3&nbsp; Derivando os estimadores da regressão – Lego II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -51,8 +86,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../aulas/aula-1.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../aulas/aula-2.html" rel="next">
+<link href="../aulas/nivelamento.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -295,7 +330,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/nivelamento.html">Nivelamento</a></li><li class="breadcrumb-item"><a href="../aulas/nivelamento.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Nivelamento</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-1.html">Aulas</a></li><li class="breadcrumb-item"><a href="../aulas/aula-1.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Derivando os estimadores da regressão</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -340,7 +375,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../aulas/nivelamento.html" class="sidebar-item-text sidebar-link active">
+  <a href="../aulas/nivelamento.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Nivelamento</span></span></a>
   </div>
 </li>
@@ -357,7 +392,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../aulas/aula-1.html" class="sidebar-item-text sidebar-link">
+  <a href="../aulas/aula-1.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Derivando os estimadores da regressão</span></span></a>
   </div>
 </li>
@@ -380,16 +415,26 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#wooldridge2020intro-chapter-2" id="toc-wooldridge2020intro-chapter-2" class="nav-link active" data-scroll-target="#wooldridge2020intro-chapter-2"><span class="citation" data-cites="wooldridge2020intro">Wooldridge (2020)</span>, chapter 2</a></li>
+  <li><a href="#anotações-de-aula" id="toc-anotações-de-aula" class="nav-link" data-scroll-target="#anotações-de-aula">Anotações de aula</a>
+  <ul class="collapse">
+  <li><a href="#pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov" id="toc-pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov" class="nav-link" data-scroll-target="#pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov"><span class="header-section-number">3.1</span> Pressupostos do modelo linear, ou os Supostos de Gauss-Markov</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/nivelamento.html">Nivelamento</a></li><li class="breadcrumb-item"><a href="../aulas/nivelamento.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Nivelamento</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-1.html">Aulas</a></li><li class="breadcrumb-item"><a href="../aulas/aula-1.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Derivando os estimadores da regressão</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Nivelamento</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Derivando os estimadores da regressão</span></h1>
 </div>
 
 
@@ -412,22 +457,99 @@ window.Quarto = {
 </header>
 
 
-<p>A disciplina de Lego II inicia com aulas intensivas de nivelamento em matemática ao longo de uma semana. As aulas trataram dos fundamentos de álgebra linear <span class="citation" data-cites="strang2016introduction">(<a href="bibliography.html#ref-strang2016introduction" role="doc-biblioref">Strang 2016</a>)</span> e cálculo.</p>
-<ul>
-<li>Aula 1: vetores e a ideia da combinação linear <a href="pdf-aulas-nivelamento/Nivelamento Lego II - Aula 1.pdf">[pdf]</a></li>
-<li>Aula 2: dependência linear e resolvendo <span class="math inline">\(A x = b\)</span> por Gauss-Jordan <a href="pdf-aulas-nivelamento/Nivelamento Lego II - Aula 2.pdf">[pdf]</a></li>
-<li>Aula 3: produto escalar, norma de vetores, ortogonalidade e multiplicação de matrizes <a href="pdf-aulas-nivelamento/Nivelamento Lego II - Aula 3.pdf">[pdf]</a></li>
-<li>Aula 4: matrizes especiais – transposta, identidade, simétrica e inversa <a href="pdf-aulas-nivelamento/Nivelamento Lego II - Aula 4.pdf">[pdf]</a></li>
-<li>Aula 5: funções, limite e um pouco de derivada <a href="pdf-aulas-nivelamento/Nivelamento Lego II - Aula 5.pdf">[pdf]</a></li>
-</ul>
-<p>Retomamos e aprofundamos alguns temas importantes de cálculo na aula 2 do curso. <a href="pdf-aulas/Lego II - Aula 2.pdf">[pdf]</a></p>
+<section id="wooldridge2020intro-chapter-2" class="level1 unnumbered">
+<h1 class="unnumbered"><span class="citation" data-cites="wooldridge2020intro">Wooldridge (<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">2020</a>)</span>, chapter 2</h1>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x + u
+\]</span></p>
+<blockquote class="blockquote">
+<p>This means that <span class="math inline">\(\beta_1\)</span> is the <strong>slope parameter</strong> in the relationship between <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span>, holding the other factors in <span class="math inline">\(u\)</span> fixed; it is of primary interest in applied economics. The <strong>intercept parameter</strong> <span class="math inline">\(\beta_0\)</span>, sometimes called the <em>constant term</em>, also has its uses, although it is rarely central to an analysis. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 21</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>We say in equation (2.2) that <span class="math inline">\(\beta_1\)</span> <em>does</em> measure the effect of <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span>, holding all other factors (in <span class="math inline">\(u\)</span>) fixed. Is this the end of the causality issue? Unfortunately, no. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 22</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Before we state the key assumption about how <span class="math inline">\(x\)</span> and <span class="math inline">\(u\)</span> are related, we can always make one assumption about <span class="math inline">\(u\)</span>. As long as the intercept <span class="math inline">\(\beta_0\)</span> is included in the equation, nothing is lost by assuming that the average value of <span class="math inline">\(u\)</span> in the population is zero. Mathematically, <span class="math inline">\(\mathbb{E}(u) = 0\)</span>. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 22</a>)</span></p>
+</blockquote>
+<p><strong>This is a statement about the distribution of the unobserved factors in the population.</strong></p>
+<blockquote class="blockquote">
+<p>Because <span class="math inline">\(u\)</span> and <span class="math inline">\(x\)</span> are random variables, we can define the conditional distribution of <span class="math inline">\(u\)</span> given any value of <span class="math inline">\(x\)</span>. In particular, for any <span class="math inline">\(x\)</span>, we can obtain the expected (or average) value of <span class="math inline">\(u\)</span> for that slice of the population described by the value of <span class="math inline">\(x\)</span>. The crucial assumption is that the average value of <span class="math inline">\(u\)</span> does not depend on the value of <span class="math inline">\(x\)</span>. We can weite this assumption as <span class="math inline">\(\mathbb{E}(u|x) = \mathbb{E}(u)\)</span>. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 22–23</a>)</span></p>
+</blockquote>
+</section>
+<section id="anotações-de-aula" class="level1 unnumbered">
+<h1 class="unnumbered">Anotações de aula</h1>
+<p>A aula se dividiu em duas partes. Na primeira, derivamos o estimador dos coeficientes da regressão linear usando álgebra. As anotações estão <a href="pdf-aulas/Lego II - Aula 1.pdf">neste link</a>.</p>
+<p>Depois disso, discutimos um pouco de regressão linear múltipla usando o R.</p>
+<p>Nesse caso, “implementamos” a regressão linear manualmente. É justamente a implementação do modelo linear do próprio R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(<span class="at">formula =</span> ln_renda <span class="sc">~</span> anosEst, <span class="at">data =</span> pnad_rec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>De fato, obtemos exatamente o mesmo resultado. Não poderia ser diferente, evidentemente. Quando <code>anosEst = 0</code>, <code>ln_renda = 6.0763</code>. Agora, para cada <code>anoEst</code>, <code>ln_renda</code> aumenta em <code>0.1024</code>. Essa é a interpretação substantiva.</p>
+<p>Agora, queremos incluir mais variáveis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">cbind</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">constante =</span> <span class="dv">1</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">anosEst =</span> pnad_rec<span class="sc">$</span>anosEst,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sexoFem =</span> pnad_rec<span class="sc">$</span>sexoFem,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">idade =</span> pnad_rec<span class="sc">$</span>idade</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(X) <span class="co"># n x 4</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> pnad_rec<span class="sc">$</span>ln_renda</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># solve() calcula a inversa</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># t() calcula a transposta</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># %*% é a multiplicação pointwise, dot product</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>beta_hat <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(beta_hat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A ideia é exatamente a mesma:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> ln_renda <span class="sc">~</span> anosEst <span class="sc">+</span> sexoFem <span class="sc">+</span> idade, <span class="at">data =</span> pnad_rec)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>coef_model <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># é igual até a 10ª casa decimal!</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(coef_model, <span class="dv">10</span>) <span class="sc">==</span> <span class="fu">round</span>(beta_hat, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Uma última questão:</p>
+<p><span class="math display">\[
+\begin{align*}
+\hat{y} &amp;= X \beta \\
+y &amp;= X \hat{\beta} + \hat{\epsilon} \Rightarrow \\
+\Rightarrow \hat{\epsilon} &amp;= y - \hat{y}
+\end{align*}
+\]</span></p>
+<p>Apenas lembrando que <span class="math inline">\(X^T \epsilon = 0\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">=</span> X <span class="sc">%*%</span> beta_hat</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>epsilon_hat <span class="ot">=</span> y <span class="sc">-</span> y_hat</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(X) <span class="sc">%*%</span> epsilon_hat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov"><span class="header-section-number">3.1</span> Pressupostos do modelo linear, ou os Supostos de Gauss-Markov</h2>
+<p>*ML.1:** Linearidade</p>
+<p><span class="math display">\[
+\mathbb{E}[Y | X] = f(x) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_k x_k
+\]</span></p>
+<p><strong>ML.2:</strong> Os casos do seu banco de dados foram gerados pelo mesmo processo gerador e são independentes e identicamente distribuídos (iid).</p>
+<p><strong>ML.3:</strong> <span class="math inline">\(X^TX\)</span> é invertível</p>
+<p><strong>ML.4:</strong> o vetor de erros é ortogonal (i.e., <span class="math inline">\(\text{cos}(\theta) = 0\)</span>) aos vetores-coluna que compõem a matriz <span class="math inline">\(X\)</span>. Isto é: os betas captam o efeito de <span class="math inline">\(X\)</span> assumindo tudo mais constante (<em>ceteris paribus</em>). Isso quase certamente é falso.</p>
+<p>Satisfeitos todos esses pressupostos, a regressão oferece o efeito causal; no entanto, como normalmente não satisfazemos todos eles, o resultado é outra coisa. O que isso significa exatamente é o tema do curso.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-strang2016introduction" class="csl-entry" role="listitem">
-Strang, Gilbert. 2016. <em>Introduction to Linear Algebra</em>. 5th ed. Wellesley, MA: Wellesley-Cambridge Press.
+<div id="ref-wooldridge2020intro" class="csl-entry" role="listitem">
+Wooldridge, Jeffrey M. 2020. <em>Introductory Econometrics: A Modern Approach</em>. 7th ed. Boston, MA: Cengage Learning.
 </div>
 </div>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -844,13 +966,13 @@ Strang, Gilbert. 2016. <em>Introduction to Linear Algebra</em>. 5th ed. Wellesle
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Apresentação do curso">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Apresentação do curso</span></span>
+      <a href="../aulas/nivelamento.html" class="pagination-link" aria-label="Nivelamento">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Nivelamento</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../aulas/aula-1.html" class="pagination-link" aria-label="Derivando os estimadores da regressão">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Derivando os estimadores da regressão</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../aulas/aula-2.html" class="pagination-link" aria-label="Um pouco mais de cálculo">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Um pouco mais de cálculo</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

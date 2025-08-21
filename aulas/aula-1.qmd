@@ -1,0 +1,203 @@
+---
+title: "Derivando os estimadores da regressão"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 12pt
+execute: 
+  eval: false
+---
+
+# @wooldridge2020intro, chapter 2 {.unnumbered}
+
+$$
+y = \beta_0 + \beta_1 x + u
+$$
+
+> This means that $\beta_1$ is the **slope parameter** in the relationship between $y$ and $x$, holding the other factors in $u$ fixed; it is of primary interest in applied economics. The **intercept parameter** $\beta_0$, sometimes called the _constant term_, also has its uses, although it is rarely central to an analysis. [@wooldridge2020intro, p. 21]
+
+> We say in equation (2.2) that $\beta_1$ _does_ measure the effect of $x$ on $y$, holding all other factors (in $u$) fixed. Is this the end of the causality issue? Unfortunately, no. [@wooldridge2020intro, p. 22]
+
+> Before we state the key assumption about how $x$ and $u$ are related, we can always make one assumption about $u$. As long as the intercept $\beta_0$ is included in the equation, nothing is lost by assuming that the average value of $u$ in the population is zero. Mathematically, $\mathbb{E}(u) = 0$. [@wooldridge2020intro, p. 22]
+
+**This is a statement about the distribution of the unobserved factors in the population.**
+
+> Because $u$ and $x$ are random variables, we can define the conditional distribution of $u$ given any value of $x$. In particular, for any $x$, we can obtain the expected (or average) value of $u$ for that slice of the population described by the value of $x$. The crucial assumption is that the average value of $u$ does not depend on the value of $x$. We can weite this assumption as $\mathbb{E}(u|x) = \mathbb{E}(u)$. [@wooldridge2020intro, p. 22-23]
+
+# Anotações de aula {.unnumbered}
+
+A aula se dividiu em duas partes. Na primeira, derivamos o estimador dos coeficientes da regressão linear usando álgebra. As anotações estão [neste link](pdf-aulas/Lego%20II%20-%20Aula%201.pdf).
+
+Depois disso, discutimos um pouco de regressão linear múltipla usando o R.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+
+# setup ------------------------------------------------------------------------
+options(scipen = 999) # desabilita a notação científica
+
+# carregando pacotes -----------------------------------------------------------
+
+library(tidyverse)
+library(PNADcIBGE)
+library(Hmisc)
+
+
+# abrindo dados ----------------------------------------------------------------
+
+pnadc_2019t1 <- get_pnadc(
+  year = 2019, 
+  quarter = 1, 
+  labels = FALSE,
+  design = FALSE
+)
+
+
+# recodificando ----------------------------------------------------------------
+
+pnad_rec <- pnadc_2019t1 %>%
+  setNames(tolower(names(.))) %>%
+  select(
+    peso = v1028,
+    sexo = v2007,
+    idade = v2009,
+    anosEst = vd3005,
+    renda = vd4016
+    ) %>%
+  filter(
+    idade %in% 18:64,
+    renda > 0
+  ) %>%
+  mutate(
+    ln_renda = log(renda),
+    anosEst = as.numeric(anosEst),
+    sexoFem = ifelse(sexo == 2, 1, 0),
+    experiencia = idade - anosEst - 6
+  )
+
+
+# análises descritivas ---------------------------------------------------------
+
+pnad_rec %>%
+  ggplot(aes(x = idade, weight = peso)) +
+  geom_histogram(bins = 10)
+
+pnad_rec %>%
+  ggplot(aes(x = renda, weight = peso)) +
+  geom_histogram()
+
+pnad_rec %>%
+  ggplot(aes(x = ln_renda, weight = peso)) +
+  geom_histogram()
+
+
+# modelos de regressão ---------------------------------------------------------
+
+X = cbind(
+  constante = 1,
+  anosEst = pnad_rec$anosEst
+)
+
+dim(X) # n x 2
+
+y = pnad_rec$ln_renda
+
+# solve() calcula a inversa
+# t() calcula a transposta
+# %*% é a multiplicação pointwise, dot product
+beta = solve(t(X) %*% X) %*% t(X) %*% y
+
+print(beta)
+
+```
+
+Nesse caso, "implementamos" a regressão linear manualmente. É justamente a implementação do modelo linear do próprio R:
+
+```{r}
+
+lm(formula = ln_renda ~ anosEst, data = pnad_rec)
+
+```
+
+De fato, obtemos exatamente o mesmo resultado. Não poderia ser diferente, evidentemente. Quando `anosEst = 0`, `ln_renda = 6.0763`. Agora, para cada `anoEst`, `ln_renda` aumenta em `0.1024`. Essa é a interpretação substantiva.
+
+Agora, queremos incluir mais variáveis:
+
+```{r}
+
+X = cbind(
+  constante = 1,
+  anosEst = pnad_rec$anosEst,
+  sexoFem = pnad_rec$sexoFem,
+  idade = pnad_rec$idade
+)
+
+dim(X) # n x 4
+
+y = pnad_rec$ln_renda
+
+# solve() calcula a inversa
+# t() calcula a transposta
+# %*% é a multiplicação pointwise, dot product
+beta_hat = solve(t(X) %*% X) %*% t(X) %*% y
+
+print(beta_hat)
+
+```
+
+A ideia é exatamente a mesma:
+
+```{r}
+
+model <- lm(formula = ln_renda ~ anosEst + sexoFem + idade, data = pnad_rec)
+model
+
+```
+
+```{r}
+
+coef_model <- coef(model)
+
+# é igual até a 10ª casa decimal!
+round(coef_model, 10) == round(beta_hat, 10)
+
+```
+
+Uma última questão:
+
+$$
+\begin{align*}
+\hat{y} &= X \beta \\
+y &= X \hat{\beta} + \hat{\epsilon} \Rightarrow \\
+\Rightarrow \hat{\epsilon} &= y - \hat{y}
+\end{align*}
+$$
+
+Apenas lembrando que $X^T \epsilon = 0$:
+
+```{r}
+
+y_hat = X %*% beta_hat
+epsilon_hat = y - y_hat
+
+t(X) %*% epsilon_hat
+
+```
+
+## Pressupostos do modelo linear, ou os Supostos de Gauss-Markov
+
+*ML.1:** Linearidade
+
+$$
+\mathbb{E}[Y | X] = f(x) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_k x_k
+$$
+
+**ML.2:** Os casos do seu banco de dados foram gerados pelo mesmo processo gerador e são independentes e identicamente distribuídos (iid).
+
+**ML.3:** $X^TX$ é invertível
+
+**ML.4:** o vetor de erros é ortogonal (i.e., $\text{cos}(\theta) = 0$) aos vetores-coluna que compõem a matriz $X$. Isto é: os betas captam o efeito de $X$ assumindo tudo mais constante (_ceteris paribus_). Isso quase certamente é falso.
+
+Satisfeitos todos esses pressupostos, a regressão oferece o efeito causal; no entanto, como normalmente não satisfazemos todos eles, o resultado é outra coisa. O que isso significa exatamente é o tema do curso.
+

@@ -4,7 +4,7 @@ bibliography: ../bibliography.bib
 author:
   - name: Felipe Lamarca
     email: felipelamarca@iesp.uerj.br
-fontsize: 11pt
+fontsize: 12pt
 ---
 
 A disciplina de Lego II inicia com aulas intensivas de nivelamento em matemática ao longo de uma semana. As aulas trataram dos fundamentos de álgebra linear [@strang2016introduction] e cálculo.
@@ -15,7 +15,4 @@ A disciplina de Lego II inicia com aulas intensivas de nivelamento em matemátic
 - Aula 4: matrizes especiais -- transposta, identidade, simétrica e inversa [[pdf]](pdf-aulas-nivelamento/Nivelamento%20Lego%20II%20-%20Aula%204.pdf)
 - Aula 5: funções, limite e um pouco de derivada [[pdf]](pdf-aulas-nivelamento/Nivelamento%20Lego%20II%20-%20Aula%205.pdf)
 
-# Referências {.unnumbered}
-
-::: {#refs}
-:::
+Retomamos e aprofundamos alguns temas importantes de cálculo na aula 2 do curso. [[pdf]](pdf-aulas/Lego%20II%20-%20Aula%202.pdf)
