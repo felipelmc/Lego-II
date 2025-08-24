@@ -1,0 +1,75 @@
+---
+title: "O método dos mínimos quadrados"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 12pt
+---
+
+# _Extrema in One Dimension_, @moore2013mathematics {.unnumbered}
+
+[Solução de alguns dos exercícios do capítulo](pdf-exercicios\moore2023mathematics_exercises_chapter_8.pdf).
+
+> Finding extrema is useful in optimization theory, a topic that comes up fairly often in political science, and one to which we return in Chapter 16. Theorists often assume that an actor wants to maximize or minimize something (e.g., power, utility, time in office, etc.). If one can write out an explicit function (i.e., identify the variables that would influence the thing the actor wants to minimize or maximize and their interrelationships), then one can use calculus to further evaluate those relationships and deduce hypotheses. That is, maximizing a utility function (or minimizing a loss) is a mathematical tool that is used to produce the deductions of many game theoretic models. [@moore2013mathematics, p. 152]
+
+> First, the slope of the line tangent to an extremum itself will always be zero, and hence the first derivative of the function at a point that is an extremum will always equal zero as well. [@moore2013mathematics, p. 154]
+
+> Note that an extremum does not have to be, but may be, the absolutely highest or lowest value in a function. We say an extremum is **local** whenever it is the largest (or smallest) value of the function over some interval of values in the domain of the function, e.g., over some interval on the $x$-axis. So we can have local maxima, and local minima. A **global** extremum, in comparison, is the highest (or lowest) point of the function. [@moore2013mathematics, p. 154-155]
+
+> These [the points 0 and 1 in the interval (0, 1)] are the supremum and the infimum, which are similar to the maximum and the minimum, respectively. The supremum can be thought of as the least upper bound of any set, and the infimum can be thought of as the greatest lower bound of any set. [@moore2013mathematics, 156]
+
+## Higher-order derivatives
+
+> More generally, though, derivatives of any order tell us something about the _shape_ of the function. The first derivative tells us in which diretion it is trending: is it increasing or decreasing? The second derivative tells us the most basic curvature of the function: is the rate at which it is increasing or decreasing getting faster or slower? Higher-order derivatives provide more nuanced information about the shape of functions; however, we will typically find first and second derivatives sufficient for our purposes. [@moore2013mathematics, p. 158]
+
+## Concavity and Convexity
+
+> To understand what the second derivative tells us, let's start by considering an increasing function. One with a rate of increase that slows as the value of the function gets bigger is an example of a concave function. One with a rate of increase that speeds up as the value of the function gets bigger is an example of a convex function. [@moore2013mathematics, p. 159]
+
+## Taylor Series
+
+> The first derivative tells us whether the function is increasing or decreasing, the second what the curvature is, and so on. This suggests that one could build up a function by incorporating all the information encoded in these derivatives. It turns out that one can do this for a large class of functions known as analytic functions. The series that expresses a function in terms of its derivatives is known as a **Taylor series**, named after the English mathematician Brook Taylor. If an analytic function $f(x)$ is infinitely differentiable close to some number $a$, then the Taylor series is given by the infinite sum
+>
+> $$
+> \begin{align*}
+> f(x) &= f(a) + \dfrac{f^\prime (a)}{1!}(x-a) + \dfrac{f^{\prime \prime} (a)}{2!}(x-a)^2 + \dfrac{f^{\prime \prime \prime} (a)}{3!}(x-a)^3 + \dots \\
+> &= \sum^\infty_{n = 0} \dfrac{f^{(n)} (a)}{n!} (x - a)^n
+> \end{align*}
+> $$
+>
+> The Taylor series is useful for many reasons, but the primary one for our purposes is that it allows one to replace a complex function with a bunch of powers of $x$. We already used this to calculate the derivative of $e^x$ [...]. [@moore2013mathematics, p. 160-161]
+
+> More usefully, the Taylor series provides a good approximation of a function near any point. Note that the expansion is in powers of $(x-a)$. If we only care about values of $x$ near $a$, an so consider only these, then $(x-a)$ is small, $(x-a)^2$ is smaller, and so on. At some point, adding an additional term doesn't change the sum enough to be worth it, particularly with the $n!$ in the denominator. Se we can cut off the approximation there. [@moore2013mathematics, p. 162]
+
+## Critical points
+
+> A critical point is any point $x^*$ such that either $f^\prime (x^*) = 0$ or $f^\prime (x^*)$ doesn't exist. Loosely, critical points are points in the function's domain at which things _happen_. Either the function blows up, or it jumps, or it is stationary. [@moore2013mathematics, p. 162]
+
+> However, just because local extrema occur at critical points does not mean all critical points are extrema. Some are instead inflection points, which are points at which the graph of the function changes from concave to convex or vice versa. For example, up to a certain point a function may be increasing at a slower and slower rate, but after that point it might increase at a faster and faster rate. Such a function if $f(x) = x^3$, which has an inflection point at $x = 0$, even though $f^\prime (0) = 0$. [@moore2013mathematics, p. 162]
+
+> When the slope of the tangent line to the function is not zero at the inflection point, the existence of inflection points gives us no trouble in finding extrema. Given that our interest is in finding extrema and not inflection points, we needn’t concern ourselves with these (called nonstationary points of inflection). However, as in our example, in some instances the slope of a tangent to the inflection point will equal zero. That is, both $f^\prime (x^*) = 0$ and $f^{\prime \prime} (x^*) = 0$, and $x^*$ is further an inflection point. Such points are also known as **saddle points** (owing to their appearance in two dimensions) and are not extrema. [@moore2013mathematics, p. 163]
+
+> We use the second derivative test to determine whether the stationary points we obtained in the first derivative test are extrema or inflection points. First we have to determine the second derivative, $f^{\prime \prime} (x)$, of the original function $f(x)$. Then we substitute the stationary points $x^*$ we determined from the FOC into $f^{\prime \prime} (x)$. If the answer is negative, i.e., if $f^{\prime \prime} (x^*) < 0$, the stationary point is a maximum since the function is concave near $x^*$. If, in contrast, $f^{\prime \prime} (x^*) > 0$, the stationary point is aminimum, since the function is convex near $x^*$. Finally, if $f^{\prime \prime} (x^*) = 0$, the stationary point may be an inflection point.
+
+In the case of $f^{\prime \prime} (x^*) = 0$, we must take the third derivative to check if $x^*$ is an inflection point or not. An inflection point occurs whenever the sign of the second derivative changes, since it implies a shift from convex to concave, or vice versa. If $f(x) = x^3$, $f^{\prime \prime \prime}(x) = 6 > 0$, so zero is an inflection point, as we have found. However, if $f(x) = x^4$, $f^{\prime \prime \prime}(x) = 24x$, which is $0$ at $x = 0$, so this is not necessarily an inflection point.
+
+Example: $f(x) = x^3 - 3x^2 + 7$. The first derivative is $f^\prime (x) = 3x^2 - 6x$, which has $x^* = 0$ and $x^* = 2$ as extreme points. Something is happening there. So let's take the derivative again: $f^{\prime \prime} (x) = 6x - 6$. If we plug $x^* = 0$ into it, we get $-6 < 0$, which means that $x^* = 0$ is a local maximum of the function. $x^* = 2$, instead, gives us $6 > 0$, what makes that point a local minimum.
+
+Well, and how do we find globals? Suppose we are in the interval $[-4, 4]$. The local minimum of this very function is $f(2) = 3$, and the local maximum is $f(0) = 7$. Given the domain, we know the boundaries are $f(-4) = -105$ and $f(4) = 23$. Since $-105 < 3$ and $23 > 7$, the global minimum and maximum are at $x = -4$ and $x = 4$. [@moore2013mathematics, p. 168]
+
+Procedure to find global maximum and minimum:
+
+1. Find $f^\prime (x)$
+2. Set $f^\prime (x) = 0$ and solve for $x$ to obtain stationary points
+3. Find $f^{\prime \prime} (x)$
+4. For each stationary point $x^*$, substitute it into $f^{\prime \prime} (x)$
+  - if $f^{\prime \prime} (x^*) < 0$, $f(x)$ has a local maximum at $x^*$
+  - if $f^{\prime \prime} (x^*) > 0$, $f(x)$ has a local minimum at $x^*$
+  - if $f^{\prime \prime} (x^*) = 0$, $x^*$ may be an inflection point
+    - This goes on until you find a higher-order derivative for which plugging $x^*$ returns a non-zero value
+5. Substitute each local extremum into $f(x)$ to find the function's value at that point
+6. Substitute the lower and upper bounds of the domain over which you are attempting to find the extrema into $f(x)$ to find the function's value at those points
+7. Find the smallest value of the function from those computed in the previous two steps. This is the global minimum, and the function attains this at the corresponding $x^*$ or boundary point. Find the largest value of the function from those computed in the previous two steps. This is the global maximum, and the function attains this at the corresponding $x^*$ or boundary point.
+
+# Anotações de aula {.unnumbered}

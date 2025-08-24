@@ -16,3 +16,5 @@ A disciplina de Lego II inicia com aulas intensivas de nivelamento em matemátic
 - Aula 5: funções, limite e um pouco de derivada [[pdf]](pdf-aulas-nivelamento/Nivelamento%20Lego%20II%20-%20Aula%205.pdf)
 
 Retomamos e aprofundamos alguns temas importantes de cálculo na aula 2 do curso. [[pdf]](pdf-aulas/Lego%20II%20-%20Aula%202.pdf)
+
+[Enunciado](..\listas\nivelamento\enunciados.pdf) e [solução](..\listas\nivelamento\solucoes.pdf) da lista de nivelamento em matemática.

@@ -15,6 +15,8 @@ $$
 y = \beta_0 + \beta_1 x + u
 $$
 
+> The variavke $u$, called the **error term** or **disturbance** in the relationship, represents factors other than $x$ that affect $y$. A simple regression analysis effectively treats all factors affecting $y$ other than $x$ as being unobserved. [@wooldridge2020intro, p. 21]
+
 > This means that $\beta_1$ is the **slope parameter** in the relationship between $y$ and $x$, holding the other factors in $u$ fixed; it is of primary interest in applied economics. The **intercept parameter** $\beta_0$, sometimes called the _constant term_, also has its uses, although it is rarely central to an analysis. [@wooldridge2020intro, p. 21]
 
 > We say in equation (2.2) that $\beta_1$ _does_ measure the effect of $x$ on $y$, holding all other factors (in $u$) fixed. Is this the end of the causality issue? Unfortunately, no. [@wooldridge2020intro, p. 22]
@@ -24,6 +26,109 @@ $$
 **This is a statement about the distribution of the unobserved factors in the population.**
 
 > Because $u$ and $x$ are random variables, we can define the conditional distribution of $u$ given any value of $x$. In particular, for any $x$, we can obtain the expected (or average) value of $u$ for that slice of the population described by the value of $x$. The crucial assumption is that the average value of $u$ does not depend on the value of $x$. We can weite this assumption as $\mathbb{E}(u|x) = \mathbb{E}(u)$. [@wooldridge2020intro, p. 22-23]
+
+## Deriving the OLS estimates using the *method of moments*
+
+Now, let's proceed to derive the ordinary least squares estimates. Of course, I'm just going to describe the step-by-step specified in the section 2.2 of @wooldridge2020intro. Assume we have a random sample $\{ (x_i, y_i): i = 1, ..., n \}$. We can write a simple regression model as follows:
+
+$$
+y_i = \beta_0 + \beta_1 x_i + u_1
+$$
+
+for each $i$. 
+
+There are many ways to motivate this procedure; let's use the following approach. It is an assumption of the linear model that $\mathbb{E}[u] = 0$, what also means that the covariance between $x$ and $u$ is zero -- $\text{Cov}(x, u) = \mathbb{E}[xu] = 0$. That being said, we can write these two equations below:
+
+$$
+\begin{align*}
+\mathbb{E}[u_i] = 0 &\Longrightarrow \mathbb{E}[y - \beta_0 - \beta_1 x] = 0 \\
+\mathbb{E}[xu] = 0 &\Longrightarrow \mathbb{E}[x(y - \beta_0 - \beta_1 x)] = 0
+\end{align*}
+$$
+
+These two equations imply two restrictins on the joint probability distribution of $\{x, y\}$ in the population. There are two unknown parameters to estimate, so we might hope that they can be used to obtain good estimators of $\beta_0$ and $\beta_1$. In fact, given a sample of data, we can choose estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ to solve the _sample_ counterparts of these two equations:
+
+$$
+\begin{align*}
+\mathbb{E}[u_i] = 0 &\Longrightarrow \frac{1}{n} \sum^n_{i = 1} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) = 0 \\
+\mathbb{E}[xu] = 0 &\Longrightarrow \frac{1}{n} \sum^n_{i = 1} x_i (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) = 0
+\end{align*}
+$$
+
+This is an example of the _method of moments_ approach [@wooldridge2020intro, p. 25]. In fact, the idea of the method of moments is that the population distribution has some _theoretical moments_ (the mean or the variance, for example), and we estimate parameters by equating these theoretical moments with the corresponding _sample moments_. 
+
+We can rewrite the first equation as
+
+$$
+\begin{align*}
+& \bar{y} - \hat{\beta}_0 - \hat{\beta}_1 \bar{x} = 0 \Rightarrow  \\
+&\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}
+\end{align*}
+$$
+
+We can then plug this result into the second equations (ignoring $n^{-1}$, which makes no difference in the equality), what gives us
+
+$$
+\begin{align*}
+&\sum^n_{i = 1} x_i [y_i - (\bar{y} - \hat{\beta}_1 \bar{x}) - \hat{\beta}_1 x_i] = 0 \Rightarrow \\
+&\sum^n_{i = 1} x_i (y_i - \bar{y}) = \hat{\beta}_1 \sum^n_{i = 1} x_i (x_i - \bar{x})
+\end{align*}
+$$
+
+From the properties of summation, it follows that
+
+$$
+\begin{align*}
+&\sum^n_{i = 1} x_i (y_i - \bar{y}) = \sum^n_{i = 1} (x_i - \bar{x})(y_i - \bar{y}) \\
+&\sum^n_{i = 1} x_i (x_i - \bar{x}) = \sum^n_{i = 1} (x_i - \bar{x})^2
+\end{align*}
+$$
+
+So, provided that $\sum^n_{i = 1} (x_i - \bar{x})^2 > 0$,
+
+$$
+\hat{\beta}_1 = \dfrac{\sum^n_{i = 1} (x_i - \bar{x})(y_i - \bar{y})}{\sum^n_{i = 1} (x_i - \bar{x})^2}
+$$
+
+> Equation (2.19) [this last one] is simply the sample covariance between $x_i$ and $y_i$ divided by the sample variance of $x_i$. Using simple algebra we can also write $\hat{\beta}_1$ as
+>
+> $$
+> \hat{\beta}_1 = \hat{\rho}_{xy} \cdot \left( \frac{ \hat{\sigma_y} }{ \hat{\sigma_x} } \right),
+>$$
+>
+> where $\hat{\rho}_{xy}$ is the sample correlation between $x_i$ and $y_i$ and $\hat{\sigma_x}, \hat{\sigma_y}$ denote the sample standard deviations. [...]. An immediate implication is that if $x_i$ and $y_i$ are positively correlated in the sample then $\hat{\beta}_1 > 0$; if $x_i$ and $y_i$ are negatively correlated then $\hat{\beta}_1 < 0$.
+>
+> [...]
+>
+> [...] Recognition that $\beta_1$ is just a scaled version of $\rho_{xy}$ highlights an important limitation of simple regression when we do not have experimental data: in effect, simple regression is an analysis of correlation between two variables, and so one must be careful in inferring causality. [@wooldridge2020intro, p. 26]
+
+The $\hat{\beta}_0$ and $\hat{\beta}_1$ estimates are the ordinary least squares (OLS) estimates of $\beta_0$ and $\beta_1$. These are the estimates that make the **sum of the squared residuals** as small as possible.
+
+## Some properties
+
+1. $\sum_{i = 1}^n \hat{u}_i = 0$
+2. $\sum_{i = 1}^n x_i \hat{u}_i = 0$
+3. The point $(\bar{x}, \bar{y})$ is always on the OLS regression line.
+
+## Errors
+
+Define the total sume of squares (SST), the explained sum of squares (SSE), and the residual sum of squares (SSR):
+
+$$
+\begin{align*}
+&\text{SST} \equiv \sum^n_{i = 1} (y_i - \bar{y})^2 \\
+&\text{SSE} \equiv \sum^n_{i = 1} (\hat{y}_i - \bar{y})^2 \\
+&\text{SSR} \equiv \sum^n_{i = 1} \hat{u}_i^2 = \sum^n_{i = 1} (y_i - \hat{y}_i)
+\end{align*}
+$$
+
+SST is a measure of the total sample variation in the $y_i$, while SSE is a measure of the sample variation in the $\hat{y}_i$ and SSR measures the sample variation in the $\hat{u}_i$. The total variation can always be expressed as the sum of the explained variation and the unexplained variation SSR, that is, SST = SSE + SSR.
+
+The coefficient of determination measures the percentage of the explained variance:
+
+$$
+R^2 = \frac{ \text{SSE} }{ \text{SST} } = 1 - \frac{ \text{SSR} }{ \text{SST} }
+$$
 
 # Anotações de aula {.unnumbered}
 
@@ -187,7 +292,7 @@ t(X) %*% epsilon_hat
 
 ## Pressupostos do modelo linear, ou os Supostos de Gauss-Markov
 
-*ML.1:** Linearidade
+**ML.1:** Linearidade
 
 $$
 \mathbb{E}[Y | X] = f(x) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_k x_k

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Felipe Lamarca">
+
+<title>5&nbsp; O método dos mínimos quadrados – Lego II</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../aulas/bibliography.html" rel="next">
+<link href="../aulas/aula-2.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7271f29f9498218151f3120baddb7363.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-684fd4d5cca103f0a36d8d6452d65d79.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-e48631cd0f686fc60c0a94b589431da6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-684fd4d5cca103f0a36d8d6452d65d79.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    window.setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      window.setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    window.hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(darkModeDefault) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const darkModeDefault = false;
+    document.querySelector('link.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !window.hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+    };
+    // Switch to dark mode if need be
+    if (window.hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-1.html">Aulas</a></li><li class="breadcrumb-item"><a href="../aulas/aula-3.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">O método dos mínimos quadrados</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Lego II</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Apresentação do curso</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Nivelamento</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/nivelamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Nivelamento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Aulas</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Derivando os estimadores da regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Um pouco mais de cálculo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-3.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">O método dos mínimos quadrados</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Bibliografia</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#extrema-in-one-dimension-moore2013mathematics" id="toc-extrema-in-one-dimension-moore2013mathematics" class="nav-link active" data-scroll-target="#extrema-in-one-dimension-moore2013mathematics"><em>Extrema in One Dimension</em>, <span class="citation" data-cites="moore2013mathematics">Moore and Siegel (2013)</span></a>
+  <ul class="collapse">
+  <li><a href="#higher-order-derivatives" id="toc-higher-order-derivatives" class="nav-link" data-scroll-target="#higher-order-derivatives"><span class="header-section-number">5.1</span> Higher-order derivatives</a></li>
+  <li><a href="#concavity-and-convexity" id="toc-concavity-and-convexity" class="nav-link" data-scroll-target="#concavity-and-convexity"><span class="header-section-number">5.2</span> Concavity and Convexity</a></li>
+  <li><a href="#taylor-series" id="toc-taylor-series" class="nav-link" data-scroll-target="#taylor-series"><span class="header-section-number">5.3</span> Taylor Series</a></li>
+  <li><a href="#critical-points" id="toc-critical-points" class="nav-link" data-scroll-target="#critical-points"><span class="header-section-number">5.4</span> Critical points</a></li>
+  </ul></li>
+  <li><a href="#anotações-de-aula" id="toc-anotações-de-aula" class="nav-link" data-scroll-target="#anotações-de-aula">Anotações de aula</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-1.html">Aulas</a></li><li class="breadcrumb-item"><a href="../aulas/aula-3.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">O método dos mínimos quadrados</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">O método dos mínimos quadrados</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Felipe Lamarca <a href="mailto:felipelamarca@iesp.uerj.br" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="extrema-in-one-dimension-moore2013mathematics" class="level1 unnumbered">
+<h1 class="unnumbered"><em>Extrema in One Dimension</em>, <span class="citation" data-cites="moore2013mathematics">Moore and Siegel (<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">2013</a>)</span></h1>
+<p><a href="pdf-exercicios\moore2023mathematics_exercises_chapter_8.pdf">Solução de alguns dos exercícios do capítulo</a>.</p>
+<blockquote class="blockquote">
+<p>Finding extrema is useful in optimization theory, a topic that comes up fairly often in political science, and one to which we return in Chapter 16. Theorists often assume that an actor wants to maximize or minimize something (e.g., power, utility, time in office, etc.). If one can write out an explicit function (i.e., identify the variables that would influence the thing the actor wants to minimize or maximize and their interrelationships), then one can use calculus to further evaluate those relationships and deduce hypotheses. That is, maximizing a utility function (or minimizing a loss) is a mathematical tool that is used to produce the deductions of many game theoretic models. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 152</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>First, the slope of the line tangent to an extremum itself will always be zero, and hence the first derivative of the function at a point that is an extremum will always equal zero as well. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 154</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Note that an extremum does not have to be, but may be, the absolutely highest or lowest value in a function. We say an extremum is <strong>local</strong> whenever it is the largest (or smallest) value of the function over some interval of values in the domain of the function, e.g., over some interval on the <span class="math inline">\(x\)</span>-axis. So we can have local maxima, and local minima. A <strong>global</strong> extremum, in comparison, is the highest (or lowest) point of the function. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 154–55</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>These [the points 0 and 1 in the interval (0, 1)] are the supremum and the infimum, which are similar to the maximum and the minimum, respectively. The supremum can be thought of as the least upper bound of any set, and the infimum can be thought of as the greatest lower bound of any set. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 156</a>)</span></p>
+</blockquote>
+<section id="higher-order-derivatives" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="higher-order-derivatives"><span class="header-section-number">5.1</span> Higher-order derivatives</h2>
+<blockquote class="blockquote">
+<p>More generally, though, derivatives of any order tell us something about the <em>shape</em> of the function. The first derivative tells us in which diretion it is trending: is it increasing or decreasing? The second derivative tells us the most basic curvature of the function: is the rate at which it is increasing or decreasing getting faster or slower? Higher-order derivatives provide more nuanced information about the shape of functions; however, we will typically find first and second derivatives sufficient for our purposes. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 158</a>)</span></p>
+</blockquote>
+</section>
+<section id="concavity-and-convexity" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="concavity-and-convexity"><span class="header-section-number">5.2</span> Concavity and Convexity</h2>
+<blockquote class="blockquote">
+<p>To understand what the second derivative tells us, let’s start by considering an increasing function. One with a rate of increase that slows as the value of the function gets bigger is an example of a concave function. One with a rate of increase that speeds up as the value of the function gets bigger is an example of a convex function. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 159</a>)</span></p>
+</blockquote>
+</section>
+<section id="taylor-series" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="taylor-series"><span class="header-section-number">5.3</span> Taylor Series</h2>
+<blockquote class="blockquote">
+<p>The first derivative tells us whether the function is increasing or decreasing, the second what the curvature is, and so on. This suggests that one could build up a function by incorporating all the information encoded in these derivatives. It turns out that one can do this for a large class of functions known as analytic functions. The series that expresses a function in terms of its derivatives is known as a <strong>Taylor series</strong>, named after the English mathematician Brook Taylor. If an analytic function <span class="math inline">\(f(x)\)</span> is infinitely differentiable close to some number <span class="math inline">\(a\)</span>, then the Taylor series is given by the infinite sum</p>
+<p><span class="math display">\[
+\begin{align*}
+f(x) &amp;= f(a) + \dfrac{f^\prime (a)}{1!}(x-a) + \dfrac{f^{\prime \prime} (a)}{2!}(x-a)^2 + \dfrac{f^{\prime \prime \prime} (a)}{3!}(x-a)^3 + \dots \\
+&amp;= \sum^\infty_{n = 0} \dfrac{f^{(n)} (a)}{n!} (x - a)^n
+\end{align*}
+\]</span></p>
+<p>The Taylor series is useful for many reasons, but the primary one for our purposes is that it allows one to replace a complex function with a bunch of powers of <span class="math inline">\(x\)</span>. We already used this to calculate the derivative of <span class="math inline">\(e^x\)</span> […]. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 160–61</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>More usefully, the Taylor series provides a good approximation of a function near any point. Note that the expansion is in powers of <span class="math inline">\((x-a)\)</span>. If we only care about values of <span class="math inline">\(x\)</span> near <span class="math inline">\(a\)</span>, an so consider only these, then <span class="math inline">\((x-a)\)</span> is small, <span class="math inline">\((x-a)^2\)</span> is smaller, and so on. At some point, adding an additional term doesn’t change the sum enough to be worth it, particularly with the <span class="math inline">\(n!\)</span> in the denominator. Se we can cut off the approximation there. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 162</a>)</span></p>
+</blockquote>
+</section>
+<section id="critical-points" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="critical-points"><span class="header-section-number">5.4</span> Critical points</h2>
+<blockquote class="blockquote">
+<p>A critical point is any point <span class="math inline">\(x^*\)</span> such that either <span class="math inline">\(f^\prime (x^*) = 0\)</span> or <span class="math inline">\(f^\prime (x^*)\)</span> doesn’t exist. Loosely, critical points are points in the function’s domain at which things <em>happen</em>. Either the function blows up, or it jumps, or it is stationary. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 162</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>However, just because local extrema occur at critical points does not mean all critical points are extrema. Some are instead inflection points, which are points at which the graph of the function changes from concave to convex or vice versa. For example, up to a certain point a function may be increasing at a slower and slower rate, but after that point it might increase at a faster and faster rate. Such a function if <span class="math inline">\(f(x) = x^3\)</span>, which has an inflection point at <span class="math inline">\(x = 0\)</span>, even though <span class="math inline">\(f^\prime (0) = 0\)</span>. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 162</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>When the slope of the tangent line to the function is not zero at the inflection point, the existence of inflection points gives us no trouble in finding extrema. Given that our interest is in finding extrema and not inflection points, we needn’t concern ourselves with these (called nonstationary points of inflection). However, as in our example, in some instances the slope of a tangent to the inflection point will equal zero. That is, both <span class="math inline">\(f^\prime (x^*) = 0\)</span> and <span class="math inline">\(f^{\prime \prime} (x^*) = 0\)</span>, and <span class="math inline">\(x^*\)</span> is further an inflection point. Such points are also known as <strong>saddle points</strong> (owing to their appearance in two dimensions) and are not extrema. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 163</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>We use the second derivative test to determine whether the stationary points we obtained in the first derivative test are extrema or inflection points. First we have to determine the second derivative, <span class="math inline">\(f^{\prime \prime} (x)\)</span>, of the original function <span class="math inline">\(f(x)\)</span>. Then we substitute the stationary points <span class="math inline">\(x^*\)</span> we determined from the FOC into <span class="math inline">\(f^{\prime \prime} (x)\)</span>. If the answer is negative, i.e., if <span class="math inline">\(f^{\prime \prime} (x^*) &lt; 0\)</span>, the stationary point is a maximum since the function is concave near <span class="math inline">\(x^*\)</span>. If, in contrast, <span class="math inline">\(f^{\prime \prime} (x^*) &gt; 0\)</span>, the stationary point is aminimum, since the function is convex near <span class="math inline">\(x^*\)</span>. Finally, if <span class="math inline">\(f^{\prime \prime} (x^*) = 0\)</span>, the stationary point may be an inflection point.</p>
+</blockquote>
+<p>In the case of <span class="math inline">\(f^{\prime \prime} (x^*) = 0\)</span>, we must take the third derivative to check if <span class="math inline">\(x^*\)</span> is an inflection point or not. An inflection point occurs whenever the sign of the second derivative changes, since it implies a shift from convex to concave, or vice versa. If <span class="math inline">\(f(x) = x^3\)</span>, <span class="math inline">\(f^{\prime \prime \prime}(x) = 6 &gt; 0\)</span>, so zero is an inflection point, as we have found. However, if <span class="math inline">\(f(x) = x^4\)</span>, <span class="math inline">\(f^{\prime \prime \prime}(x) = 24x\)</span>, which is <span class="math inline">\(0\)</span> at <span class="math inline">\(x = 0\)</span>, so this is not necessarily an inflection point.</p>
+<p>Example: <span class="math inline">\(f(x) = x^3 - 3x^2 + 7\)</span>. The first derivative is <span class="math inline">\(f^\prime (x) = 3x^2 - 6x\)</span>, which has <span class="math inline">\(x^* = 0\)</span> and <span class="math inline">\(x^* = 2\)</span> as extreme points. Something is happening there. So let’s take the derivative again: <span class="math inline">\(f^{\prime \prime} (x) = 6x - 6\)</span>. If we plug <span class="math inline">\(x^* = 0\)</span> into it, we get <span class="math inline">\(-6 &lt; 0\)</span>, which means that <span class="math inline">\(x^* = 0\)</span> is a local maximum of the function. <span class="math inline">\(x^* = 2\)</span>, instead, gives us <span class="math inline">\(6 &gt; 0\)</span>, what makes that point a local minimum.</p>
+<p>Well, and how do we find globals? Suppose we are in the interval <span class="math inline">\([-4, 4]\)</span>. The local minimum of this very function is <span class="math inline">\(f(2) = 3\)</span>, and the local maximum is <span class="math inline">\(f(0) = 7\)</span>. Given the domain, we know the boundaries are <span class="math inline">\(f(-4) = -105\)</span> and <span class="math inline">\(f(4) = 23\)</span>. Since <span class="math inline">\(-105 &lt; 3\)</span> and <span class="math inline">\(23 &gt; 7\)</span>, the global minimum and maximum are at <span class="math inline">\(x = -4\)</span> and <span class="math inline">\(x = 4\)</span>. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 168</a>)</span></p>
+<p>Procedure to find global maximum and minimum:</p>
+<ol type="1">
+<li>Find <span class="math inline">\(f^\prime (x)\)</span></li>
+<li>Set <span class="math inline">\(f^\prime (x) = 0\)</span> and solve for <span class="math inline">\(x\)</span> to obtain stationary points</li>
+<li>Find <span class="math inline">\(f^{\prime \prime} (x)\)</span></li>
+<li>For each stationary point <span class="math inline">\(x^*\)</span>, substitute it into <span class="math inline">\(f^{\prime \prime} (x)\)</span></li>
+</ol>
+<ul>
+<li>if <span class="math inline">\(f^{\prime \prime} (x^*) &lt; 0\)</span>, <span class="math inline">\(f(x)\)</span> has a local maximum at <span class="math inline">\(x^*\)</span></li>
+<li>if <span class="math inline">\(f^{\prime \prime} (x^*) &gt; 0\)</span>, <span class="math inline">\(f(x)\)</span> has a local minimum at <span class="math inline">\(x^*\)</span></li>
+<li>if <span class="math inline">\(f^{\prime \prime} (x^*) = 0\)</span>, <span class="math inline">\(x^*\)</span> may be an inflection point
+<ul>
+<li>This goes on until you find a higher-order derivative for which plugging <span class="math inline">\(x^*\)</span> returns a non-zero value</li>
+</ul></li>
+</ul>
+<ol start="5" type="1">
+<li>Substitute each local extremum into <span class="math inline">\(f(x)\)</span> to find the function’s value at that point</li>
+<li>Substitute the lower and upper bounds of the domain over which you are attempting to find the extrema into <span class="math inline">\(f(x)\)</span> to find the function’s value at those points</li>
+<li>Find the smallest value of the function from those computed in the previous two steps. This is the global minimum, and the function attains this at the corresponding <span class="math inline">\(x^*\)</span> or boundary point. Find the largest value of the function from those computed in the previous two steps. This is the global maximum, and the function attains this at the corresponding <span class="math inline">\(x^*\)</span> or boundary point.</li>
+</ol>
+</section>
+</section>
+<section id="anotações-de-aula" class="level1 unnumbered">
+<h1 class="unnumbered">Anotações de aula</h1>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-moore2013mathematics" class="csl-entry" role="listitem">
+Moore, Will H., and David A. Siegel. 2013. <em>A Mathematics Course for Political and Social Research</em>. Princeton, NJ: Princeton University Press.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    window.setColorSchemeToggle(window.hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../aulas/aula-2.html" class="pagination-link" aria-label="Um pouco mais de cálculo">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Um pouco mais de cálculo</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../aulas/bibliography.html" class="pagination-link" aria-label="Bibliografia">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Bibliografia</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

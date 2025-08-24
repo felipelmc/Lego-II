@@ -56,7 +56,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -66,7 +86,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../aulas/bibliography.html" rel="next">
+<link href="../aulas/aula-3.html" rel="next">
 <link href="../aulas/aula-1.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -109,6 +129,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -355,8 +404,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">O método dos mínimos quadrados</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../aulas/bibliography.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Bibliografia</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Bibliografia</span></span></a>
   </div>
 </li>
       </ul>
@@ -371,7 +426,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#anotações-de-aula" id="toc-anotações-de-aula" class="nav-link active" data-scroll-target="#anotações-de-aula">Anotações de aula</a></li>
+  <li><a href="#introduction-to-calculus-and-the-derivative-moore2013mathematics" id="toc-introduction-to-calculus-and-the-derivative-moore2013mathematics" class="nav-link active" data-scroll-target="#introduction-to-calculus-and-the-derivative-moore2013mathematics"><em>Introduction to Calculus and the Derivative</em>, <span class="citation" data-cites="moore2013mathematics">Moore and Siegel (2013)</span></a></li>
+  <li><a href="#the-rules-of-differentiation-moore2013mathematics" id="toc-the-rules-of-differentiation-moore2013mathematics" class="nav-link" data-scroll-target="#the-rules-of-differentiation-moore2013mathematics"><em>The Rules of Differentiation</em>, <span class="citation" data-cites="moore2013mathematics">Moore and Siegel (2013)</span></a></li>
+  <li><a href="#anotações-de-aula" id="toc-anotações-de-aula" class="nav-link" data-scroll-target="#anotações-de-aula">Anotações de aula</a></li>
   </ul>
 </nav>
     </div>
@@ -404,6 +461,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="introduction-to-calculus-and-the-derivative-moore2013mathematics" class="level1 unnumbered">
+<h1 class="unnumbered"><em>Introduction to Calculus and the Derivative</em>, <span class="citation" data-cites="moore2013mathematics">Moore and Siegel (<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">2013</a>)</span></h1>
+<p><a href="pdf-exercicios\moore2023mathematics_exercises_chapter_5.pdf">Solução de alguns dos exercícios do capítulo</a>.</p>
+<blockquote class="blockquote">
+<p>Differential calculus thus deals with the study of infinitesimally small changes in a function. As we’ll see in Section 3 below, the derivative of the function <span class="math inline">\(f(x) = 3x\)</span> is <span class="math inline">\(3\)</span>, which is the slope (rate of change) of the line <span class="math inline">\(y = 3x\)</span>. This example illustrates the way in which a derivative breaks down functions, removing information about their value at <em>any</em> point and providing just the value of the change at that point. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 104</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>We put off until Chapter 11 of Part III of this book the most common use of integrals: in probability, specifically continuous probability distributions. There the integral will allow us to understand statistical inference with continuous variables and to compute expected values and expected utilities, which are vital when considering uncertainty of any sort in game theory. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 105</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Discrete change, then, is the first difference between two observations [the change from time <span class="math inline">\(t - 1\)</span> to time <span class="math inline">\(t\)</span>; in percentagem terms, <span class="math inline">\(\frac{x_{t+1} - x_t}{x_t} \times 100\%\)</span>]. It is a measure of change in a variable across two <em>discrete</em> moments in time. It follows that the size of a first difference is going to vary across different temporal scales. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 105</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>[…] if we could evaluate the rate of change at a point on a function by taking the <em>limit</em> of the difference as the interval gets smaller and smaller, then that would tell us what the instantaneous rate of change was at the point (or moment in time). And that is precisely what the derivative does. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 106</a>)</span></p>
+</blockquote>
+<p>Let’s assume <span class="math inline">\(f(x) = 3x\)</span>. To compute the discrete rate of change between any two points, we look at the amount of change on the <span class="math inline">\(y\)</span>-axis relative to a particular amount of change on the <span class="math inline">\(x\)</span>-axis:</p>
+<p><span class="math display">\[
+m = \dfrac{ f(x_2) - f(x_1) }{ x_2 - x_1 }
+\]</span></p>
+<p>This is the equation of the slope of a line.</p>
+<blockquote class="blockquote">
+<p>The rate of change between two discrete points is just the slope of the line connecting those two points, known as a <strong>secant</strong>. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 107</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>The derivative of a function is the instantaneous rate of change at a point. As noted in the previous section, we can take the difference between two points and calculate the discrete rate of change (i.e., the rate of change between any two points). But the derivative is the continuous rate of change (i.e., the instantaneous rate of change at any given point). <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 110–11</a>)</span></p>
+</blockquote>
+<p>We can compute the derivative the following way:</p>
+<p><span class="math display">\[
+\underset{h \rightarrow 0}{\text{lim}} \dfrac{ f(x+h) - f(x) }{h} = f^\prime (x) = \dfrac{d}{dx} f(x) = \dfrac{dy}{dx}
+\]</span></p>
+<blockquote class="blockquote">
+<p>The only thing missing from this formal presentation is the existence of derivatives. Derivatives can only be calculated at points at which limits exist, because derivatives are in a sense limits themselves, but it is also necessary for a function to be continuous at a point to have a derivative at that point.</p>
+</blockquote>
+</section>
+<section id="the-rules-of-differentiation-moore2013mathematics" class="level1 unnumbered">
+<h1 class="unnumbered"><em>The Rules of Differentiation</em>, <span class="citation" data-cites="moore2013mathematics">Moore and Siegel (<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">2013</a>)</span></h1>
+<p><a href="pdf-exercicios\moore2023mathematics_exercises_chapter_6.pdf">Solução de alguns dos exercícios do capítulo</a>.</p>
+<p>The derivative is a <strong>linear operator</strong>, what implies that <span class="math inline">\(\frac{ d(f+g) }{dx} = \frac{df}{dx} + \frac{dg}{dx}\)</span> and <span class="math inline">\(\frac{d(cf)}{dx} = c \frac{df}{dx}\)</span>.</p>
+<blockquote class="blockquote">
+<p>Recall from Chapter 3 that a composite function looks like g(f(x)). To see why we’re bringing this up now, note that most complex functions can be written as composite functions. […]. Thus, we can break complicated functions down into the composition of simpler functions. If we can devise a rule for differentiating composite functions, a rule known as the <strong>chain rule</strong>, then we can simplify the differentiation of complex functions immensely. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 119</a>)</span></p>
+</blockquote>
+<p><strong>[chain rule]</strong>: <span class="math inline">\((g(f(x)))^\prime = g^\prime (f(x)) f^\prime (x)\)</span></p>
+<p><strong>[product rule]</strong>: <span class="math inline">\(\dfrac{ (f(x) g(x)) }{ dx } = \dfrac{ d f(x) }{dx} g(x) + f(x) \dfrac{ dg(x) }{dx}\)</span></p>
+<p><strong>[quotient rule]</strong>: <span class="math inline">\(\dfrac{d}{dx} \dfrac{f(x)}{g(x)} = \dfrac{ \frac{df(x)}{dx} g(x) - f(x) \frac{dg(x)}{dx} }{ g(x)^2 }\)</span></p>
+<p><strong>[power rule]</strong>: <span class="math inline">\(\dfrac{d x^n}{dx} = n x^{n-1}\)</span></p>
+<p><strong>[exponentials]</strong>: <span class="math inline">\(\dfrac{d e^x}{dx} = e^x\)</span>, and <span class="math inline">\(\dfrac{d a^x}{dx} = a^x (\ln{(a)})\)</span></p>
+<p><strong>[logarithms]</strong>: <span class="math inline">\(\dfrac{d \ln{(x)}}{dx} = \dfrac{1}{x}\)</span>, and <span class="math inline">\(\dfrac{d \log_a{(x)}}{dx} = \dfrac{1}{x \ln{(a)}}\)</span></p>
+</section>
 <section id="anotações-de-aula" class="level1 unnumbered">
 <h1 class="unnumbered">Anotações de aula</h1>
 <p>“Notebook notes”, com um aprofundamento em cálculo, <a href="pdf-aulas/Lego II - Aula 2.pdf">neste link</a>. As demais partes da aula trataram brevemente da ideia de <em>processo gerador de dados</em>.</p>
@@ -475,6 +580,11 @@ Coefficients:
 <p>Na regressão, temos uma espécie de “máquina” para representar o mecanismo das coisas. O que significa essa estimativa, então? Essa resposta está no cálculo; por isso, precisamos falar um pouco dele antes.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-moore2013mathematics" class="csl-entry" role="listitem">
+Moore, Will H., and David A. Siegel. 2013. <em>A Mathematics Course for Political and Social Research</em>. Princeton, NJ: Princeton University Press.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -897,8 +1007,8 @@ Coefficients:
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../aulas/bibliography.html" class="pagination-link" aria-label="Bibliografia">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Bibliografia</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../aulas/aula-3.html" class="pagination-link" aria-label="O método dos mínimos quadrados">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">O método dos mínimos quadrados</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

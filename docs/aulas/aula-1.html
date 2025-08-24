@@ -404,8 +404,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">O método dos mínimos quadrados</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../aulas/bibliography.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Bibliografia</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Bibliografia</span></span></a>
   </div>
 </li>
       </ul>
@@ -420,10 +426,15 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#wooldridge2020intro-chapter-2" id="toc-wooldridge2020intro-chapter-2" class="nav-link active" data-scroll-target="#wooldridge2020intro-chapter-2"><span class="citation" data-cites="wooldridge2020intro">Wooldridge (2020)</span>, chapter 2</a></li>
+  <li><a href="#wooldridge2020intro-chapter-2" id="toc-wooldridge2020intro-chapter-2" class="nav-link active" data-scroll-target="#wooldridge2020intro-chapter-2"><span class="citation" data-cites="wooldridge2020intro">Wooldridge (2020)</span>, chapter 2</a>
+  <ul class="collapse">
+  <li><a href="#deriving-the-ols-estimates-using-the-method-of-moments" id="toc-deriving-the-ols-estimates-using-the-method-of-moments" class="nav-link" data-scroll-target="#deriving-the-ols-estimates-using-the-method-of-moments"><span class="header-section-number">3.1</span> Deriving the OLS estimates using the <em>method of moments</em></a></li>
+  <li><a href="#some-properties" id="toc-some-properties" class="nav-link" data-scroll-target="#some-properties"><span class="header-section-number">3.2</span> Some properties</a></li>
+  <li><a href="#errors" id="toc-errors" class="nav-link" data-scroll-target="#errors"><span class="header-section-number">3.3</span> Errors</a></li>
+  </ul></li>
   <li><a href="#anotações-de-aula" id="toc-anotações-de-aula" class="nav-link" data-scroll-target="#anotações-de-aula">Anotações de aula</a>
   <ul class="collapse">
-  <li><a href="#pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov" id="toc-pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov" class="nav-link" data-scroll-target="#pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov"><span class="header-section-number">3.1</span> Pressupostos do modelo linear, ou os Supostos de Gauss-Markov</a></li>
+  <li><a href="#pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov" id="toc-pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov" class="nav-link" data-scroll-target="#pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov"><span class="header-section-number">3.4</span> Pressupostos do modelo linear, ou os Supostos de Gauss-Markov</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -463,6 +474,9 @@ window.Quarto = {
 y = \beta_0 + \beta_1 x + u
 \]</span></p>
 <blockquote class="blockquote">
+<p>The variavke <span class="math inline">\(u\)</span>, called the <strong>error term</strong> or <strong>disturbance</strong> in the relationship, represents factors other than <span class="math inline">\(x\)</span> that affect <span class="math inline">\(y\)</span>. A simple regression analysis effectively treats all factors affecting <span class="math inline">\(y\)</span> other than <span class="math inline">\(x\)</span> as being unobserved. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 21</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
 <p>This means that <span class="math inline">\(\beta_1\)</span> is the <strong>slope parameter</strong> in the relationship between <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span>, holding the other factors in <span class="math inline">\(u\)</span> fixed; it is of primary interest in applied economics. The <strong>intercept parameter</strong> <span class="math inline">\(\beta_0\)</span>, sometimes called the <em>constant term</em>, also has its uses, although it is rarely central to an analysis. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 21</a>)</span></p>
 </blockquote>
 <blockquote class="blockquote">
@@ -475,6 +489,88 @@ y = \beta_0 + \beta_1 x + u
 <blockquote class="blockquote">
 <p>Because <span class="math inline">\(u\)</span> and <span class="math inline">\(x\)</span> are random variables, we can define the conditional distribution of <span class="math inline">\(u\)</span> given any value of <span class="math inline">\(x\)</span>. In particular, for any <span class="math inline">\(x\)</span>, we can obtain the expected (or average) value of <span class="math inline">\(u\)</span> for that slice of the population described by the value of <span class="math inline">\(x\)</span>. The crucial assumption is that the average value of <span class="math inline">\(u\)</span> does not depend on the value of <span class="math inline">\(x\)</span>. We can weite this assumption as <span class="math inline">\(\mathbb{E}(u|x) = \mathbb{E}(u)\)</span>. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 22–23</a>)</span></p>
 </blockquote>
+<section id="deriving-the-ols-estimates-using-the-method-of-moments" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="deriving-the-ols-estimates-using-the-method-of-moments"><span class="header-section-number">3.1</span> Deriving the OLS estimates using the <em>method of moments</em></h2>
+<p>Now, let’s proceed to derive the ordinary least squares estimates. Of course, I’m just going to describe the step-by-step specified in the section 2.2 of <span class="citation" data-cites="wooldridge2020intro">Wooldridge (<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">2020</a>)</span>. Assume we have a random sample <span class="math inline">\(\{ (x_i, y_i): i = 1, ..., n \}\)</span>. We can write a simple regression model as follows:</p>
+<p><span class="math display">\[
+y_i = \beta_0 + \beta_1 x_i + u_1
+\]</span></p>
+<p>for each <span class="math inline">\(i\)</span>.</p>
+<p>There are many ways to motivate this procedure; let’s use the following approach. It is an assumption of the linear model that <span class="math inline">\(\mathbb{E}[u] = 0\)</span>, what also means that the covariance between <span class="math inline">\(x\)</span> and <span class="math inline">\(u\)</span> is zero – <span class="math inline">\(\text{Cov}(x, u) = \mathbb{E}[xu] = 0\)</span>. That being said, we can write these two equations below:</p>
+<p><span class="math display">\[
+\begin{align*}
+\mathbb{E}[u_i] = 0 &amp;\Longrightarrow \mathbb{E}[y - \beta_0 - \beta_1 x] = 0 \\
+\mathbb{E}[xu] = 0 &amp;\Longrightarrow \mathbb{E}[x(y - \beta_0 - \beta_1 x)] = 0
+\end{align*}
+\]</span></p>
+<p>These two equations imply two restrictins on the joint probability distribution of <span class="math inline">\(\{x, y\}\)</span> in the population. There are two unknown parameters to estimate, so we might hope that they can be used to obtain good estimators of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. In fact, given a sample of data, we can choose estimates <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> to solve the <em>sample</em> counterparts of these two equations:</p>
+<p><span class="math display">\[
+\begin{align*}
+\mathbb{E}[u_i] = 0 &amp;\Longrightarrow \frac{1}{n} \sum^n_{i = 1} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) = 0 \\
+\mathbb{E}[xu] = 0 &amp;\Longrightarrow \frac{1}{n} \sum^n_{i = 1} x_i (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) = 0
+\end{align*}
+\]</span></p>
+<p>This is an example of the <em>method of moments</em> approach <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 25</a>)</span>. In fact, the idea of the method of moments is that the population distribution has some <em>theoretical moments</em> (the mean or the variance, for example), and we estimate parameters by equating these theoretical moments with the corresponding <em>sample moments</em>.</p>
+<p>We can rewrite the first equation as</p>
+<p><span class="math display">\[
+\begin{align*}
+&amp; \bar{y} - \hat{\beta}_0 - \hat{\beta}_1 \bar{x} = 0 \Rightarrow  \\
+&amp;\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}
+\end{align*}
+\]</span></p>
+<p>We can then plug this result into the second equations (ignoring <span class="math inline">\(n^{-1}\)</span>, which makes no difference in the equality), what gives us</p>
+<p><span class="math display">\[
+\begin{align*}
+&amp;\sum^n_{i = 1} x_i [y_i - (\bar{y} - \hat{\beta}_1 \bar{x}) - \hat{\beta}_1 x_i] = 0 \Rightarrow \\
+&amp;\sum^n_{i = 1} x_i (y_i - \bar{y}) = \hat{\beta}_1 \sum^n_{i = 1} x_i (x_i - \bar{x})
+\end{align*}
+\]</span></p>
+<p>From the properties of summation, it follows that</p>
+<p><span class="math display">\[
+\begin{align*}
+&amp;\sum^n_{i = 1} x_i (y_i - \bar{y}) = \sum^n_{i = 1} (x_i - \bar{x})(y_i - \bar{y}) \\
+&amp;\sum^n_{i = 1} x_i (x_i - \bar{x}) = \sum^n_{i = 1} (x_i - \bar{x})^2
+\end{align*}
+\]</span></p>
+<p>So, provided that <span class="math inline">\(\sum^n_{i = 1} (x_i - \bar{x})^2 &gt; 0\)</span>,</p>
+<p><span class="math display">\[
+\hat{\beta}_1 = \dfrac{\sum^n_{i = 1} (x_i - \bar{x})(y_i - \bar{y})}{\sum^n_{i = 1} (x_i - \bar{x})^2}
+\]</span></p>
+<blockquote class="blockquote">
+<p>Equation (2.19) [this last one] is simply the sample covariance between <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> divided by the sample variance of <span class="math inline">\(x_i\)</span>. Using simple algebra we can also write <span class="math inline">\(\hat{\beta}_1\)</span> as</p>
+<p><span class="math display">\[
+\hat{\beta}_1 = \hat{\rho}_{xy} \cdot \left( \frac{ \hat{\sigma_y} }{ \hat{\sigma_x} } \right),
+\]</span></p>
+<p>where <span class="math inline">\(\hat{\rho}_{xy}\)</span> is the sample correlation between <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> and <span class="math inline">\(\hat{\sigma_x}, \hat{\sigma_y}\)</span> denote the sample standard deviations. […]. An immediate implication is that if <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> are positively correlated in the sample then <span class="math inline">\(\hat{\beta}_1 &gt; 0\)</span>; if <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> are negatively correlated then <span class="math inline">\(\hat{\beta}_1 &lt; 0\)</span>.</p>
+<p>[…]</p>
+<p>[…] Recognition that <span class="math inline">\(\beta_1\)</span> is just a scaled version of <span class="math inline">\(\rho_{xy}\)</span> highlights an important limitation of simple regression when we do not have experimental data: in effect, simple regression is an analysis of correlation between two variables, and so one must be careful in inferring causality. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 26</a>)</span></p>
+</blockquote>
+<p>The <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> estimates are the ordinary least squares (OLS) estimates of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. These are the estimates that make the <strong>sum of the squared residuals</strong> as small as possible.</p>
+</section>
+<section id="some-properties" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="some-properties"><span class="header-section-number">3.2</span> Some properties</h2>
+<ol type="1">
+<li><span class="math inline">\(\sum_{i = 1}^n \hat{u}_i = 0\)</span></li>
+<li><span class="math inline">\(\sum_{i = 1}^n x_i \hat{u}_i = 0\)</span></li>
+<li>The point <span class="math inline">\((\bar{x}, \bar{y})\)</span> is always on the OLS regression line.</li>
+</ol>
+</section>
+<section id="errors" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="errors"><span class="header-section-number">3.3</span> Errors</h2>
+<p>Define the total sume of squares (SST), the explained sum of squares (SSE), and the residual sum of squares (SSR):</p>
+<p><span class="math display">\[
+\begin{align*}
+&amp;\text{SST} \equiv \sum^n_{i = 1} (y_i - \bar{y})^2 \\
+&amp;\text{SSE} \equiv \sum^n_{i = 1} (\hat{y}_i - \bar{y})^2 \\
+&amp;\text{SSR} \equiv \sum^n_{i = 1} \hat{u}_i^2 = \sum^n_{i = 1} (y_i - \hat{y}_i)
+\end{align*}
+\]</span></p>
+<p>SST is a measure of the total sample variation in the <span class="math inline">\(y_i\)</span>, while SSE is a measure of the sample variation in the <span class="math inline">\(\hat{y}_i\)</span> and SSR measures the sample variation in the <span class="math inline">\(\hat{u}_i\)</span>. The total variation can always be expressed as the sum of the explained variation and the unexplained variation SSR, that is, SST = SSE + SSR.</p>
+<p>The coefficient of determination measures the percentage of the explained variance:</p>
+<p><span class="math display">\[
+R^2 = \frac{ \text{SSE} }{ \text{SST} } = 1 - \frac{ \text{SSR} }{ \text{SST} }
+\]</span></p>
+</section>
 </section>
 <section id="anotações-de-aula" class="level1 unnumbered">
 <h1 class="unnumbered">Anotações de aula</h1>
@@ -531,9 +627,9 @@ y &amp;= X \hat{\beta} + \hat{\epsilon} \Rightarrow \\
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(X) <span class="sc">%*%</span> epsilon_hat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov"><span class="header-section-number">3.1</span> Pressupostos do modelo linear, ou os Supostos de Gauss-Markov</h2>
-<p>*ML.1:** Linearidade</p>
+<section id="pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="pressupostos-do-modelo-linear-ou-os-supostos-de-gauss-markov"><span class="header-section-number">3.4</span> Pressupostos do modelo linear, ou os Supostos de Gauss-Markov</h2>
+<p><strong>ML.1:</strong> Linearidade</p>
 <p><span class="math display">\[
 \mathbb{E}[Y | X] = f(x) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_k x_k
 \]</span></p>

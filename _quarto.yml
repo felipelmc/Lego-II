@@ -4,6 +4,7 @@ project:
 
 book:
   title: "Lego II"
+  subtitle: "Modelos de Regressão Linear e extensões"
   author: Felipe Lamarca
   chapters:
     - index.qmd
@@ -14,6 +15,7 @@ book:
       chapters:
         - aulas/aula-1.qmd
         - aulas/aula-2.qmd
+        - aulas/aula-3.qmd
         - aulas/bibliography.qmd
     #     - aulas/aula-5.qmd
     #     - aulas/aula-6.qmd
