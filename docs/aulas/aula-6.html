@@ -8,7 +8,7 @@
 
 <meta name="author" content="Felipe Lamarca">
 
-<title>4&nbsp; Um pouco mais de cálculo – Lego II</title>
+<title>7&nbsp; Variância dos estimadores – Lego II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -86,8 +51,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../aulas/aula-3.html" rel="next">
-<link href="../aulas/aula-1.html" rel="prev">
+<link href="../aulas/aula-7.html" rel="next">
+<link href="../aulas/aula-4_5.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -330,7 +295,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-1.html">Aulas</a></li><li class="breadcrumb-item"><a href="../aulas/aula-2.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Um pouco mais de cálculo</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-1.html">Aulas</a></li><li class="breadcrumb-item"><a href="../aulas/aula-6.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Variância dos estimadores</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -398,7 +363,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../aulas/aula-2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../aulas/aula-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Um pouco mais de cálculo</span></span></a>
   </div>
 </li>
@@ -416,7 +381,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../aulas/aula-6.html" class="sidebar-item-text sidebar-link">
+  <a href="../aulas/aula-6.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Variância dos estimadores</span></span></a>
   </div>
 </li>
@@ -444,9 +409,11 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction-to-calculus-and-the-derivative-moore2013mathematics" id="toc-introduction-to-calculus-and-the-derivative-moore2013mathematics" class="nav-link active" data-scroll-target="#introduction-to-calculus-and-the-derivative-moore2013mathematics"><em>Introduction to Calculus and the Derivative</em>, <span class="citation" data-cites="moore2013mathematics">Moore and Siegel (2013)</span></a></li>
-  <li><a href="#the-rules-of-differentiation-moore2013mathematics" id="toc-the-rules-of-differentiation-moore2013mathematics" class="nav-link" data-scroll-target="#the-rules-of-differentiation-moore2013mathematics"><em>The Rules of Differentiation</em>, <span class="citation" data-cites="moore2013mathematics">Moore and Siegel (2013)</span></a></li>
-  <li><a href="#anotações-de-aula" id="toc-anotações-de-aula" class="nav-link" data-scroll-target="#anotações-de-aula">Anotações de aula</a></li>
+  <li><a href="#multiple-regression-analysis-inference-wooldridge2020intro-chapter-4" id="toc-multiple-regression-analysis-inference-wooldridge2020intro-chapter-4" class="nav-link active" data-scroll-target="#multiple-regression-analysis-inference-wooldridge2020intro-chapter-4"><em>Multiple Regression Analysis: Inference</em>, <span class="citation" data-cites="wooldridge2020intro">(Wooldridge 2020, chap. 4)</span></a></li>
+  <li><a href="#anotações-de-aula" id="toc-anotações-de-aula" class="nav-link" data-scroll-target="#anotações-de-aula">Anotações de aula</a>
+  <ul class="collapse">
+  <li><a href="#teste-t" id="toc-teste-t" class="nav-link" data-scroll-target="#teste-t"><span class="header-section-number">7.1</span> Teste t</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -454,9 +421,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-1.html">Aulas</a></li><li class="breadcrumb-item"><a href="../aulas/aula-2.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Um pouco mais de cálculo</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-1.html">Aulas</a></li><li class="breadcrumb-item"><a href="../aulas/aula-6.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Variância dos estimadores</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Um pouco mais de cálculo</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Variância dos estimadores</span></h1>
 </div>
 
 
@@ -479,130 +446,147 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction-to-calculus-and-the-derivative-moore2013mathematics" class="level1 unnumbered">
-<h1 class="unnumbered"><em>Introduction to Calculus and the Derivative</em>, <span class="citation" data-cites="moore2013mathematics">Moore and Siegel (<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">2013</a>)</span></h1>
-<p><a href="pdf-exercicios\moore2023mathematics_exercises_chapter_5.pdf">Solução de alguns dos exercícios do capítulo</a>.</p>
+<section id="multiple-regression-analysis-inference-wooldridge2020intro-chapter-4" class="level1 unnumbered">
+<h1 class="unnumbered"><em>Multiple Regression Analysis: Inference</em>, <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, chap. 4</a>)</span></h1>
 <blockquote class="blockquote">
-<p>Differential calculus thus deals with the study of infinitesimally small changes in a function. As we’ll see in Section 3 below, the derivative of the function <span class="math inline">\(f(x) = 3x\)</span> is <span class="math inline">\(3\)</span>, which is the slope (rate of change) of the line <span class="math inline">\(y = 3x\)</span>. This example illustrates the way in which a derivative breaks down functions, removing information about their value at <em>any</em> point and providing just the value of the change at that point. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 104</a>)</span></p>
+<p>Knowing the expected value and variance of the OLS estimators is useful for describing the precision of the OLS estimators. However, in order to perform statistical inference, we need to know more than just the first two moments of <span class="math inline">\(\hat{\beta}_j\)</span>; we need to know the full sampling distribution of the <span class="math inline">\(\hat{\beta}_j\)</span>. Even under the Gauss-Markov assumptions, the distribution of <span class="math inline">\(\hat{\beta}_j\)</span> can have virtually any shape.</p>
+<p>When we condition on the values of the independent variables in our sample, it is clear that the sampling distributions of the OLS estimators depend on the underlying distribution of the errors. To make the sampling distributions of the <span class="math inline">\(\hat{\beta}_j\)</span> tractable, we now assume that the unobserved error is <em>normally distributed</em> in the population. We call this the normality assumption. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 117</a>)</span></p>
 </blockquote>
 <blockquote class="blockquote">
-<p>We put off until Chapter 11 of Part III of this book the most common use of integrals: in probability, specifically continuous probability distributions. There the integral will allow us to understand statistical inference with continuous variables and to compute expected values and expected utilities, which are vital when considering uncertainty of any sort in game theory. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 105</a>)</span></p>
+<p>Assumption MLR.6 – Normality: The population error <span class="math inline">\(u\)</span> is independent of the explanatory variables <span class="math inline">\(x_1, x_2, ..., x_k\)</span> and is normally distributed with zero mean and variance <span class="math inline">\(\sigma^2: u \sim \mathcal{N}(0, \sigma^2)\)</span>.</p>
 </blockquote>
-<blockquote class="blockquote">
-<p>Discrete change, then, is the first difference between two observations [the change from time <span class="math inline">\(t - 1\)</span> to time <span class="math inline">\(t\)</span>; in percentagem terms, <span class="math inline">\(\frac{x_{t+1} - x_t}{x_t} \times 100\%\)</span>]. It is a measure of change in a variable across two <em>discrete</em> moments in time. It follows that the size of a first difference is going to vary across different temporal scales. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 105</a>)</span></p>
-</blockquote>
-<blockquote class="blockquote">
-<p>[…] if we could evaluate the rate of change at a point on a function by taking the <em>limit</em> of the difference as the interval gets smaller and smaller, then that would tell us what the instantaneous rate of change was at the point (or moment in time). And that is precisely what the derivative does. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 106</a>)</span></p>
-</blockquote>
-<p>Let’s assume <span class="math inline">\(f(x) = 3x\)</span>. To compute the discrete rate of change between any two points, we look at the amount of change on the <span class="math inline">\(y\)</span>-axis relative to a particular amount of change on the <span class="math inline">\(x\)</span>-axis:</p>
+<p>A succint way to summarize the population assumptions of the CLM is:</p>
 <p><span class="math display">\[
-m = \dfrac{ f(x_2) - f(x_1) }{ x_2 - x_1 }
+y | x \sim \mathcal{N}( \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_k x_k, \sigma^2),
 \]</span></p>
-<p>This is the equation of the slope of a line.</p>
-<blockquote class="blockquote">
-<p>The rate of change between two discrete points is just the slope of the line connecting those two points, known as a <strong>secant</strong>. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 107</a>)</span></p>
-</blockquote>
-<blockquote class="blockquote">
-<p>The derivative of a function is the instantaneous rate of change at a point. As noted in the previous section, we can take the difference between two points and calculate the discrete rate of change (i.e., the rate of change between any two points). But the derivative is the continuous rate of change (i.e., the instantaneous rate of change at any given point). <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 110–11</a>)</span></p>
-</blockquote>
-<p>We can compute the derivative the following way:</p>
-<p><span class="math display">\[
-\underset{h \rightarrow 0}{\text{lim}} \dfrac{ f(x+h) - f(x) }{h} = f^\prime (x) = \dfrac{d}{dx} f(x) = \dfrac{dy}{dx}
-\]</span></p>
-<blockquote class="blockquote">
-<p>The only thing missing from this formal presentation is the existence of derivatives. Derivatives can only be calculated at points at which limits exist, because derivatives are in a sense limits themselves, but it is also necessary for a function to be continuous at a point to have a derivative at that point.</p>
-</blockquote>
-</section>
-<section id="the-rules-of-differentiation-moore2013mathematics" class="level1 unnumbered">
-<h1 class="unnumbered"><em>The Rules of Differentiation</em>, <span class="citation" data-cites="moore2013mathematics">Moore and Siegel (<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">2013</a>)</span></h1>
-<p><a href="pdf-exercicios\moore2023mathematics_exercises_chapter_6.pdf">Solução de alguns dos exercícios do capítulo</a>.</p>
-<p>The derivative is a <strong>linear operator</strong>, what implies that <span class="math inline">\(\frac{ d(f+g) }{dx} = \frac{df}{dx} + \frac{dg}{dx}\)</span> and <span class="math inline">\(\frac{d(cf)}{dx} = c \frac{df}{dx}\)</span>.</p>
-<blockquote class="blockquote">
-<p>Recall from Chapter 3 that a composite function looks like g(f(x)). To see why we’re bringing this up now, note that most complex functions can be written as composite functions. […]. Thus, we can break complicated functions down into the composition of simpler functions. If we can devise a rule for differentiating composite functions, a rule known as the <strong>chain rule</strong>, then we can simplify the differentiation of complex functions immensely. <span class="citation" data-cites="moore2013mathematics">(<a href="bibliography.html#ref-moore2013mathematics" role="doc-biblioref">Moore and Siegel 2013, 119</a>)</span></p>
-</blockquote>
-<p><strong>[chain rule]</strong>: <span class="math inline">\((g(f(x)))^\prime = g^\prime (f(x)) f^\prime (x)\)</span></p>
-<p><strong>[product rule]</strong>: <span class="math inline">\(\dfrac{ (f(x) g(x)) }{ dx } = \dfrac{ d f(x) }{dx} g(x) + f(x) \dfrac{ dg(x) }{dx}\)</span></p>
-<p><strong>[quotient rule]</strong>: <span class="math inline">\(\dfrac{d}{dx} \dfrac{f(x)}{g(x)} = \dfrac{ \frac{df(x)}{dx} g(x) - f(x) \frac{dg(x)}{dx} }{ g(x)^2 }\)</span></p>
-<p><strong>[power rule]</strong>: <span class="math inline">\(\dfrac{d x^n}{dx} = n x^{n-1}\)</span></p>
-<p><strong>[exponentials]</strong>: <span class="math inline">\(\dfrac{d e^x}{dx} = e^x\)</span>, and <span class="math inline">\(\dfrac{d a^x}{dx} = a^x (\ln{(a)})\)</span></p>
-<p><strong>[logarithms]</strong>: <span class="math inline">\(\dfrac{d \ln{(x)}}{dx} = \dfrac{1}{x}\)</span>, and <span class="math inline">\(\dfrac{d \log_a{(x)}}{dx} = \dfrac{1}{x \ln{(a)}}\)</span></p>
+<p>where <span class="math inline">\(x\)</span> is again shorthand for <span class="math inline">\((x_1, ..., x_k)\)</span>. Thus, conditional on <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> has a normal distribution with mean linear in <span class="math inline">\(x_1, ..., x_k\)</span> and a constant variance.</p>
 </section>
 <section id="anotações-de-aula" class="level1 unnumbered">
 <h1 class="unnumbered">Anotações de aula</h1>
-<p>“Notebook notes”, com um aprofundamento em cálculo, <a href="pdf-aulas/Lego II - Aula 2.pdf">neste link</a>. As demais partes da aula trataram brevemente da ideia de <em>processo gerador de dados</em>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Vamos simular o processo gerador de dados (<em>data generating process</em>) de renda</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>erros <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">200</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>educ <span class="ot">=</span> <span class="fu">rpois</span>(n, <span class="at">lambda =</span> <span class="dv">7</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># a distribuição dos erros é normal com média 0 e sd 200</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(erros)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="aula-2_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># processo gerador de dados</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>renda <span class="ot">=</span> <span class="dv">1000</span> <span class="sc">+</span> <span class="dv">150</span><span class="sc">*</span>educ <span class="sc">+</span> erros</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>De fato, se estimarmos uma reta de regressão utilizando esses dados, devemos nos aproximar bem dos coeficientes definidos no processo gerador:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(renda <span class="sc">~</span> educ)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = renda ~ educ)
+<p><a href="pdf-aulas/Lego II - Aula 6.pdf">Anotações dos vídeos recomendados.</a></p>
+<p>Sob amostragem aleatória simples, com <span class="math inline">\(n\)</span> de cada amostra com tamanho razoável, obtemos o teorema do limite central:</p>
+<p><span class="math display">\[
+\hat{\beta} \overset{d}{\longrightarrow} \mathcal{N}(\beta, \text{Var}(\beta))
+\]</span></p>
+<p>Isso significa que beta converge em distribuição para uma normal. A lei dos grandes números, por sua vez, fala que a dispersão da distribuição dos <span class="math inline">\(\hat{\beta}\)</span> em torno de <span class="math inline">\(\beta\)</span> reduz quando <span class="math inline">\(n \rightarrow \infty\)</span>.</p>
+<section id="teste-t" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="teste-t"><span class="header-section-number">7.1</span> Teste t</h2>
+<p><span class="math display">\[
+t = \dfrac{\hat{\theta} - H_0}{\text{se}(\theta)},
+\]</span></p>
+<p>O teste de hipótese diz a distância, em desvios-padrão, entre o valor observado e o valor do seu interesse (figurado em <span class="math inline">\(H_0\)</span>).</p>
+<p>Isso, no entanto, parte de uma assumption extremamente forte: a de que você possui infinitas amostras. Se, em geral, só fazemos uma pesquisa, como fazemos? Isto é, como obter o erro-padrão a partir de uma única amostra?</p>
+<p>Se você tiver a população ou infinitas amostras, simplesmente fazemos:</p>
+<p><span class="math display">\[
+\text{se}(\bar{X}) = \dfrac{\sigma}{\sqrt{n}}
+\]</span></p>
+<p>Como esse normalmente não é o caso, e temos apenas uma amostra, precisamos estimar o desvio-padrão:</p>
+<p><span class="math display">\[
+\hat{\text{se}}(\bar{X}) = \dfrac{s}{\sqrt{n}}
+\]</span></p>
+<p>Uma amostra de tamanho grande nos garante razoável certeza sobre a forma (normal) e razoável certeza de que você está próximo da estimativa verdadeira. Ou seja: uma única amostra já nos garante o TCL e LGN. Portanto, <span class="math inline">\(s\)</span> já está próximo de <span class="math inline">\(\sigma\)</span> e que <span class="math inline">\(\bar{X}\)</span> já está próximo de <span class="math inline">\(\mu\)</span>, e que <span class="math inline">\(\hat{\beta}_0\)</span> já está próximo de <span class="math inline">\(\beta_0\)</span>, e assim por diante.</p>
+<p>Sabendo disso, já não é mais tão ruim calcular o erro-padrão aproximado <span class="math inline">\(\hat{\text{se}}(\cdot)\)</span>.</p>
+<p>A distribuição da variável não precisa ser normal! Em particular, a variável pode ter qualquer formato, mas as estatísticas terão uma distribuição normal em torno do parâmetro. A distribuição das estatísticas pode ser diferente da distribuição da variável em si.</p>
+<p>Por definição, <span class="math inline">\(y = X \beta + \epsilon\)</span>. Trata-se do <span class="math inline">\(\beta\)</span> e do <span class="math inline">\(\epsilon\)</span> (erro) verdadeiro. Para estimar <span class="math inline">\(\hat{\beta}\)</span>, fazemos:</p>
+<p><span class="math display">\[
+\begin{align*}
+\hat{\beta} &amp;= (X^T X)^{-1} X^T y \\
+&amp;= (X^T X)^{-1} X^T (X \beta + \epsilon) \\
+&amp;= (X^T X)^{-1} X^T X \beta + (X^T X)^{-1} X^T \epsilon
+\end{align*}
+\]</span></p>
+<p>Pelo ML4, diríamos que <span class="math inline">\((X^T X)^{-1} X^T \epsilon\)</span> seria igual a zero, mas… numa amostra particular, mesmo que ML4 seja verdade, <span class="math inline">\(X^T \epsilon\)</span> pode não ser exatamente zero, por flutuação amostral.</p>
+<p><span class="math display">\[
+\underbrace{\hat{\beta}}_{\text{estimativa}}
+=
+\underbrace{\beta}_{\text{parâmetro}}
++
+\underbrace{(X^T X)^{-1} X^T \epsilon}_{\text{erro amostral da estimativa}}
+\]</span></p>
+<p>Uma nota breve sobre os vídeos, porque é importante saber das seguintes propriedades:</p>
+<p>$$ <span class="math display">\[\begin{align*}
+&amp;\text{Var}(a + X) = \text{Var}(X) \\
 
-Coefficients:
-(Intercept)         educ  
-     1004.0        148.7  </code></pre>
-</div>
-</div>
-<p>Agora, vamos criar uma nova variável que, predeterminadamente, já está correlacionada com os nossos erros. Isto é, trata-se de uma especificação que viola o ML4 (conforme vimos na última aula). Isso desrespeita a independência entre os erros e os regressores.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(faux)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: pacote 'faux' foi compilado no R versão 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-************
-Welcome to faux. For support and examples visit:
-https://debruine.github.io/faux/
-- Get and set global package options with: faux_options()
-************</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>erros <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">200</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>educ <span class="ot">=</span> <span class="fu">rnorm_pre</span>(erros, <span class="at">mu =</span> <span class="dv">7</span>, <span class="at">r =</span> <span class="sc">-</span>.<span class="dv">8</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>renda <span class="ot">=</span> <span class="dv">1000</span> <span class="sc">+</span> <span class="dv">150</span><span class="sc">*</span>educ <span class="sc">+</span> erros</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(renda <span class="sc">~</span> educ)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = renda ~ educ)
+\\
 
-Coefficients:
-(Intercept)         educ  
-   2116.673       -8.889  </code></pre>
-</div>
-</div>
-<p>Quando a regressão estimada não respeita os pressupostos, os resultados obtidos são absolutamente diversos em relação ao processo que efetivamente gerou o dado. O estimador utilizado para fazer a estimativa aplica uma <em>assumption</em> que o seu dado não respeitava.</p>
-<p>Na regressão, temos uma espécie de “máquina” para representar o mecanismo das coisas. O que significa essa estimativa, então? Essa resposta está no cálculo; por isso, precisamos falar um pouco dele antes.</p>
+&amp;\text{Var}(aX) = a^2 \text{Var}(X) \\
+
+\\
+
+&amp;\text{Var}(X) =
+\begin{bmatrix}
+\text{Var}(X_1) &amp; \text{Cov}(X_1, X_2) &amp; \cdots &amp; \text{Cov}(X_1, X_n) \\
+\text{Cov}(X_2, X_1) &amp; \text{Var}(X_2) &amp; \cdots &amp; \text{Cov}(X_2, X_n) \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\text{Cov}(X_n, X_1) &amp; \text{Cov}(X_n, X_2) &amp; \cdots &amp; \text{Var}(X_n)
+\end{bmatrix} \\
+
+\\
+
+&amp;\text{Var}(A \vec{x}) = A \ \text{Var}(\vec{x}) \ A^T \\
+
+\\
+
+&amp;\text{Var}(A + \vec{x}) = \text{Var}(\vec{x})
+
+\end{align*}\]</span></p>
+<p>$$</p>
+<p>Agora, passemos à variância de <span class="math inline">\(\hat{\beta}\)</span>:</p>
+<p><span class="math display">\[
+\begin{align*}
+\text{Var}(\hat{\beta}) &amp;= \text{Var}( \beta + (X^T X)^{-1} X^T \vec{\epsilon} ) \\
+&amp;= \text{Var}([X^T X]^{-1} X^T \vec{\epsilon}) \\
+&amp;= [X^T X]^{-1} X^T \ \text{Var}(\vec{\epsilon}) \ X [X^T X]^{-1}
+\end{align*}
+\]</span></p>
+<p>Essa é uma matriz <span class="math inline">\(k \times k\)</span>, já que <span class="math inline">\([X^T X]^{-1} X^T\)</span> é <span class="math inline">\(k \times n\)</span> e a transporta é naturalmente <span class="math inline">\(n \times k\)</span>. E o que é a variância do erro? Bom, é a variância da pessoa 1, a covariância do erro da pessoa 1 com a pessoa 2, e assim por diante.</p>
+<p><span class="math display">\[
+\text{Var}(\vec{\epsilon}) =
+\begin{bmatrix}
+\text{Var}(\epsilon_1) &amp; \text{Cov}(\epsilon_1, \epsilon_2) &amp; \cdots &amp; \text{Cov}(\epsilon_1, \epsilon_n) \\
+\text{Cov}(\epsilon_2, \epsilon_1) &amp; \text{Var}(\epsilon_2) &amp; \cdots &amp; \text{Cov}(\epsilon_2, \epsilon_n) \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\text{Cov}(\epsilon_n, \epsilon_1) &amp; \text{Cov}(\epsilon_n, \epsilon_2) &amp; \cdots &amp; \text{Var}(\epsilon_n)
+\end{bmatrix} \\
+\]</span></p>
+<p>As variâncias individuais são o “erro” de cada indivíduo, o componente estocástico associado à ação individual. Agora, os erros das “pessoas juntas” são aqueles erros em grupos (“a sorte de um grupo é o azar de outro”, e assim por diante). Podemos ter correlação entre observações por razões inúmeras.</p>
+<p>Trata-se, no entanto, de uma matriz teórica, que nunca será usada de fato – mesmo porque os erros não são observáveis. Chegamos a um ponto, portanto, que <span class="math inline">\([X^T X]^{-1} X^T \ \text{Var}(\vec{\epsilon}) \ X [X^T X]^{-1}\)</span> não nos leva a lugar nenhum. Mas e se supusséssemos que todas as covariâncias são zero, e que, mais do que isso, que todas as variâncias são iguais? Isto é, e se impormos a suposição da homocedasticidade?</p>
+<p>Em particular, sob a hipótese da homocedasticidade, teríamos:</p>
+<p><span class="math display">\[
+\text{Var}(\vec{\epsilon}) =
+\begin{bmatrix}
+\sigma^2 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \sigma^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \sigma^2
+\end{bmatrix} \\
+\]</span></p>
+<p>Daí:</p>
+<p><span class="math display">\[
+\begin{align*}
+\text{Var}(\hat{\beta}) &amp;= [X^T X]^{-1} X^T \ \text{Var}(\vec{\epsilon}) \ X [X^T X]^{-1} \\
+&amp;= [X^T X]^{-1} X^T \ I \sigma^2 \ X [X^T X]^{-1} \\
+&amp;= \sigma^2 [X^T X]^{-1} X^T X [X^T X]^{-1} \\
+&amp;= \sigma^2 [X^T X]^{-1}
+\end{align*}
+\]</span></p>
+<p>Isso é o que a regressão nos entrega sempre que rodamos uma no R. Suponha uma regressão com 3 variáveis preditoras:</p>
+<p><span class="math display">\[
+\text{Var}(\hat{\beta}) = \begin{bmatrix}
+\text{Var}(\beta_0) &amp; \text{Cov}(\beta_0, \beta_1) &amp; \text{Cov}(\beta_0, \beta_2) \\
+\text{Cov}(\beta_1, \beta_0) &amp; \text{Var}(\beta_1) &amp; \text{Cov}(\beta_1, \beta_2) \\
+\text{Cov}(\beta_2, \beta_0) &amp; \text{Cov}(\beta_2, \beta_1) &amp; \text{Var}(\beta_2)
+\end{bmatrix} \\
+\]</span></p>
+<p>É claro, isso tudo esta assentado sob a assumption de homocedasticidade. Há maneiras de remover essa suposição sob os erros individuais sem grandes complicações – por heterocedasticidade, ou por hipótese dos erros clusterizados.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-moore2013mathematics" class="csl-entry" role="listitem">
-Moore, Will H., and David A. Siegel. 2013. <em>A Mathematics Course for Political and Social Research</em>. Princeton, NJ: Princeton University Press.
+<div id="ref-wooldridge2020intro" class="csl-entry" role="listitem">
+Wooldridge, Jeffrey M. 2020. <em>Introductory Econometrics: A Modern Approach</em>. 7th ed. Boston, MA: Cengage Learning.
 </div>
 </div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1020,13 +1004,13 @@ Moore, Will H., and David A. Siegel. 2013. <em>A Mathematics Course for Politica
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../aulas/aula-1.html" class="pagination-link" aria-label="Derivando os estimadores da regressão">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Derivando os estimadores da regressão</span></span>
+      <a href="../aulas/aula-4_5.html" class="pagination-link" aria-label="Regressão linear múltipla">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressão linear múltipla</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../aulas/aula-3.html" class="pagination-link" aria-label="O método dos mínimos quadrados">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">O método dos mínimos quadrados</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../aulas/aula-7.html" class="pagination-link" aria-label="Heterocedasticidade">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Heterocedasticidade</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

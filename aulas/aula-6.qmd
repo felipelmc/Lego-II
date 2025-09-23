@@ -1,0 +1,180 @@
+---
+title: "Variância dos estimadores"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 12pt
+---
+
+# _Multiple Regression Analysis: Inference_, [@wooldridge2020intro, chapter 4] {.unnumbered}
+
+> Knowing the expected value and variance of the OLS estimators is useful for describing the precision of the OLS estimators. However, in order to perform statistical inference, we need to know more than just the first two moments of $\hat{\beta}_j$; we need to know the full sampling distribution of the $\hat{\beta}_j$. Even under the Gauss-Markov assumptions, the distribution of $\hat{\beta}_j$ can have virtually any shape. 
+>
+> When we condition on the values of the independent variables in our sample, it is clear that the sampling distributions of the OLS estimators depend on the underlying distribution of the errors. To make the sampling distributions of the $\hat{\beta}_j$ tractable, we now assume that the unobserved error is _normally distributed_ in the population. We call this the normality assumption. [@wooldridge2020intro, p. 117]
+
+> Assumption MLR.6 -- Normality: The population error $u$ is independent of the explanatory variables $x_1, x_2, ..., x_k$ and is normally distributed with zero mean and variance $\sigma^2: u \sim \mathcal{N}(0, \sigma^2)$.
+
+A succint way to summarize the population assumptions of the CLM is:
+
+$$
+y | x \sim \mathcal{N}( \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_k x_k, \sigma^2),
+$$
+
+where $x$ is again shorthand for $(x_1, ..., x_k)$. Thus, conditional on $x$, $y$ has a normal distribution with mean linear in $x_1, ..., x_k$ and a constant variance. 
+
+
+# Anotações de aula {.unnumbered}
+
+[Anotações dos vídeos recomendados.](pdf-aulas/Lego%20II%20-%20Aula%206.pdf)
+
+Sob amostragem aleatória simples, com $n$ de cada amostra com tamanho razoável, obtemos o teorema do limite central:
+
+$$
+\hat{\beta} \overset{d}{\longrightarrow} \mathcal{N}(\beta, \text{Var}(\beta))
+$$
+
+Isso significa que beta converge em distribuição para uma normal. A lei dos grandes números, por sua vez, fala que a dispersão da distribuição dos $\hat{\beta}$ em torno de $\beta$ reduz quando $n \rightarrow \infty$.
+
+## Teste t
+
+$$
+t = \dfrac{\hat{\theta} - H_0}{\text{se}(\theta)},
+$$
+
+O teste de hipótese diz a distância, em desvios-padrão, entre o valor observado e o valor do seu interesse (figurado em $H_0$).
+
+Isso, no entanto, parte de uma assumption extremamente forte: a de que você possui infinitas amostras. Se, em geral, só fazemos uma pesquisa, como fazemos? Isto é, como obter o erro-padrão a partir de uma única amostra?
+
+Se você tiver a população ou infinitas amostras, simplesmente fazemos: 
+
+$$
+\text{se}(\bar{X}) = \dfrac{\sigma}{\sqrt{n}}
+$$
+
+Como esse normalmente não é o caso, e temos apenas uma amostra, precisamos estimar o desvio-padrão:
+
+$$
+\hat{\text{se}}(\bar{X}) = \dfrac{s}{\sqrt{n}}
+$$
+
+Uma amostra de tamanho grande nos garante razoável certeza sobre a forma (normal) e razoável certeza de que você está próximo da estimativa verdadeira. Ou seja: uma única amostra já nos garante o TCL e LGN. Portanto, $s$ já está próximo de $\sigma$ e que $\bar{X}$ já está próximo de $\mu$, e que $\hat{\beta}_0$ já está próximo de $\beta_0$, e assim por diante.
+
+Sabendo disso, já não é mais tão ruim calcular o erro-padrão aproximado $\hat{\text{se}}(\cdot)$.
+
+A distribuição da variável não precisa ser normal! Em particular, a variável pode ter qualquer formato, mas as estatísticas terão uma distribuição normal em torno do parâmetro. A distribuição das estatísticas pode ser diferente da distribuição da variável em si.
+
+Por definição, $y = X \beta + \epsilon$. Trata-se do $\beta$ e do $\epsilon$ (erro) verdadeiro. Para estimar $\hat{\beta}$, fazemos:
+
+$$
+\begin{align*}
+\hat{\beta} &= (X^T X)^{-1} X^T y \\
+&= (X^T X)^{-1} X^T (X \beta + \epsilon) \\
+&= (X^T X)^{-1} X^T X \beta + (X^T X)^{-1} X^T \epsilon
+\end{align*}
+$$
+
+Pelo ML4, diríamos que $(X^T X)^{-1} X^T \epsilon$ seria igual a zero, mas... numa amostra particular, mesmo que ML4 seja verdade, $X^T \epsilon$ pode não ser exatamente zero, por flutuação amostral.
+
+$$
+\underbrace{\hat{\beta}}_{\text{estimativa}}
+=
+\underbrace{\beta}_{\text{parâmetro}}
++
+\underbrace{(X^T X)^{-1} X^T \epsilon}_{\text{erro amostral da estimativa}}
+$$
+
+Uma nota breve sobre os vídeos, porque é importante saber das seguintes propriedades:
+
+$$
+\begin{align*}
+&\text{Var}(a + X) = \text{Var}(X) \\
+
+\\
+
+&\text{Var}(aX) = a^2 \text{Var}(X) \\
+
+\\
+
+&\text{Var}(X) =
+\begin{bmatrix}
+\text{Var}(X_1) & \text{Cov}(X_1, X_2) & \cdots & \text{Cov}(X_1, X_n) \\
+\text{Cov}(X_2, X_1) & \text{Var}(X_2) & \cdots & \text{Cov}(X_2, X_n) \\
+\vdots & \vdots & \ddots & \vdots \\
+\text{Cov}(X_n, X_1) & \text{Cov}(X_n, X_2) & \cdots & \text{Var}(X_n)
+\end{bmatrix} \\
+
+\\
+
+&\text{Var}(A \vec{x}) = A \ \text{Var}(\vec{x}) \ A^T \\
+
+\\
+
+&\text{Var}(A + \vec{x}) = \text{Var}(\vec{x})
+
+\end{align*}
+
+$$
+
+Agora, passemos à variância de $\hat{\beta}$:
+
+$$
+\begin{align*}
+\text{Var}(\hat{\beta}) &= \text{Var}( \beta + (X^T X)^{-1} X^T \vec{\epsilon} ) \\
+&= \text{Var}([X^T X]^{-1} X^T \vec{\epsilon}) \\
+&= [X^T X]^{-1} X^T \ \text{Var}(\vec{\epsilon}) \ X [X^T X]^{-1}
+\end{align*}
+$$
+
+Essa é uma matriz $k \times k$, já que $[X^T X]^{-1} X^T$ é $k \times n$ e a transporta é naturalmente $n \times k$. E o que é a variância do erro? Bom, é a variância da pessoa 1, a covariância do erro da pessoa 1 com a pessoa 2, e assim por diante.
+
+
+$$
+\text{Var}(\vec{\epsilon}) =
+\begin{bmatrix}
+\text{Var}(\epsilon_1) & \text{Cov}(\epsilon_1, \epsilon_2) & \cdots & \text{Cov}(\epsilon_1, \epsilon_n) \\
+\text{Cov}(\epsilon_2, \epsilon_1) & \text{Var}(\epsilon_2) & \cdots & \text{Cov}(\epsilon_2, \epsilon_n) \\
+\vdots & \vdots & \ddots & \vdots \\
+\text{Cov}(\epsilon_n, \epsilon_1) & \text{Cov}(\epsilon_n, \epsilon_2) & \cdots & \text{Var}(\epsilon_n)
+\end{bmatrix} \\
+$$
+
+As variâncias individuais são o "erro" de cada indivíduo, o componente estocástico associado à ação individual. Agora, os erros das "pessoas juntas" são aqueles erros em grupos ("a sorte de um grupo é o azar de outro", e assim por diante). Podemos ter correlação entre observações por razões inúmeras. 
+
+Trata-se, no entanto, de uma matriz teórica, que nunca será usada de fato -- mesmo porque os erros não são observáveis. Chegamos a um ponto, portanto, que $[X^T X]^{-1} X^T \ \text{Var}(\vec{\epsilon}) \ X [X^T X]^{-1}$ não nos leva a lugar nenhum. Mas e se supusséssemos que todas as covariâncias são zero, e que, mais do que isso, que todas as variâncias são iguais? Isto é, e se impormos a suposição da homocedasticidade?
+
+Em particular, sob a hipótese da homocedasticidade, teríamos:
+
+$$
+\text{Var}(\vec{\epsilon}) =
+\begin{bmatrix}
+\sigma^2 & 0 & \cdots & 0 \\
+0 & \sigma^2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \sigma^2
+\end{bmatrix} \\
+$$
+
+Daí:
+
+$$
+\begin{align*}
+\text{Var}(\hat{\beta}) &= [X^T X]^{-1} X^T \ \text{Var}(\vec{\epsilon}) \ X [X^T X]^{-1} \\
+&= [X^T X]^{-1} X^T \ I \sigma^2 \ X [X^T X]^{-1} \\
+&= \sigma^2 [X^T X]^{-1} X^T X [X^T X]^{-1} \\
+&= \sigma^2 [X^T X]^{-1}
+\end{align*}
+$$
+
+Isso é o que a regressão nos entrega sempre que rodamos uma no R. Suponha uma regressão com 3 variáveis preditoras:
+
+$$
+\text{Var}(\hat{\beta}) = \begin{bmatrix}
+\text{Var}(\beta_0) & \text{Cov}(\beta_0, \beta_1) & \text{Cov}(\beta_0, \beta_2) \\
+\text{Cov}(\beta_1, \beta_0) & \text{Var}(\beta_1) & \text{Cov}(\beta_1, \beta_2) \\
+\text{Cov}(\beta_2, \beta_0) & \text{Cov}(\beta_2, \beta_1) & \text{Var}(\beta_2)
+\end{bmatrix} \\
+$$
+
+É claro, isso tudo esta assentado sob a assumption de homocedasticidade. Há maneiras de remover essa suposição sob os erros individuais sem grandes complicações -- por heterocedasticidade, ou por hipótese dos erros clusterizados.
+

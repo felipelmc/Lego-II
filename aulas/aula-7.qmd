@@ -1,0 +1,210 @@
+---
+title: "Heterocedasticidade"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 12pt
+---
+
+# *Heteroskedasticity*, [@wooldridge2020intro, chapter 8] {.unnumbered}
+
+> The homoskedasticity assumption, introduced in Chapter 3 for multiple regression, states that the variance of the unobserved error, $u$, conditional on the explanatory variables, is constant. Homoskedasticity fails whenever the variance of the unobserved factors change across different segments of the population, where the segments are determined by the different values of the explanatory variables. For example, in a savings equation, heteroskedasticity is present if the variance of the unobserved factors affecting savings increases with income. [@wooldridge2020intro, p. 263]
+
+> If heteroskedasticity does not cause bias or inconsistency in the OLS estimators, why did we introduce it as one of the Gauss-Markov assumptions? Recall from Chapter 3 that the estimators of the variances, $\text{Var}(\hat{\beta}_j)$, are biased without the homoskedasticity assumption. Because the OLS standard errors are based directly on these variances, they are no longer valid for constructing confidence intervals and $t$ statistics. The usual OLS $t$ statistics do not have $t$ distributions in the presence of heteroskedasticity, and the problem is not resolved by using large sample sizes. We will see this explicitly for the simple regression case in the next section, where we derive the variance of the OLS slope estimator under heteroskedasticity and propose a valid estimator in the presence of heteroskedasticity. Similarly, F statistics are no longer F distributed, and the LM statistic no longer has an asymptotic chi-square distribution. In summary, the statistics we used to test hypotheses under the Gauss-Markov assumptions are not valid in the presence of heteroskedasticity. [@wooldridge2020intro, p. 263]
+
+# Anotações de aula {.unnumbered}
+
+Gostaríamos que uma função de regressão (por nós programada) tivesse algo mais ou menos assim:
+
+```         
+nome_da_funcao(formula = y ~ x1 + x2, data = dados)
+```
+
+Essa função, é claro, já existe – \`lm()\`. Mas vamos programar nós mesmos. No código abaixo, implementamos uma função que estima o efeito das despesas de campanha nos votos de candidatos a deputados federais:
+
+```{r}
+## bibliotecas e setup
+library(tidyverse)
+options(scipen = 999)
+
+## dados
+data = read.csv("../data/data.csv")
+
+## regressão implementada do zero
+minha_regressao = function(formula_informada, data){
+
+  dep_var_name = as.character(formula_informada[[2]])
+  
+  X = model.matrix(formula_informada, data = data)
+  y = data[[dep_var_name]]
+  
+  beta = solve(t(X) %*% X) %*% t(X) %*% y
+  
+  y_hat = X %*% beta
+  residuos = y - X %*% beta
+  
+  n = nrow(data)
+  k = ncol(data)
+  var_residuos = sum(residuos^2) / (n - k)
+  RMSE = sqrt(var_residuos)
+  r2 = 1 - var_residuos/var(y)
+  
+  varcov_beta = var_residuos * solve(t(X) %*% X)
+  se_beta = sqrt(diag(varcov_beta))
+  
+  H0 = 0
+  t = (beta - H0) / se_beta
+  p_valor = 2 * (1 - pnorm(abs(t)))
+  
+  list(
+    coefs = tibble(
+      Coeficientes = colnames(X),
+      Estimativas = round(beta, 2),
+      Erros_padrao = round(se_beta, 2),
+      t = t,
+      p_valor = p_valor
+    ),
+    r2,
+    RMSE,
+    var_residuos
+    #y_hat,
+    #residuos
+  )
+}
+
+## funciona!
+minha_regressao(formula_informada = votos ~ despesa_total, data = data)
+```
+
+------------------------------------------------------------------------
+
+Agora, vamos voltar para o tema da homocedasticidade. Em particular, sabemos que $\text{Var}(\hat{\beta})\ = (X^T X)^{-1} \text{Var}(\epsilon) X (X^T X)^{-1}$. A ideia da homocedasticidade é facilitar o cálculo da variância de $\beta$ ao impor que a variância dos erros é fixa em $\sigma^2$. De fato, sob homocedasticidade:
+
+$$
+\text{Var}(\hat{\epsilon}) = \hat{\sigma}^2 I,
+$$
+
+onde $\hat{\sigma}^2 = \dfrac{\sum (y - \hat{y})^2}{n - k}$.
+
+```{r}
+n = 1000
+e = rnorm(n, mean = 0, sd = 1)
+x1 = rpois(n, lambda = 3)
+y = 10 - 5*x1 + e
+
+df = tibble(y, x1)
+
+minha_regressao(y ~ x1, data = df)
+```
+
+A hipótese da homocedasticidade está em `e = rnorm(n, mean = 0, sd = 1)`: utilizamos o mesmo desvio-padrão (e variância) para gerar todas as observações. Há casos, no entanto, em que isso não faz sentido. Por exemplo, salários de diretores variam muito dependendo do setor da empresa. Isso é heterocedasticidade.
+
+Um exemplo simples disso seria se, no exemplo anterior, parte dos erros tivessem sido gerados de uma maneira e a outra parte de outra maneira: `e1 = rnorm(n/2, mean = 0, sd = 1)` e `e2 = rnorm(n/2, mean = 0, sd = 5)`. A hipótese da homocedasticidade nos leva a erros-padrão muito pequenos, e aí $\frac{\hat{\beta}}{\text{se}(\hat{\beta})}$ nos leva a estimativas maiores do que são de fato.
+
+## Os erros-padrão de Huber-White
+
+$$
+\text{Var}(\hat{\beta}) = (X^T X)^{-1} X^T \text{Var}(\epsilon) X (X^T X)^{-1}
+$$
+
+A hipótese de Huber-White é que a variância dos erros é uma diagonal preenchida de valores potencialmente distintos entre si e com zeros ao redor.
+
+$$
+\text{Var}(\vec{\epsilon}) =
+\begin{bmatrix}
+\sigma^2_1 & 0          & \cdots & 0 \\
+0          & \sigma^2_2 & \cdots & 0 \\
+\vdots     & \vdots     & \ddots & \vdots \\
+0          & 0          & \cdots & \sigma^2_n
+\end{bmatrix} \\
+$$
+
+Isso é essencialmente dizer, em termos de R, `for (i in 1:n) {e_i = rnorm(1, 0, sd = rpois(1, 10))}`. A regra que gerou o erro não importa muito, mas o fato é que cada pessoa pode ter um desvio-padrão arbitrário. Mas como fazer isso, já que só observamos cada indivíduo uma única vez? O que White (1980) mostra é que o próprio resíduo ao quadrado já funciona bem:
+
+$$
+\hat{\text{Var}}(\vec{\epsilon}) =
+\begin{bmatrix}
+\hat{\epsilon}_1^2 & 0                  & \cdots & 0 \\
+0                  & \hat{\epsilon}_2^2 & \cdots & 0 \\
+\vdots             & \vdots             & \ddots & \vdots \\
+0                  & 0                  & \cdots & \hat{\epsilon}_n^2
+\end{bmatrix} \\
+$$
+
+Em outras palavras, o que o autor mostra é que $\text{Var}(\hat{\beta})^{\text{HW}} \overset{p}{\rightarrow} \text{Var}(\hat{\beta})$; isto é, a matriz de variância-covariância estimada sob a hipótese de Huber-White converge em probabilidade para a matriz
+
+Em vista disso, vamos atualizar nossa implementação de regressão.
+
+```{r}
+
+## regressão implementada do zero
+minha_regressao = function(formula_informada, data, erros = "heterocedasticos"){
+
+  dep_var_name = as.character(formula_informada[[2]])
+  
+  X = model.matrix(formula_informada, data = data)
+  y = data[[dep_var_name]]
+  
+  beta = solve(t(X) %*% X) %*% t(X) %*% y
+  
+  y_hat = X %*% beta
+  residuos = y - X %*% beta
+  
+  n = nrow(data)
+  k = ncol(data)
+  var_residuos = sum(residuos^2) / (n - k)
+  RMSE = sqrt(var_residuos)
+  r2 = 1 - var_residuos/var(y)
+  
+  if (erros == "homocedasticos") {
+    varcov_beta = var_residuos * solve(t(X) %*% X)
+  }
+
+  if (erros == "heterocedasticos") {
+    omega = diag(as.numeric(residuos^2))
+    
+    # forma otimizada se omega for muito grande
+#    omega = Matrix::sparseMatrix(
+#      i = 1:n,
+#      j = 1:n,
+#      X = residuos^2
+#    )
+    
+    varcov_beta = solve(t(X) %*% X) %*% t(X) %*% omega %*% X %*% solve(t(X) %*% X)
+  }
+  
+  se_beta = sqrt(diag(varcov_beta))
+  
+  H0 = 0
+  t = (beta - H0) / se_beta
+  p_valor = 2 * (1 - pnorm(abs(t)))
+  
+  list(
+    coefs = tibble(
+      Coeficientes = colnames(X),
+      Estimativas = round(beta, 2),
+      Erros_padrao = round(se_beta, 2),
+      t = t,
+      p_valor = p_valor
+    ),
+    r2,
+    RMSE,
+    var_residuos
+    #y_hat,
+    #residuos
+  )
+}
+
+resultados_ho = minha_regressao(y ~ x1, data = df, erros = "homocedasticos")
+resultados_he = minha_regressao(y ~ x1, data = df, erros = "heterocedasticos")
+
+resultados_ho
+resultados_he
+```
+
+Nesse caso os resultados não são muito diferentes. Isso significa, na prática, que a hipótese da homocedasticidade nesse caso não é absurda. Além disso, vale notar que as estimativas não se alteram – o que é esperado, já que a hipótese de homo/heterocedasticidade diz respeito apenas à variância dos erros (e, de fato, os erros padrão são ligeiramente diferentes, o que observamos a partir das diferenças entre os valores $t$).
+
+O interessante da hipótese da heterocedasticidade é que ela pode assumir diversas formas. @king2015robust falam que a existência de heterocedasticidade é um sintoma, e não um problema em si mesmo. Mas um sintoma do quê, exatamente? De que você errou a forma funcional! Dependendo do jeito que traçamos a curva/reta, a variância poderia ser "constante". 
+
+Direto ao ponto: @king2015robust argumentam que heterocedasticidade pode ser sintoma de má especificação funcional. Então, quando calculamos erros de Huber-White e eles dão muito distantes dos erros homocedásticos, deveríamos dar um passo atrás e avaliar se estamos acertando a forma funcional.

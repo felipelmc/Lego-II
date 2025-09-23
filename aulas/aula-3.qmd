@@ -73,3 +73,79 @@ Procedure to find global maximum and minimum:
 7. Find the smallest value of the function from those computed in the previous two steps. This is the global minimum, and the function attains this at the corresponding $x^*$ or boundary point. Find the largest value of the function from those computed in the previous two steps. This is the global maximum, and the function attains this at the corresponding $x^*$ or boundary point.
 
 # Anotações de aula {.unnumbered}
+
+Um estimador é uma fórmula para obter parâmetros. Parâmetros são quantias de interesse populacionais. Entendemos as quantias populacionais como:
+
+- "População finita": a "coisa em si", que existe, mas que não conseguimos observar de maneira perfeita. A diferença entre a coisa em si e o que você coletou pode ser chamada de erro amostral.
+- Processo gerador de dados: "máquina do mundo"
+
+## Métodos de obtenção de estimadores
+
+Estratégias, hipóteses / pressupostos para obter estimadores
+
+**Exemplos:**
+- método dos mínimos quadrados
+- método dos momentos
+- método da máxima verossimilhança
+- ...  
+
+## Método dos Mínimos Quadrados
+
+Suponha $Y = (y_1, y_2, y_3, \cdots, y_N)$. Quantia de interesse: $\alpha$, o valor que se subtraído de $Y$, faz com que os resíduos somem zero.
+
+$$
+\begin{align*}
+\sum^N_{i = 1} (y_i - \alpha) &= 0 \\
+\sum^N_{i = 1} y_i - N \alpha &= 0 \\
+N \alpha &= \sum^N_{i = 1} y_i \\
+\alpha &= \dfrac{\sum^N_{i = 1} y_i}{N} = \mu
+\end{align*}
+$$
+
+Precisamos estimar $\alpha$ usando dados amostrais, obtendo $\hat{\alpha}$:
+
+$$
+\hat{\alpha} = \dfrac{\sum^n_{i = 1} y_i}{n}
+$$
+
+Agora, queremos a quantia de interesse $\lambda$, valor que subtraído de $Y$ populacional faz com que os desvios quadráticos sejam tão pequenos quanto possível:
+
+$$
+\sum^{N}_{i = 1} (y_i - \lambda)^2
+$$
+
+Derivando essa equação e igualando-a a zero (isto é, obtendo o mínimo), fazemos:
+
+$$
+\begin{align*}
+\dfrac{d}{d \lambda} \sum^{N}_{i = 1} (y_i - \lambda)^2 &= 0 \\
+-2 \sum^{N}_{i = 1} (y_i - \lambda) &= 0 \\
+\lambda = \dfrac{\sum^{N}_{i = 1} y_i}{N}
+\end{align*}
+$$
+
+O estimador usando dados amostrais é:
+
+$$
+\hat{\lambda} = \dfrac{\sum^{n}_{i = 1} y_i}{n}
+$$
+
+Os dois estimadores deram resultados iguais, mas iluminam questões diferentes em relação à média.
+
+Na regressão, a situação é parecida:
+
+$$
+f(\beta_0, \beta_1) = \sum^N_{i = 1} (y_i - [\beta_0 + \beta_1 x_i])^2
+$$
+
+Derivamos em relação a $\beta_0$ e em relação a $\beta_1$:
+
+$$
+\begin{align*}
+\dfrac{\partial f}{\partial \beta_0} &= -2 \sum (y_i - \beta_0 - \beta_1 x_i) = 0 \\
+\dfrac{\partial f}{\partial \beta_1} &= -2 \sum x_i (y_i - \beta_0 - \beta_1 x_i) = 0
+\end{align*}
+$$
+
+Isso é um sistema de equações que usamos para encontrar os parâmetros.
+

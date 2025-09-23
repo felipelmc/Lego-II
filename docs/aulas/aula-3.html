@@ -51,7 +51,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../aulas/bibliography.html" rel="next">
+<link href="../aulas/aula-4_5.html" rel="next">
 <link href="../aulas/aula-2.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -375,8 +375,26 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-4_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressão linear múltipla</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Variância dos estimadores</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Heterocedasticidade</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../aulas/bibliography.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Bibliografia</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Bibliografia</span></span></a>
   </div>
 </li>
       </ul>
@@ -398,7 +416,11 @@ window.Quarto = {
   <li><a href="#taylor-series" id="toc-taylor-series" class="nav-link" data-scroll-target="#taylor-series"><span class="header-section-number">5.3</span> Taylor Series</a></li>
   <li><a href="#critical-points" id="toc-critical-points" class="nav-link" data-scroll-target="#critical-points"><span class="header-section-number">5.4</span> Critical points</a></li>
   </ul></li>
-  <li><a href="#anotações-de-aula" id="toc-anotações-de-aula" class="nav-link" data-scroll-target="#anotações-de-aula">Anotações de aula</a></li>
+  <li><a href="#anotações-de-aula" id="toc-anotações-de-aula" class="nav-link" data-scroll-target="#anotações-de-aula">Anotações de aula</a>
+  <ul class="collapse">
+  <li><a href="#métodos-de-obtenção-de-estimadores" id="toc-métodos-de-obtenção-de-estimadores" class="nav-link" data-scroll-target="#métodos-de-obtenção-de-estimadores"><span class="header-section-number">5.5</span> Métodos de obtenção de estimadores</a></li>
+  <li><a href="#método-dos-mínimos-quadrados" id="toc-método-dos-mínimos-quadrados" class="nav-link" data-scroll-target="#método-dos-mínimos-quadrados"><span class="header-section-number">5.6</span> Método dos Mínimos Quadrados</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -515,6 +537,60 @@ f(x) &amp;= f(a) + \dfrac{f^\prime (a)}{1!}(x-a) + \dfrac{f^{\prime \prime} (a)}
 </section>
 <section id="anotações-de-aula" class="level1 unnumbered">
 <h1 class="unnumbered">Anotações de aula</h1>
+<p>Um estimador é uma fórmula para obter parâmetros. Parâmetros são quantias de interesse populacionais. Entendemos as quantias populacionais como:</p>
+<ul>
+<li>“População finita”: a “coisa em si”, que existe, mas que não conseguimos observar de maneira perfeita. A diferença entre a coisa em si e o que você coletou pode ser chamada de erro amostral.</li>
+<li>Processo gerador de dados: “máquina do mundo”</li>
+</ul>
+<section id="métodos-de-obtenção-de-estimadores" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="métodos-de-obtenção-de-estimadores"><span class="header-section-number">5.5</span> Métodos de obtenção de estimadores</h2>
+<p>Estratégias, hipóteses / pressupostos para obter estimadores</p>
+<p><strong>Exemplos:</strong> - método dos mínimos quadrados - método dos momentos - método da máxima verossimilhança - …</p>
+</section>
+<section id="método-dos-mínimos-quadrados" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="método-dos-mínimos-quadrados"><span class="header-section-number">5.6</span> Método dos Mínimos Quadrados</h2>
+<p>Suponha <span class="math inline">\(Y = (y_1, y_2, y_3, \cdots, y_N)\)</span>. Quantia de interesse: <span class="math inline">\(\alpha\)</span>, o valor que se subtraído de <span class="math inline">\(Y\)</span>, faz com que os resíduos somem zero.</p>
+<p><span class="math display">\[
+\begin{align*}
+\sum^N_{i = 1} (y_i - \alpha) &amp;= 0 \\
+\sum^N_{i = 1} y_i - N \alpha &amp;= 0 \\
+N \alpha &amp;= \sum^N_{i = 1} y_i \\
+\alpha &amp;= \dfrac{\sum^N_{i = 1} y_i}{N} = \mu
+\end{align*}
+\]</span></p>
+<p>Precisamos estimar <span class="math inline">\(\alpha\)</span> usando dados amostrais, obtendo <span class="math inline">\(\hat{\alpha}\)</span>:</p>
+<p><span class="math display">\[
+\hat{\alpha} = \dfrac{\sum^n_{i = 1} y_i}{n}
+\]</span></p>
+<p>Agora, queremos a quantia de interesse <span class="math inline">\(\lambda\)</span>, valor que subtraído de <span class="math inline">\(Y\)</span> populacional faz com que os desvios quadráticos sejam tão pequenos quanto possível:</p>
+<p><span class="math display">\[
+\sum^{N}_{i = 1} (y_i - \lambda)^2
+\]</span></p>
+<p>Derivando essa equação e igualando-a a zero (isto é, obtendo o mínimo), fazemos:</p>
+<p><span class="math display">\[
+\begin{align*}
+\dfrac{d}{d \lambda} \sum^{N}_{i = 1} (y_i - \lambda)^2 &amp;= 0 \\
+-2 \sum^{N}_{i = 1} (y_i - \lambda) &amp;= 0 \\
+\lambda = \dfrac{\sum^{N}_{i = 1} y_i}{N}
+\end{align*}
+\]</span></p>
+<p>O estimador usando dados amostrais é:</p>
+<p><span class="math display">\[
+\hat{\lambda} = \dfrac{\sum^{n}_{i = 1} y_i}{n}
+\]</span></p>
+<p>Os dois estimadores deram resultados iguais, mas iluminam questões diferentes em relação à média.</p>
+<p>Na regressão, a situação é parecida:</p>
+<p><span class="math display">\[
+f(\beta_0, \beta_1) = \sum^N_{i = 1} (y_i - [\beta_0 + \beta_1 x_i])^2
+\]</span></p>
+<p>Derivamos em relação a <span class="math inline">\(\beta_0\)</span> e em relação a <span class="math inline">\(\beta_1\)</span>:</p>
+<p><span class="math display">\[
+\begin{align*}
+\dfrac{\partial f}{\partial \beta_0} &amp;= -2 \sum (y_i - \beta_0 - \beta_1 x_i) = 0 \\
+\dfrac{\partial f}{\partial \beta_1} &amp;= -2 \sum x_i (y_i - \beta_0 - \beta_1 x_i) = 0
+\end{align*}
+\]</span></p>
+<p>Isso é um sistema de equações que usamos para encontrar os parâmetros.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -522,6 +598,7 @@ f(x) &amp;= f(a) + \dfrac{f^\prime (a)}{1!}(x-a) + \dfrac{f^{\prime \prime} (a)}
 Moore, Will H., and David A. Siegel. 2013. <em>A Mathematics Course for Political and Social Research</em>. Princeton, NJ: Princeton University Press.
 </div>
 </div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -944,8 +1021,8 @@ Moore, Will H., and David A. Siegel. 2013. <em>A Mathematics Course for Politica
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../aulas/bibliography.html" class="pagination-link" aria-label="Bibliografia">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Bibliografia</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../aulas/aula-4_5.html" class="pagination-link" aria-label="Regressão linear múltipla">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressão linear múltipla</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

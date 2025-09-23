@@ -1,0 +1,52 @@
+---
+title: "Regressão linear múltipla"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 12pt
+---
+
+# _Multiple Regression Analysis: Estimation_, [@wooldridge2020intro, chapter 3] {.unnumbered}
+
+> Multiple regression analysis is more amenable to ceteris paribus analysis because it allows us to explicitly control for many other factors that simultaneously affect the dependent variable. This is important for both testing economic theories and for evaluating policy effects when we must rely on nonexperimental data. [@wooldridge2020intro, p. 66]
+
+> In the model with two independent variables, the key assumption about how $u$ is related to $x_1$ and $x_2$ is $\mathbb{E}[u | x_1, x_2] = 0$. The interpretation of condition (3.5) is similar to the interpretation of Assumption SLR.4 for simple regression analysis. It means that, for any values of $x_1$ and $x_2$ in the population, the average of the unobserved factors is equal to zero. [@wooldridge2020intro, p. 68]
+
+> Assumption MLR.3 -- No Perfect Colinearity: in the sample (and therefore in the population), none of the independent variables is constant, and there are no exact linear relationships among the independent variables.
+
+> Assumption MLR.4 -- Zero Conditional Mean: The error $u$ has an expected value of zero given any values of the independent variables. In other words, $\mathbb{E}[u|x_1, x_2, ..., x_k] = 0$.
+
+> Before we show the unbiasedness of the OLS estimators under MLR.1 to MLR.4, a word of caution. Beginning students of econometrics sometimes confuse MLR.3 (No Perfect Colinearity) and MLR.4 (Zero Conditional Mean). Assumption MLR.3 rules out certain relatonshops among the independent or explanatory variables and has nothing to do with the error, $u$. You will know immediately when carrying out OLS estimation whether or not Assumption MLR.3 holds. On the other hand, Assumption MLR.4 -- the much more important of the two -- restricts the relationship between the unobserved factors in $u$ and the explanatory variables. Unfortunately, we will never know for sure whether the average value of the unobserved factors is unrelated to the explanatory variables. But this is the critical assumption. [@wooldridge2020intro, p. 83]
+
+> Because we are approaching the point where we can use multiple regression in serious empirical work, it is useful to remember the meaning of unbiasedness. It is tempting, in examples such as the wage equation in (3.19), to say something like "9.2% is an unbiased estimate of the return to education". As we know, an estimate cannot be unbiased: an estimate is a fixed number, obtained from a particular sample, which usually is not equal to the population parameter. When we say that OLS is unbiased under Assumptions MLR.1 through MLR.4, we mean that the procedure by which the OLS estimates are obtained is unbiased when we view the procedure as being applied across all possible random samples. We hope that we have obtained a sample that gives us an estimate close to the population value, but, unfortunately, this cannot be assured. What is assured is that we have no reason to believe our estimate is more likely to be too big or more likely to be too small. [@wooldridge2020intro, p. 83]
+
+> Assumption MLR.5 -- Homoskedasticity: The error $u$ has the same variance given any value of the explanatory variables. In other words, $\text{Var}(u | x_1, ..., x_k) = \sigma^2$.
+
+> Assumption MLR.5 means that the variance in the error term, $u$, conditional on the explanatory variables, is the same for all combinations of outcomes of the explanatory variables. If this assumption fails, then the model exhibits heteroskedasticity, just as in the two-variable case. [@wooldridge2020intro, p. 88]
+
+> Now suppose that, rather than including an irrelevant variable, we omit a variable that actually belongs in the true (or population) model. This is often called the problem of excluding a relevant variable or underspecifying the model. We claimed in Chapter 2 and earlier in this chapter that this problem generally causes the OLS estimators to be biased. It is time to show this explicitly and, just as importantly, to derive the direction and size of the bias. [@wooldridge2020intro, p. 84]
+
+
+
+# Anotações de aula {.unnumbered}
+
+Viés é uma propriedade do estimador, e não da amostra. Não existe "amostra viesada". Uma "amostra de Botafogo" não é viesada; ela pode ser não-representativa do Rio de Janeiro. Viés é uma diferença sistemática entre a estatística e o parâmetro.
+
+Suponha que temos uma amostra de 5.000 pessoas e calculamos a média de renda do Brasil. No entanto, pode ser que, por azar, Lemann esteja na amostra. Se tirássemos várias amostras, a probabilidade de sortear um bilionário é mínima.
+
+Um coeficiente viesado é um coeficiente que, num conjunto de infinitas amostras possíveis, sistematicamente dá resultados diferentes do parâmetro populacional.
+
+Não é possível avaliar se há viés a partir de uma única amostra. Só conseguimos avaliar isso se temos infinitas amostras, o que evidentemente não é possível; então precisamos avaliar se há viés de outra forma. Como avaliamos se há viés ou não? Lego III é inteiro sobre isso.
+
+Erro ($u$) e resíduo ($\hat{u}$) são coisas diferentes. Erro é parâmetro: o componente estocástico do processo gerador, que está na esfera das coisas populacionais; e resíduo é aquilo que obtemos a posteriori depois de estimada uma regressão com os seus dados, que pode ou não se aproximar do erro.
+
+O que significa controlar por variáveis? Vamos falar de regressões parciais. A ideia é fazer uma regressão em várias etapas que consegue recuperar essa ideia de controle de variáveis. Seja o DGP (_data generating process_)
+
+$$
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + u,
+$$
+
+onde $\text{cor}(X_1, X_2) \neq 0$, então o modelo de regressão simples $y = \hat{\beta}_0 + \hat{\beta}_1 x_1 + \hat{u}$ não gera $\hat{\beta}_1 \overset{p}{\rightarrow} \beta_1$, isto é, $\hat{\beta}_1$ é inconsistente, porque não converge em probabilidade para o valor verdadeiro. Mas se $\text{cor}(X_1, X_2) = 0$, então converge $\hat{\beta}_1 \overset{p}{\rightarrow} \beta_1$ e não há necessidade de controlar por variáveis. No primeiro caso, as diferenças entre valor real e estimativa é viés sistemático; no segundo, é apenas erro aleatório.
+
+Deixar algo de fora é mandar esse "algo" para o erro. Se o que foi deixado de fora era correlacionado com o que está no modelo, você criou endogeneidade, correlação entre $X$ e erro. 
