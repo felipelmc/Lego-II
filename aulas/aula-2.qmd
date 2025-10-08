@@ -61,8 +61,6 @@ The derivative is a **linear operator**, what implies that $\frac{ d(f+g) }{dx} 
 
 # Anotações de aula {.unnumbered}
 
-"Notebook notes", com um aprofundamento em cálculo, [neste link](pdf-aulas/Lego%20II%20-%20Aula%202.pdf). As demais partes da aula trataram brevemente da ideia de _processo gerador de dados_.
-
 ```{r}
 set.seed(42)
 ```
@@ -103,3 +101,5 @@ lm(renda ~ educ)
 Quando a regressão estimada não respeita os pressupostos, os resultados obtidos são absolutamente diversos em relação ao processo que efetivamente gerou o dado. O estimador utilizado para fazer a estimativa aplica uma *assumption* que o seu dado não respeitava.
 
 Na regressão, temos uma espécie de "máquina" para representar o mecanismo das coisas. O que significa essa estimativa, então? Essa resposta está no cálculo; por isso, precisamos falar um pouco dele antes.
+
+"Notebook notes", com um aprofundamento em cálculo, [neste link](pdf-aulas/Lego%20II%20-%20Aula%202.pdf). As demais partes da aula trataram brevemente da ideia de _processo gerador de dados_.

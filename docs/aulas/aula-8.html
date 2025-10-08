@@ -8,7 +8,7 @@
 
 <meta name="author" content="Felipe Lamarca">
 
-<title>10&nbsp; Bibliografia – Lego II</title>
+<title>9&nbsp; Heterocedasticidade pt.&nbsp;2 – Lego II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,26 +21,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -50,8 +31,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../listas/listas.html" rel="next">
-<link href="../aulas/aula-8.html" rel="prev">
+<link href="../aulas/bibliography.html" rel="next">
+<link href="../aulas/aula-7.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -93,6 +74,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -265,7 +275,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-1.html">Aulas</a></li><li class="breadcrumb-item"><a href="../aulas/bibliography.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bibliografia</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-1.html">Aulas</a></li><li class="breadcrumb-item"><a href="../aulas/aula-8.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;2</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -363,13 +373,13 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../aulas/aula-8.html" class="sidebar-item-text sidebar-link">
+  <a href="../aulas/aula-8.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../aulas/bibliography.html" class="sidebar-item-text sidebar-link active">
+  <a href="../aulas/bibliography.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bibliografia</span></span></a>
   </div>
 </li>
@@ -404,9 +414,9 @@ div.csl-indent {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-1.html">Aulas</a></li><li class="breadcrumb-item"><a href="../aulas/bibliography.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bibliografia</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-1.html">Aulas</a></li><li class="breadcrumb-item"><a href="../aulas/aula-8.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;2</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bibliografia</span></h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;2</span></h1>
 </div>
 
 
@@ -429,26 +439,29 @@ div.csl-indent {
 </header>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-king2015robust" class="csl-entry" role="listitem">
-King, Gary, and Margaret E. Roberts. 2015. <span>“How Robust Standard
-Errors Expose Methodological Problems They Do Not Fix, and What to Do
-about It.”</span> <em>Political Analysis</em> 23 (2): 159–79. <a href="https://doi.org/10.1093/pan/mpu015">https://doi.org/10.1093/pan/mpu015</a>.
-</div>
-<div id="ref-moore2013mathematics" class="csl-entry" role="listitem">
-Moore, Will H., and David A. Siegel. 2013. <em>A Mathematics Course for
-Political and Social Research</em>. Princeton, NJ: Princeton University
-Press.
-</div>
-<div id="ref-strang2016introduction" class="csl-entry" role="listitem">
-Strang, Gilbert. 2016. <em>Introduction to Linear Algebra</em>. 5th ed.
-Wellesley, MA: Wellesley-Cambridge Press.
-</div>
-<div id="ref-wooldridge2020intro" class="csl-entry" role="listitem">
-Wooldridge, Jeffrey M. 2020. <em>Introductory Econometrics: A Modern
-Approach</em>. 7th ed. Boston, MA: Cengage Learning.
-</div>
-</div>
+<p>Na aula passada, vimos que podemos estimar a variância de <span class="math inline">\(\beta\)</span> assumindo heterocedasticidade – em particular, assumindo que os elementos da diagonal principal na matriz de variância-covariância podem ser diferentes entre si, mantendo os zeros no entorno. Hoje, vamos relaxar a <em>assumption</em> dos zeros ao redor da diagnonal (permitindo que eles difiram de zero). Em outras palavras, estamos falando de <strong>erros clusterizados</strong>, quando há covariância entre as observações.</p>
+<p>Vamos pensar em um survey quando fazemos amostragem aleatória simples. Assumimos que há uma lista com todas as pessoas que moram no Brasil, e usamos um gerador de números aleatórios para sortear as pessoas a serem contactadas. Nesse caso, podemos assumir que não há correlação entre as observações. Isso é muito difícil de ser feito, mesmo porque uma lista como essa não existe. O que se faz, na prática, é sortear em etapas – sorteamos municípios, depois alguns setores censitários, daí alguns domicílios.</p>
+<p>Nesse contexto, faz sentido que as pessoas sorteadas sejam mais parecidas entre si, porque as observações são correlacionadas espacialmente. Fazer amostragens como essa, portanto, nos faz deixar de pegar pessoas que seriam diferentes.</p>
+<p>A causa da existência de correlação entre as observações é a estratégia de coleta. Trata-se, aliás, de um conhecimento moderno, e os erros clusterizados levam em consideração o fato de que temos menos informação em relação ao <em>approach</em> via amostragem aleatória simples. Tanto os erros homocedásticos quanto os erros heterocedásticos assumem amostragem aleatória simples.</p>
+<p>Os erros clusterizados são:</p>
+<p><span class="math display">\[
+\text{Var}(\hat{\beta}) = (X^T X)^{-1} \left[ \sum_c X^T_c \Omega_c X_c \right] (X^T X)^{-1},
+\]</span></p>
+<p>onde <span class="math inline">\(c\)</span> é um conglomerado, <span class="math inline">\(X\)</span> é a <em>design matrix</em> de todas as amostras e <span class="math inline">\(X_c\)</span> é a <em>design matrix</em> apenas para o conglomerado <span class="math inline">\(c\)</span>. Veja: <span class="math inline">\(X_c\)</span> tem <span class="math inline">\(k\)</span> colunas, tal como <span class="math inline">\(X\)</span>, mas tem apenas <span class="math inline">\(n_c\)</span> linhas (número de observações no conglomerado) ao invés de <span class="math inline">\(n\)</span> linhas.</p>
+<p>Nesse caso, estamos montando um esquema que permite usar a correlação entre os erros dentro de um mesmo conglomerado, mas não entre conglomerados distintos. I.e., saber a renda de alguém em um conglomerado <span class="math inline">\(x\)</span> não me diz nada sobre a renda de alguém no conglomerado <span class="math inline">\(y\)</span>. Isso é apenas uma abstração, é claro, mas uma abstração necessária: se quiséssemos compor uma matriz cheia com todas as correlações entre os erros, precisaríamos de muito mais informações do que temos disponível na prática.</p>
+<p><span class="math inline">\(\hat{\Omega}\)</span> é uma matriz na qual “todo mundo se multiplicou”:</p>
+<p><span class="math display">\[
+\hat{\Omega}_c = X^T_c \left[ \hat{\epsilon}_c \hat{\epsilon}_c^T \right] X_c
+\]</span></p>
+<blockquote class="blockquote">
+<p>Os erros clusterizados têm a ver com a maneira como os dados são coletados. Se os dados são coletados utilizando alguma variável específica como cluster, podemos falar em erros clusterizados. Criar clusters “a posteriori”, no entanto, não faz sentido.</p>
+</blockquote>
+<p>A autocorrelação dos erros é o quanto de informação estamos perdendo ao coletar pessoas num mesmo cluster.</p>
+<p>Podemos incorporar os pesos na regressão (<em>weighted least squares</em> no caso da regressão linear):</p>
+<p><span class="math display">\[
+\hat{\beta}_w = (X^T W X)^{-1} X^T W y,
+\]</span></p>
+<p>onde <span class="math inline">\(W\)</span> é uma matriz diagonal com os pesos de cada observação na diagonal principal. E note: se o banco de dados possui pesos, não tem como fazermos de outro jeito. Em particular, se o banco possui pesos e os erros forem clusterizados, a diferença entre os erros homocedásticos e os erros heterocedásticos poderão ser dramaticamente diferentes.</p>
 
 
 
@@ -867,13 +880,13 @@ Approach</em>. 7th ed. Boston, MA: Cengage Learning.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../aulas/aula-8.html" class="pagination-link" aria-label="Heterocedasticidade pt. 2">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;2</span></span>
+      <a href="../aulas/aula-7.html" class="pagination-link" aria-label="Heterocedasticidade pt. 1">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;1</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../listas/listas.html" class="pagination-link" aria-label="Listas">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Listas</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../aulas/bibliography.html" class="pagination-link" aria-label="Bibliografia">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bibliografia</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

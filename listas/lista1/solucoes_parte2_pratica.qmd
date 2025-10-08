@@ -1,0 +1,272 @@
+---
+title: "Lego 2 -- 1ª Lista de Exercícios"
+subtitle: "Parte 2: Prática"
+date: "10/05/2025"
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+format:
+  pdf:
+    toc: false
+    number-sections: false
+    colorlinks: true
+    fig-pos: H
+    tbl-cap-location: top
+    fig-cap-location: top
+    df-print: kable
+    geometry:
+      - top=25mm
+      - left=20mm
+      - right=20mm
+      - bottom=25mm
+lang: pt
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+Agora, passemos à parte prática da lista, na qual desenvolveremos algumas análises em `R` utilizando um banco de dados com informações a respeito dos municípios brasileiros em 1991, como a expectativa de vida ao nascer, população do município, Índice de Gini etc. De saída, vamos começar importando as bibliotecas necessárias, organizando um setup e lendo o arquivo que será utilizado na análise:
+
+```{r}
+# importa as libs
+library(tidyverse)
+library(stargazer)
+
+# remove o uso de e^
+options(scipen = 999)
+
+# leitura do arquivo
+expectativaVida = read.csv("dados/dados_expectativaVida.csv")
+```
+
+O _output_ do código abaixo é uma série de histogramas, uma para cada variável contínua do banco de dados sob análise:
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# seleciona apenas as variáveis contínuas
+dados_cont <- expectativaVida %>%
+  select(esperanc, populaca, ginitrab, renda_me,
+         escoa2_p, urbano_p, med1000, pop15a_f)
+
+# transforma em formato longo pro facet
+dados_long <- dados_cont %>%
+  pivot_longer(cols = everything(),
+               names_to = "variavel",
+               values_to = "valor")
+
+# plota todos os histogramas em facets
+  ggplot(dados_long, aes(x = valor)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  facet_wrap(~ variavel, scales = "free", ncol = 3) +
+  labs(title = "Histogramas das variáveis contínuas",
+       x = NULL, y = NULL) +
+  theme_bw(base_size = 11)
+```
+
+Há alguns pontos que valem destaque. Em particular, está claro que a grande parte dos municípios brasileiros possui população (`populaca`) bem pequenas; além disso, boa parte também possui um baixo percentual de domicílios com esgotamento sanitário (`escoa2_p`). Vejamos na tabela abaixo algumas estatísticas descritivas para cada variável do banco: 
+
+```{r}
+# tabela com as estatisticas descritivas
+desc = data.frame(
+  variavel = names(expectativaVida),
+  media = sapply(
+    expectativaVida, 
+    function(x) if (is.numeric(x)) mean(x, na.rm = TRUE) else NA_real_
+    ),
+  mediana = sapply(
+    expectativaVida, 
+    function(x) if (is.numeric(x)) median(x, na.rm = TRUE) else NA_real_
+    ),
+  desvio_padrao = sapply(
+    expectativaVida, 
+    function(x) if (is.numeric(x)) sd(x, na.rm = TRUE) else NA_real_
+    ),
+  n_validos = sapply(
+    expectativaVida, 
+    function(x) sum(!is.na(x))
+    ),
+  row.names = NULL
+)
+
+# numero de linhas
+n = nrow(expectativaVida)
+
+# proporcao de linhas validas (acho util, em particular)
+desc$prop_validos = (desc$n_validos / n) * 100
+
+# plot bonitinho da tabela
+stargazer(
+  desc,
+  type = "text",
+  summary = FALSE,
+  title = "Estatísticas Descritivas",
+  digits = 2,
+  rownames = FALSE
+)
+```
+De fato, como já havíamos observado no histograma da variável `populaca`, os municípios têm, em geral, pequena população. Note, por exemplo, que 50% dos municípios possui população menor que 12.407 habitantes; há, no entanto, municípios com alta população, o que se reflete no desvio padrão. A esperança de vida ao nascer, nossa variável resposta para os exercícios subsequentes, tinha média 63.63 naquele ano. A coluna `prop_validos` também nos ajuda a compreender o percentual de observações daquela coluna que possuem valor _missing_. 
+
+Agora vamos rodar as regressões! Para ajustar alguns dos modelos a seguir, vamos implementar uma função de regressão linear _from scratch_ em `R`. A função retorna os coeficientes da regressão (i.e. o vetor $\beta$), os erros-padrão desses coeficientes, seus p-valores, e algumas estatísticas próprias do modelo, como o $\text{R}^2$, a variância dos resíduos e seu desvio-padrão (`RMSE`):
+
+```{r}
+linear_model = function(formula, data = expectativaVida) {
+  
+  dependent_variable = as.character(formula[[2]])
+  
+  X = model.matrix(formula, data = data)
+  y = data[[dependent_variable]]
+  
+  # beta estimado: \hat{\beta} = (X^T X)^{-1} X^T y
+  beta_hat = solve( t(X) %*% X ) %*% t(X) %*% y
+  
+  # y estimado a partir do modelo: \hat{y} = X \hat{\beta} 
+  y_hat = X %*% beta_hat
+  
+  # residuals sao a diferenca entre y 'verdadeiro' e y estimado
+  residuals = y - y_hat
+  
+  n = nrow(X)
+  k = ncol(X)
+  
+  # erro quadratico medio
+  var_residuals = sum(residuals^2) / (n - k)
+  
+  # raiz do erro quadratico medio
+  RMSE = sqrt(var_residuals)
+  
+  # R-squared, ou proporcao da variancia explicada pelo modelo
+  total_variance = var(y)
+  R2 = 1 - var_residuals / total_variance
+  
+  # sob homocedasticidade (ML.5), var(\beta) = \sigma^2 (X^T X)^{-1}
+  # onde a equivalencia de \sigma^2 para a amostra é a variância dos residuos
+  varcov_beta_hat = var_residuals * solve( t(X) %*% X )
+  se_beta_hat = sqrt(diag(varcov_beta_hat))
+  
+  # teste de hipotese para o p-valor 
+  H0 = 0 # teste contra a H0 de o efeito ser nulo
+  t = (beta_hat - H0) / se_beta_hat
+  p_valor = 2 * (1 - pnorm(abs(t)))
+  
+  coefs <- data.frame(
+    Coeficientes = colnames(X),
+    Estimativas = round(as.numeric(beta_hat), 4),
+    Erros_padrao = round(se_beta_hat, 4),
+    t = t,
+    p_valor = p_valor,
+    row.names = NULL,
+    check.names = FALSE
+  )
+  
+  list(
+    coefs = coefs,
+    R2 = R2,
+    RMSE = RMSE,
+    var_residuals = var_residuals
+  )
+}
+```
+
+A primeira regressão ajustada inclui apenas a variável de desigualdade de renda como variável explicativa (`genitrab`) da esperança de vida ao nascer. Vejamos:
+
+```{r}
+print(linear_model(formula = esperanc ~ ginitrab))
+```
+Vale a pena testar se nossos resultados são idênticos aos obtidos quando usamos a função nativa do `R` para ajustar modelos lineares, `lm()`:
+
+```{r}
+summary(
+  lm(
+    formula = esperanc ~ ginitrab, 
+    data = expectativaVida
+    )
+  )
+```
+São idênticos, felizmente! Podemos interpretar nossos resultados com tranquilidade. 
+
+O intercepto é o valor da variável dependente quando as variáveis independentes são zero. Nesse caso, portanto, dizemos que, quando `ginitrab` é zero -- isto é, não há desigualdade de renda do trabalho --, a expectativa de vida ao nascer é 58.5, em média. $\beta_1$, o coeficiente para `ginitrab`, indica que para o aumento em uma unidade de `ginitrab`, a expectativa de vida cresce em 9.95 anos. Esse resultado deveria ser estranho a qualquer cientista: estamos dizendo, em essência, que o aumento da desigualdade leva a um aumento na expectativa de vida. Trata-se, muito provavelmente, de um viés de variável omitida, mas voltaremos a essa questão oportunamente.
+
+Os erros-padrão dos coeficientes são pequenos, o que nos leva a p-valores baixos, muito próximos de zero. Os efeitos, portanto, são estatisticamente significativos. O R-squared é baixo, então a variância explicada pelo modelo é pequena -- ou seja, `ginitrab` sozinho explica pouco da variabilidade da variável resposta. Além disso, o erro médio das previsões é de 5 anos, conforme o valor do RMSE.
+
+Agora, façamos uma pequena modificação na variável explicativa, multiplicando-a por 100.
+
+```{r}
+expectativaVida = expectativaVida %>%
+  mutate(
+    ginitrab100 = ginitrab * 100
+  )
+
+reg1 = lm(formula = esperanc ~ ginitrab100, data = expectativaVida)
+
+summary(reg1)
+```
+A multiplicação não muda nada do ponto de vista estatístico, embora possa facilitar a interpretação dos resultados em certos casos. No caso em que não fizemos a multiplicação por 100, dizíamos que, aumentando `ginitrab` em uma unidade, aumentávamos a expectativa de vida em mais de 9 anos. Mas como `ginitrab` era uma variável contínua entre 0 e 1, estávamos indo de um cenário extremo para outro (de 0 para 1). Quando multiplicamos por 100, podemos dizer que o aumento em uma unidade do Índice de Gini leva a um incremento da expectativa de vida em 0.099 ano. Isso ainda não faz sentido do ponto de vista qualitativo, é claro, mas deixa a interpretação do coeficiente mais informativa.
+
+Agora vamos lidar com o problema do viés de variável omitida. Em particular, vamos incluir a renda domiciliar per capita média como variável explicativa e analisar os coeficientes. Primeiro, vamos ajustar um modelo usando a função que criamos _from scratch_:
+
+```{r}
+reg2_mine = linear_model(formula = esperanc ~ ginitrab100 + renda_me)
+print(reg2_mine)
+```
+Vamos checar se o resultado é o mesmo quando usamos `lm()`:
+
+```{r}
+reg2 = lm(formula = esperanc ~ ginitrab100 + renda_me, data = expectativaVida)
+summary(reg2)
+```
+Tudo certo! Vejamos os resultados, então. Agora, finalmente, temos um coeficiente para `ginitrab100` que faz mais sentido (dessa vez, negativo). Quando aumentamos o Índice de Gini em uma unidade e mantemos o resto fixo, a expectativa de vida ao nascer decresce, em média, em 0.05 ano. Além disso, para uma unidade que incrementamos na renda per capita média do município -- mantendo o resto fixo --, a expectativa de vida ao nascer cresce em 0.02 ano. Todos os coeficientes são estatisticamente significativos e possuem baixo erro-padrão. Além disso, o R-squared é substantivamente melhor do que o observado no primeiro modelo.
+
+A interpretação do coeficiente para `ginitrab100` é diferente porque, antes, não controlávamos por outras variáveis que afetavam tanto a expectativa de vida quanto `ginitrab100`, como a renda per capita média. Nesse caso, havia pelo menos uma variável confundidora, `renda_me`, que enviesava a estimativa do beta para `ginitrab100`. 
+
+Vamos incluir mais variáveis no modelo para verificar como os resultados se comportam. Dessa vez, vamos incluir `log(populaca)`:
+
+```{r}
+reg3 = lm(
+  formula = esperanc ~ ginitrab100 + renda_me + log(populaca), 
+  data = expectativaVida
+  )
+
+summary(reg3)
+```
+Ao incluir `log(populaca)`, as estimativas dos betas para `ginitrab100` e `renda_me` não se alteraram grosseiramente. Os coeficientes são todos estatisticamente significativos, e tivemos um ganho não-ignorável no R-squared. Ao incluir a variável da população na escala logarítmica, estamos comprimindo a escala dessa variável para evitar que o modelo seja muito sensível à alta variância dessa covaríavel. Vimos entre as estatísticas descritivas, por exemplo, que o desvio-padrão da população dos municípios é altíssima.
+
+Para interpretar o coeficiente de `log(populaca)`, precisamos levar em consideração algumas propriedades do logaritmo. Em particular, devemos usar a seguinte aproximação, conforme demonstrado em...
+
+$$
+\log (X_\text{final}) - \log (X_\text{inicial}) = \log \left( \dfrac{X_\text{final}}{X_\text{inicial}} \right) \approx \log \left( \dfrac{X_\text{final} - X_\text{inicial}}{X_\text{inicial}} \right) = \log \left( \dfrac{\Delta X}{X_\text{inicial}} \right),
+$$
+presumindo que $\Delta X$ é suficientemente pequeno. Dito de outro modo, podemos interpretar o coeficiente da variável na escala log em termos de variação percentual. Portanto, a cada uma unidade de `log(populaca)` que aumentamos a população em 1%, controlando pelas demais variáveis, diminuímos a expectativa de vida ao nascer em aproximadamente 0.0099 ano, em média.
+
+Por fim, vamos ajustar um modelo com todas as covariáveis disponíveis:
+
+```{r}
+formula_ = esperanc ~ ginitrab100 + renda_me + log(populaca) + escoa2_p +
+  urbano_p + med1000 + pop15a_f + norte + centrooe + sul + nordeste
+
+reg4 = lm(
+  formula = formula_, 
+  data = expectativaVida
+  )
+
+summary(reg4)
+```
+Os ganhos são claros: temos um R-squared de 0.68, e praticamente todos os coeficientes são estatisticamente significativos, com exceção de `med1000`. O coeficiente da renda per capita média do município perdeu magnitude, um resultado provavelmente resultante da correlação entre essa variável e as demais variáveis do modelo. Quando as demais variáveis não eram incluídas, `renda_me` assumia parte desses efeitos. Algo semelhante ocorreu, inclusive, com a variável `log(populaca)`. 
+
+Observe também as variáveis categóricas do modelo. Note, em particular, que não foi incluída a variável `sudeste`, que de fato sequer existia no banco de dados. Como discutimos na parte conceitual desta lista, a inclusão da variável `sudeste` introduziria colinearidade perfeita no modelo e impediria o cálculo dos coeficientes. A consequência, aqui, é que Sudeste é a categoria de base. Do ponto de vista interpretativo, observamos que o fato de o município fazer parte da região Sul está, em média, associado a maiores expectativas de vida ao nascer do que no Sudeste; observamos o contrário, no entanto, para as regiões Centro-Oeste, Norte e sobretudo Nordeste.
+
+A tabela abaixo sistematiza os resultados de todos os modelos ajustados em uma única tabela para facilitar a visualização dos resultados. Outra alternativa seria apresentar os coeficientes graficamente.
+
+```{r}
+stargazer(reg1, reg2, reg3, reg4,
+          type = "text",
+          title = "Modelos de Regressão Linear ajustados",
+          dep.var.labels = "Esperança de Vida",
+          column.labels = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4"),
+          digits = 3,
+          omit.stat = c("f", "adj.rsq", "ll", "aic"))
+```
+
+Por fim, um último comentário: embora o modelo 4 inclua uma série de covariáveis importantes que nos ajudam a compreender o comportamento da expectativa de vida, ele ainda não tem interpretação causal. De fato, estamos controlando por uma série de variáveis, mas não por todas; certamente há outros fatores que afetam não apenas a variável de interesse, como também as variáveis independentes -- isso inclui, por exemplo, questões associadas à política local, repasses financeiros do governo federal e governos estaduais para os municípios, fatores conjunturais e assim por diante. Isso não altera o fato, no entanto, de que o modelo 4 está mais próximo de oferecer uma explicação causal do que o modelo 1.

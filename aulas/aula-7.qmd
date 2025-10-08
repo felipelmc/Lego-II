@@ -1,5 +1,5 @@
 ---
-title: "Heterocedasticidade"
+title: "Heterocedasticidade pt. 1"
 bibliography: ../bibliography.bib
 author:
   - name: Felipe Lamarca
@@ -205,6 +205,6 @@ resultados_he
 
 Nesse caso os resultados não são muito diferentes. Isso significa, na prática, que a hipótese da homocedasticidade nesse caso não é absurda. Além disso, vale notar que as estimativas não se alteram – o que é esperado, já que a hipótese de homo/heterocedasticidade diz respeito apenas à variância dos erros (e, de fato, os erros padrão são ligeiramente diferentes, o que observamos a partir das diferenças entre os valores $t$).
 
-O interessante da hipótese da heterocedasticidade é que ela pode assumir diversas formas. @king2015robust falam que a existência de heterocedasticidade é um sintoma, e não um problema em si mesmo. Mas um sintoma do quê, exatamente? De que você errou a forma funcional! Dependendo do jeito que traçamos a curva/reta, a variância poderia ser "constante". 
+O interessante da hipótese da heterocedasticidade é que ela pode assumir diversas formas. @king2015robust falam que a existência de heterocedasticidade é um sintoma, e não um problema em si mesmo. Mas um sintoma do quê, exatamente? De que você errou a forma funcional! Dependendo do jeito que traçamos a curva/reta, a variância poderia ser "constante".
 
 Direto ao ponto: @king2015robust argumentam que heterocedasticidade pode ser sintoma de má especificação funcional. Então, quando calculamos erros de Huber-White e eles dão muito distantes dos erros homocedásticos, deveríamos dar um passo atrás e avaliar se estamos acertando a forma funcional.

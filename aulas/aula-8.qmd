@@ -1,0 +1,44 @@
+---
+title: "Heterocedasticidade pt. 2"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 12pt
+---
+
+Na aula passada, vimos que podemos estimar a variância de $\beta$ assumindo heterocedasticidade -- em particular, assumindo que os elementos da diagonal principal na matriz de variância-covariância podem ser diferentes entre si, mantendo os zeros no entorno. Hoje, vamos relaxar a _assumption_ dos zeros ao redor da diagnonal (permitindo que eles difiram de zero). Em outras palavras, estamos falando de **erros clusterizados**, quando há covariância entre as observações.
+
+Vamos pensar em um survey quando fazemos amostragem aleatória simples. Assumimos que há uma lista com todas as pessoas que moram no Brasil, e usamos um gerador de números aleatórios para sortear as pessoas a serem contactadas. Nesse caso, podemos assumir que não há correlação entre as observações. Isso é muito difícil de ser feito, mesmo porque uma lista como essa não existe. O que se faz, na prática, é sortear em etapas -- sorteamos municípios, depois alguns setores censitários, daí alguns domicílios. 
+
+Nesse contexto, faz sentido que as pessoas sorteadas sejam mais parecidas entre si, porque as observações são correlacionadas espacialmente. Fazer amostragens como essa, portanto, nos faz deixar de pegar pessoas que seriam diferentes.
+
+A causa da existência de correlação entre as observações é a estratégia de coleta. Trata-se, aliás, de um conhecimento moderno, e os erros clusterizados levam em consideração o fato de que temos menos informação em relação ao _approach_ via amostragem aleatória simples. Tanto os erros homocedásticos quanto os erros heterocedásticos assumem amostragem aleatória simples.
+
+Os erros clusterizados são:
+
+$$
+\text{Var}(\hat{\beta}) = (X^T X)^{-1} \left[ \sum_c X^T_c \Omega_c X_c \right] (X^T X)^{-1},
+$$
+
+onde $c$ é um conglomerado, $X$ é a _design matrix_ de todas as amostras e $X_c$ é a _design matrix_ apenas para o conglomerado $c$. Veja: $X_c$ tem $k$ colunas, tal como $X$, mas tem apenas $n_c$ linhas (número de observações no conglomerado) ao invés de $n$ linhas.
+
+Nesse caso, estamos montando um esquema que permite usar a correlação entre os erros dentro de um mesmo conglomerado, mas não entre conglomerados distintos. I.e., saber a renda de alguém em um conglomerado $x$ não me diz nada sobre a renda de alguém no conglomerado $y$. Isso é apenas uma abstração, é claro, mas uma abstração necessária: se quiséssemos compor uma matriz cheia com todas as correlações entre os erros, precisaríamos de muito mais informações do que temos disponível na prática.
+
+$\hat{\Omega}$ é uma matriz na qual "todo mundo se multiplicou":
+
+$$
+\hat{\Omega}_c = X^T_c \left[ \hat{\epsilon}_c \hat{\epsilon}_c^T \right] X_c
+$$
+
+> Os erros clusterizados têm a ver com a maneira como os dados são coletados. Se os dados são coletados utilizando alguma variável específica como cluster, podemos falar em erros clusterizados. Criar clusters "a posteriori", no entanto, não faz sentido.
+
+A autocorrelação dos erros é o quanto de informação estamos perdendo ao coletar pessoas num mesmo cluster.
+
+Podemos incorporar os pesos na regressão (_weighted least squares_ no caso da regressão linear):
+
+$$
+\hat{\beta}_w = (X^T W X)^{-1} X^T W y,
+$$
+
+onde $W$ é uma matriz diagonal com os pesos de cada observação na diagonal principal. E note: se o banco de dados possui pesos, não tem como fazermos de outro jeito. Em particular, se o banco possui pesos e os erros forem clusterizados, a diferença entre os erros homocedásticos e os erros heterocedásticos poderão ser dramaticamente diferentes.

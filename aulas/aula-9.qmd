@@ -1,0 +1,13 @@
+---
+title: "Multicolinearidade"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 12pt
+---
+
+Multicolinearidade decorre do fato de que as variáveis explicativas estão correlacionadas entre si. Isso dificulta um cálculo preciso dos seus efeitos e, portanto, os erros-padrão serão maiores[^1]. É o problema intuitivo: se $x_1$ e $x_2$ afetam $y$ ao mesmo tempo, e $x_1$ e $x_2$ são correlacionados (por exemplo, renda e escolaridade para prever mortalidade), o que exatamente é efeito de $x_1$ e o que é efeito de $x_2$?
+
+
+[^1]: Isso é diferente de ferir o ML.4.

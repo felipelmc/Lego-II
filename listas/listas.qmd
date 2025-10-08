@@ -1,0 +1,14 @@
+---
+title: "Listas"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 12pt
+---
+
+`Nivelamento` (100/100)  
+📝 [[enunciado]](../listas/nivelamento/enunciados.pdf) · ✅ [[soluções]](../listas/nivelamento/solucoes.pdf)
+
+`Lista 1` (-/100)  
+📝 [[enunciado]](../listas/lista1/enunciado.pdf) · ✅ [[soluções]](../listas/lista1/solucoes.pdf)
