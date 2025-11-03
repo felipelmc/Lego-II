@@ -1,0 +1,482 @@
+---
+title: "Lego 2 -- 2ª Lista de Exercícios"
+date: "10/27/2025"
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+format:
+  pdf:
+    toc: false
+    number-sections: false
+    colorlinks: true
+    fig-pos: H
+    tbl-cap-location: top
+    fig-cap-location: top
+    df-print: kable
+    geometry:
+      - top=25mm
+      - left=20mm
+      - right=20mm
+      - bottom=25mm
+header-includes:
+  - "\\usepackage{amsmath,amssymb}"
+  - "\\usepackage{cancel}"
+  - "\\usepackage{tabularray}"
+  # - "\\UseTblrLibrary{rotating}"
+execute:
+  echo: true
+  warning: false
+  message: false
+bibliography: ../../bibliography.bib
+---
+
+# Parte 1: Conceitual
+
+## Questão 1: algumas explicações curtas
+
+a. _O conceito de homocedasticidade_. Trata-se da ideia de que a variabilidade das observações em diferentes grupos é constante -- i.e., a variância é idêntica para todas as observações.
+
+b. _O conceito de heterocedasticidade_. Ao contrário da homocedasticidade, a heterocedasticidade indica que a variabilidade das observações em diferentes grupos é distinta -- i.e., a variância não é constante.
+
+c. _A ideia de que pode haver correlação entre os erros das observações_. É a noção de que os erros das observações podem estar relacionados entre si. De fato, quando utilizamos, por exemplo, amostragem por conglomerados, ou quando entrevistamos indivíduos dentro de um mesmo domicílio, é intuitivo imaginar que as respostas estejam correlacionadas, assim como os erros. Parte da variação, nesse caso, tem a ver com fatores não observados, como características específicas do conglomerado ou do domicílio.
+
+d. _Pressuposto de Homocedasticidade (ML.5)_. Trata-se, no contexto de regressão, do pressuposto de que a matriz de variância-covariância dos erros é composta tão somente de uma diagonal com valores (variâncias) constantes. Embora não seja um pressuposto necessário (e às vezes sequer desejável), ele facilita as contas, conforme veremos no exercício 4.
+
+e. _Pressuposto de Normalidade dos Erros (ML.6)_. Trata-se da suposição de que os erros seguem uma distribuição normal com média zero e variância constante (isto é, inclui a suposição de homocedasticidade). É uma suposição auxiliar, sobretudo quando precisamos fazer inferências em amostras pequenas e não há garantia, pelo Teorema Central do Limite, de que $\hat{\beta}$ segue distribuição normal.
+
+f. _Erros robustos à heterocedasticidade, de Huber-White_. É uma flexibilização do ML.5. A hipótese nesse caso é que a matriz de variância-covariância dos erros é uma diagonal de valores potencialmente distintos entre si e com zeros ao redor. Mais especificamente, cada observação pode ter um desvio-padrão arbitrário qualquer -- e, nesse caso, o próprio resíduo ao quadrado é uma boa aproximação.
+
+g. _Erros clusterizados_. Semelhante ao que vimos em 1c, em que há covariância entre as observações. Suponha, novamente, uma amostragem por conglomerados. Nesse caso, há correlação espacial entre as observações e, portanto, os erros estão correlacionados.
+
+h. _A diferença entre colinearidade perfeita e multicolinearidade._ Colinearidade perfeita, de saída, impossibilita o ajuste de modelos de regressão, porque torna a matriz $X$ singular. Em particular, isso ocorre quando uma coluna da matriz $X$ é idêntica a outra coluna, ou é uma combinação linear de uma ou mais colunas. A multicolinearidade, por sua vez, significa apenas que duas ou mais variáveis explicativas estão correlacionadas, mas não de forma perfeita.
+
+i. _Fator de inflação de variância (ou Variance Inflation Factor -- VIF)_. Quando as variáveis explicativas estão correlacionadas entre si, fica mais difícil delimitar o efeito de cada covariável e, portanto, os erros-padrão são maiores. O VIF mede quanto a variância de um coeficiente de regressão é inflada devido à multicolinearidade.
+
+
+## Questão 2: Sobre o uso de diferentes tipos de estimadores de variância das estimativas da regressão
+
+a. _Quando devemos usar erros homocedásticos (ou "clássicos")?_ Devemos utilizar erros homocedásticos quando a variância dos erros em diferentes níveis da variável resposta é constante.
+
+b. _Quando devemos usar erros heterocedásticos (Huber-White)?_ Usamos erros heterocedásticos quando a variância dos erros em diferentes níveis da variável resposta é sistematicamente distinta.
+
+c. _Por que, às vezes, a diferença entre eles e os erros clássicos podem ser um indicativo de má especificação funcional?_ De fato, conforme @king2015robust, a diferença entre os dois tipos de erro pode estar associada, na verdade, a um erro na forma funcional -- dependendo da maneira como traçamos a curva, reta ou qualquer forma que seja, a variância poderia ser constante. Então, quando calculamos os erros de Huber-White e os homocedásticos e a diferença é muito significativa, provavelmente deveríamos dar um passo através e avaliar se estamos acertando a forma funcional.
+
+d. _Quando devemos usar erros clusterizados?_ Os erros clusterizados devem ser considerados quando há correlação entre as observações. Em particular, quando estamos tratando de _survey_, erros clusterizados normalmente são importantes quando a amostragem não segue o paradigma SRS (_Simple Random Sampling_) -- isto é, quase sempre --, porque o próprio processo de amostragem introduz correlação espacial entre as observações (por exemplo, quando entrevistamos os indivíduos de um mesmo domicílio ou conglomerado).
+
+
+## Questão 3: derivando a matriz de variância-covariância de
+
+Nesta questão, vamos derivar a fórmula mais geral da matriz de variância-covariância de $\hat{\beta}$, ou seja,
+
+$$
+\operatorname{Var}(\hat{\beta}) = (X^{{\top}} X)^{-1} X^{{\top}} \Omega X (X^{{\top}} X)^{-1}.
+$$
+
+De saída, precisamos tomar a fórmula do estimador de $\hat{\beta}$, qual seja:
+
+$$
+\hat{\beta} = (X^{\top} X)^{-1} X^{\top}y.
+$$
+
+Sabemos que $y = X\beta + \vec{\epsilon}$. Substituindo na equação anterior, chegamos ao seguinte:
+
+$$
+\begin{aligned}
+\hat{\beta} &= (X^{\top} X)^{-1} X^{\top} (X \beta + \vec{\epsilon}) \\
+&= (X^{\top} X)^{-1} X^{\top} X \beta + (X^{\top} X)^{-1} X^{\top}\vec{\epsilon}.
+\end{aligned}
+$$
+
+Apliquemos o operador de variância condicional dado $X$, isto é, dado o conjunto de dados efetivamente observado. Com isso, teremos:
+
+$$
+\operatorname{Var}(\hat{\beta}|X) = \operatorname{Var}((X^{\top} X)^{-1} X^{\top} X \beta | X) + \operatorname{Var}((X^{\top} X)^{-1} X^{\top}\vec{\epsilon} | X).
+$$
+
+Como $\beta$ é fixo, não aleatório -- afinal, representa os coeficientes verdadeiros na população --, a primeira variância é zero. Portanto, nos limitamos somente ao segundo termo, que pode ser simplificado mantendo o operador da variância aplicado apenas aos erros. Sendo $\Omega = \operatorname{Var}(\vec{\epsilon}|X)$, teremos:
+
+$$
+\begin{aligned}
+\operatorname{Var}(\hat{\beta}|X) &= \cancel{\operatorname{Var}((X^{\top} X)^{-1} X^{\top} X \beta | X} + \operatorname{Var}((X^{\top} X)^{-1} X^{\top}\vec{\epsilon} | X) \\
+&= (X^{\top} X)^{-1} X^{\top} \operatorname{Var}(\vec{\epsilon} | X) ((X^{\top} X)^{-1} X^{\top})^{\top} \\
+&= (X^{\top} X)^{-1} X^{\top} \operatorname{Var}(\vec{\epsilon} | X) X (X^{\top} X)^{-1} \\
+&= (X^{\top} X)^{-1} X^{\top} \Omega X (X^{\top} X)^{-1}.
+\end{aligned}
+$$
+
+Com isso, chegamos à expressão desejada.
+
+## Questão 4: a matriz de variância-covariância de $\hat{\beta}$ sob homocedasticidade
+
+Sob homocedasticidade, a variância dos erros é constante. Matematicamente, isso significa que $\Omega = \sigma^2 I$, ou seja, a variância dos erros é a matriz identidade multiplicada por um único $\sigma^2$. Isso simplifica bastante as contas; veja:
+
+$$
+\begin{aligned}
+\operatorname{Var}(\hat{\beta}) 
+&= (X^{\top} X)^{-1} X^{\top} \Omega X (X^{\top} X)^{-1} \\
+&= (X^{\top} X)^{-1} X^{\top} (\sigma^2 I) X (X^{\top} X)^{-1} \\
+&= \sigma^2 (X^{\top} X)^{-1} X^{\top} X (X^{\top} X)^{-1} \\
+&= \sigma^2 \cancel{(X^{\top} X)^{-1} X^{\top} X} (X^{\top} X)^{-1} \\
+&= \sigma^2 (X^{\top} X)^{-1}.
+\end{aligned}
+$$
+
+# Parte 2: Prática
+
+Na parte prática da lista, utilizaremos os dados do BH Area Survey, Pesquisa sobre a Região Metropolitana de Belo Horizonte, que foi a campo em 2002, sob coordenação da importantíssima socióloga Neuma Aguiar, então docente do Departamento de Sociologia da UFRM. Trata-se de um survey que utiliza amostragem probabilística em várias etapas e, portanto, é complexa.
+
+Vamos começar importando as bibliotecas necessárias e os dados do survey. Além disso, vamos aplicar algumas manipulações disponibilizadas no próprio enunciado da lista.
+
+```{r}
+# importa as libs
+library(tidyverse)
+library(stargazer)
+library(foreign)
+library(fixest)
+library(gt)
+library(modelsummary)
+library(survey)
+
+# remove o uso de e^
+options(scipen = 999)
+options(modelsummary_factory_latex = "gt")
+
+# leitura do banco de dados
+p <- read.spss(file = "dados/BH Survey 2002/PRMBH_2002_DadosRecodificados.sav",
+               use.value.labels = T,
+               to.data.frame = T,
+               reencode ="latin1")
+
+# manipulacoes disponibilizadas no enunciado
+p <- p %>%
+  mutate(
+    idade = as.numeric(E2),
+    mulher = ifelse(E1 %in% "Mulher", 1, 0),
+    brancos = case_when(
+      RC4A %in% "Branco (a)" ~ 1,
+      RC4A %in% "Amarelo (a)" ~ 1,
+      RC4B %in% "Branco (a)" ~ 1,
+      RC4B %in% "Amarelo (a)" ~ 1,
+      RC4B %in% "Claro(a)" ~ 1,
+      TRUE ~ 0),
+    anosEstudo = ifelse(ANOSEST %in% "17 anos ou mais", "17", as.character(ANOSEST)),
+    anosEstudo = as.numeric(anosEstudo),
+    religiao = case_when(
+      R4 %in% "Católico (a) não praticante" ~ "1. Catolico nao-praticante",
+      R4 %in% "Católico (a) praticante" ~ "2. Catolico praticante",
+      R4 %in% "Evangélico(a)" ~ "3. Evangelico",
+      R4 %in% "Não tem religião?" ~ "5. Sem Religiao",
+      TRUE ~ "4. Outra"
+      ),
+    classes_rendaDom = case_when(
+      RENDA %in% "Até 1 salário mínimo (SM) (até R$ 200,00)" ~ "1. Até 1SM",
+      RENDA %in% "Mais de 1 a 3 SM" ~ "2. 1 a 3 SM",
+      RENDA %in% "Mais de 3 a 5 SM" ~ "3. 3 a 5 SM",
+      RENDA %in% "Mais de 5 a 10 SM" ~ "4. 5 a 10 SM",
+      RENDA %in% "Mais de 10 a 20 SM" ~ "5. 10 a 20 SM",
+      RENDA %in% "Mais de 20 SM" ~ "6. 20+ SM",
+      TRUE ~ NA_character_
+      ),
+    aborto = V9,
+    aborto = ifelse(V9 %in% "Nunca aceitável", 1, aborto),
+    aborto = ifelse(V9 %in% "Sempre aceitável", 10, aborto),
+    aborto = ifelse(V9 %in% c("NS", "NR", "NA"), NA_character_, aborto),
+    aborto = as.numeric(aborto)
+    ) %>%
+  select(
+    idade, 
+    mulher, 
+    brancos, 
+    anosEstudo, 
+    religiao, 
+    classes_rendaDom, 
+    aborto,
+    PESOFIM,
+    F3
+    )
+
+```
+
+As manipulações fazem o seguinte:
+
+- A idade está medida em anos.
+- "Mulher" é uma variável _dummy_ indicadora do sexo feminino.
+- "Brancos" é uma variável _dummy_ indicadora da raça autodeclarada, "Branca" ou "Amarela" são 1.
+- anosEstudo é a variável de anos de escolarização formal.
+- A variável de religião agrupa categorias pequenas, com poucos casos.
+- A renda domiciliar total está medida de forma categórica, em classes/faixas.
+
+O propósito do exercício será o de tentar compreender a posição individual quanto ao tema do aborto. Utilizaremos a variável `V9` (aqui recodificada como `aborto`), que indica o nível de aceitação do indivíduo em relação ao aborto numa escala discreta de 1 a 10, na qual 1 significa "Nunca aceitável" e 10 indica "Sempre aceitável". Em particular, nosso objetivo é entender *o que determina patamares maiores de aceitação.*
+
+## Questão 5: Estatísticas descritivas
+
+De saída, vamos apresentar estatísticas descritivas univariadas de todas as variáveis a serem utilizadas. Em particular, utilizaremos o pacote `survey` para incorporar o desenho amostral e facilitar o cálculo das estatisticas descritivas utilizando pesos amostrais.
+
+```{r}
+
+# cria o desenho amostral
+desenho <- svydesign(ids = ~1, weights = ~PESOFIM, data = p)
+
+desc <- lapply(c("anosEstudo", "idade", "aborto"), function(v) {
+  f <- as.formula(paste0("~", v))
+  media <- svymean(f, desenho, na.rm = TRUE)
+  mediana <- svyquantile(f, desenho, quantiles = 0.5, na.rm = TRUE, ci = FALSE)
+  var_ <- svyvar(f, desenho, na.rm = TRUE)
+  dp <- sqrt(as.numeric(var_))
+  n_validos <- sum(!is.na(p[[v]]))
+  
+  data.frame(
+    variavel = v,
+    media = as.numeric(media),
+    mediana = as.numeric(mediana),
+    desvio_padrao = dp,
+    n_validos = n_validos,
+    prop_validos = (n_validos / nrow(p)) * 100
+  )
+}) %>% bind_rows()
+
+# frequencias das variaveis categoricas
+
+# Mulheres
+tab_mulher <- svytable(~ factor(mulher, exclude = NULL), desenho)
+mulher_freq <- as.data.frame(tab_mulher)
+names(mulher_freq) <- c("categoria", "n")
+mulher_freq <- mulher_freq %>%
+  mutate(prop = n / sum(n)) %>%
+  arrange(desc(n), categoria)
+
+# Brancos
+tab_brancos <- svytable(~ factor(brancos, exclude = NULL), desenho)
+brancos_freq <- as.data.frame(tab_brancos)
+names(brancos_freq) <- c("categoria", "n")
+brancos_freq <- brancos_freq %>%
+  mutate(prop = n / sum(n)) %>%
+  arrange(desc(n), categoria)
+
+# Religião
+tab_religiao <- svytable(~ factor(religiao, exclude = NULL), desenho)
+religiao_freq <- as.data.frame(tab_religiao)
+names(religiao_freq) <- c("categoria", "n")
+religiao_freq <- religiao_freq %>%
+  mutate(prop = n / sum(n)) %>%
+  arrange(desc(n), categoria)
+
+# Classes de renda do domicílio
+tab_renda <- svytable(~ factor(classes_rendaDom, exclude = NULL), desenho)
+classes_rendaDom_freq <- as.data.frame(tab_renda)
+names(classes_rendaDom_freq) <- c("categoria", "n")
+classes_rendaDom_freq <- classes_rendaDom_freq %>%
+  mutate(prop = n / sum(n)) %>%
+  arrange(desc(n), categoria)
+
+```
+
+
+```{r}
+#| label: tbl-metrics
+#| tbl-cap: "Estatísticas descritivas das variáveis contínuas"
+
+desc %>%
+  gt() %>%
+  cols_label(
+    variavel = "Variável", media = "Média", mediana = "Mediana",
+    desvio_padrao = "Desvio-padrão", n_validos = "N válidos", prop_validos = "% válidos"
+  )
+
+```
+
+
+```{r}
+#| label: tbl-metrics-cont
+#| tbl-cap: "Estatísticas descritivas das variáveis categóricas"
+#| tbl-subcap: ["Sexo", "Cor / raça", "Religião", "Faixas de renda domiciliar"]
+#| layout-ncol: 2
+#| tbl-spacing: 3em
+#| echo: false
+
+mulher_freq %>%
+  gt() %>%
+  fmt_percent(columns = prop, decimals = 1) %>%
+  cols_label(categoria = "Categoria", n = "n", prop = "%") %>%
+  tab_options(table.width = pct(90))
+
+brancos_freq %>%
+  gt() %>%
+  fmt_percent(columns = prop, decimals = 1) %>%
+  cols_label(categoria = "Categoria", n = "n", prop = "%") %>%
+  tab_options(table.width = pct(90))
+
+religiao_freq %>%
+  gt() %>%
+  fmt_percent(columns = prop, decimals = 1) %>%
+  cols_label(categoria = "Categoria", n = "n", prop = "%") %>%
+  tab_options(table.width = pct(90))
+
+classes_rendaDom_freq %>%
+  gt() %>%
+  fmt_percent(columns = prop, decimals = 1) %>%
+  cols_label(categoria = "Categoria", n = "n", prop = "%") %>%
+  tab_options(table.width = pct(90))
+
+```
+
+Por ora não precisamos de recodificações adicionais, e nenhuma variável requer transformação logarítmica. Além disso, há algumas informações relevantes: em primeiro lugar, a aceitação do aborto era baixa, pelo menos no período em que os dados foram coletados. Além disso, a proporção de religiosos é alta: aproximadamente 65% da população era católica praticante ou evangélica; e a idade média era de 23 anos.
+
+## Questão 6: Ajuste de alguns modelos
+
+Agora, ajustaremos algumas regressões múltiplas para modelar a aceitação do aborto, controlando pelas covariáveis já indicadas nas estatísticas descritivas. Mais especificamente, ajusto três modelos, cada um assumindo diferentes hipóteses sobre a distribuição dos erros para o cálculo da variância dos $\hat{\beta}$'s: homocedasticidade, heterocedasticidade e erros clusterizados. Os resultados estão indicados na @tbl-varcov-beta.
+
+```{r}
+#| label: tbl-varcov-beta
+#| tbl-cap: "Modelos por abordagem para calcular a variância dos betas"
+
+# remove os NANs
+p_flt <- p %>% drop_na()
+
+# formula da regressao
+formula <- aborto ~ idade + mulher + brancos + anosEstudo + religiao + 
+  classes_rendaDom
+
+# modelo base para os betas (de fato, o beta nao muda -- os erros sim!)
+mod_homocedastico <- feols(formula, data = p_flt, weights = ~PESOFIM, vcov = "iid")
+mod_heterocedastico <- feols(formula, data = p_flt, weights = ~PESOFIM, vcov = "hetero")
+mod_clusterizado <- feols(formula, data = p_flt, weights = ~PESOFIM, vcov = cluster ~ F3)
+
+tab <- modelsummary(
+  list(
+    "Homocedástico" = mod_homocedastico,
+    "Heterocedástico" = mod_heterocedastico,
+    "Erros clusterizados" = mod_clusterizado
+  ),
+  stars = TRUE,
+  fmt = 3,    
+  output = "gt"
+)
+
+tab
+
+```
+
+Neste caso, é razoável afirmar que o erro-padrão mais adequado é aquele calculado *sob a hipótese de erros clusterizados*. De fato, quando consideramos o processo de amostragem complexa, em etapas, há correlação entre as observações -- e esta hipótese lida com isso da forma mais adequada.
+
+## Questão 7: Uma interpretação do modelo com erros clusterizados
+
+Os resultados indicam, de saída, que idade não apresenta um efeito estatisticamente significativo. Aliás, trata-se de uma variável cujo efeito provavelmente se confunde, pelo menos em parte, com os anos de estudo. O sexo, por sua vez, também não possui efeito estatisticamente significativo -- com exceção do caso em que impus a hipótese de homocedasticidade aos erros, o que, de fato, subestima a variância do $\beta$.
+
+Anos de estudo têm associação forte e estatisticamente significativa com a aceitação do aborto. Em particular, quando aumentamos os anos de estudo em uma unidade, a aceitação do aborto aumenta em 0.142, tudo mais constante. Ao mesmo tempo, a religião também parece ter um efeito negativo sobre a aceitação do aborto -- um resultado esperado, naturalmente. Em relação a um católico não-praticante, um evangélico tem, em média e mantido os demais fatores constantes, 0.832 pontos a menos na aceitação do aborto.
+
+## Questão 8: Outra especificação funcional
+
+Já observamos que a religião é estatisticamente significativa no caso do grupo dos evangélicos. Agora, vamos verificar o que faz mais sentido: manter uma variável com todas as categorias de religião, ou criar uma variável binária indicando se o indivíduo é evangélico ou não.
+
+Primeiro, vamos criar variáveis binárias para cada categoria de religião. Incluiremos todas elas no modelo 1 -- com exceção de "católicos não-praticantes", que será nossa categoria de referência, algo necessário para garantir a invertibilidade de $X^\top X$. Depois, no modelo 2, incluo apenas a variável binária de evangélicos. Os resultados estão indicados na @tbl-bin-religiao.
+
+```{r}
+#| label: tbl-bin-religiao
+#| tbl-cap: "Modelos com diferentes covariáveis de religião"
+
+# binarias de cada religiao
+p_flt <- p_flt %>%
+  mutate(
+    catolico_nao_praticante = as.integer(religiao == "1. Catolico nao-praticante"),
+    catolico_praticante = as.integer(religiao == "2. Catolico praticante"),
+    evangelico = as.integer(religiao == "3. Evangelico"),
+    outra_religiao = as.integer(religiao == "4. Outra"),
+    sem_religiao = as.integer(religiao == "5. Sem Religiao")
+    )
+
+# modelo 1 -- religiao com catolico nao praticante como referencia
+formula1 <- aborto ~ idade + mulher + brancos + anosEstudo + classes_rendaDom +
+  catolico_praticante + evangelico + outra_religiao + sem_religiao
+
+mod1 <- feols(formula1, data = p_flt, weights = ~PESOFIM, vcov = ~F3)
+
+# modelo 2 -- apenas evangelico
+formula2 <- aborto ~ idade + mulher + brancos + anosEstudo + classes_rendaDom +
+  evangelico
+
+mod2 <- feols(formula2, data = p_flt, weights = ~PESOFIM, vcov = ~F3)
+
+# tabelinha com gt
+tab <- modelsummary(
+  list("Todas as religiões" = mod1, "Evangélicos" = mod2),
+  stars = TRUE,
+  fmt = 3,
+  output = "gt"
+)
+
+tab
+
+```
+Na prática, não há grandes diferenças entre os dois modelos do ponto de vista das medidas de ajuste. No entanto, o modelo 2 parece ter estimado com mais confiança (i.e., um menor desvio-padrão, comparativamente) o efeito de ser evangélico sobre a aceitação do aborto; além disso, o efeito de cada uma das demais religiões não é estatisticamente significativo. Por esses motivos, seguiremos com o modelo que inclui apenas a variável binária que indica se o indivíduo é ou não evangélico.
+
+## Questão 9: Especificações funcionais com polinômios
+
+Agora, vamos verificar se há necessidade de incluirmos algum termo polinomial associado à idade. Vejamos a @fig-media-aceitacao-aborto, que mostra a distribuição da média de aceitação do aborto por idade.
+
+```{r}
+#| label: fig-media-aceitacao-aborto
+#| fig-cap: "Média por idade com suavização não-paramétrica"
+
+# Média por idade
+mean_by_age <- p_flt %>%
+  group_by(idade) %>%
+  summarise(media_aborto = mean(aborto, na.rm = TRUE), .groups = "drop")
+
+ggplot() +
+  geom_point(data = mean_by_age,
+             aes(x = idade, y = media_aborto),
+             size = 1.8, alpha = 0.9) +
+  geom_smooth(data = p_flt,
+              aes(x = idade, y = aborto),
+              se = TRUE) +
+  labs(
+    x = "Idade",
+    y = "Média da aceitação do aborto",
+  ) +
+  theme_bw(base_size = 12)
+
+
+```
+De fato, parece que o efeito da idade não é exatamente linear. Com isso em mente, vamos ajustar 3 modelos, sendo o primeiro sem termo polinômial, e os outros dois incluindo um termo quadrático e um cúbico da idade, respectivamente. Os resultados estão discriminados na @tbl-polinomio-idade.
+
+```{r}
+#| label: tbl-polinomio-idade
+#| tbl-cap: "Modelos com termos polinomiais da idade"
+
+# modelo "normal"
+fml_lin <- aborto ~ idade + mulher + brancos + anosEstudo + classes_rendaDom + 
+  evangelico
+
+# quadratico
+fml_quad <- aborto ~ idade + I(idade^2) + mulher + brancos + anosEstudo + 
+  classes_rendaDom + evangelico
+
+# quadratico + cubico
+fml_cub <- aborto ~ idade + I(idade^2) + I(idade^3) + mulher + brancos + 
+  anosEstudo + classes_rendaDom + evangelico
+
+# ajuste dos modelos
+m_lin  <- feols(fml_lin,  data = p_flt, weights = ~PESOFIM, vcov = ~F3)
+m_quad <- feols(fml_quad, data = p_flt, weights = ~PESOFIM, vcov = ~F3)
+m_cub  <- feols(fml_cub,  data = p_flt, weights = ~PESOFIM, vcov = ~F3)
+
+# apresenta a tabela
+tab <- modelsummary(
+  list("Linear" = m_lin, "Quadrático" = m_quad, "Cúbico" = m_cub),
+  stars = TRUE,
+  fmt = 3,
+  output = "gt"
+)
+
+tab 
+
+```
+
+É esperado, naturalmente, que os termos polinomiais não sejam estatisticamente significativos -- mesmo porque eles são altamente correlacionados com o termo de idade simples. De todo modo, a inclusão dos termos polinomiais adiciona uma complexidade ao modelo que, na prática, não parece se justificar. Ao contrário: não há ganhos significativos, por exemplo, em $R^2$ ou RMSE, enquanto há um incremento (marginal) no AIC e no BIC. Por isso, o modelo que não inclui termos polinomiais parece o mais adequado.
+
+# Referências
+
+::: {#refs}
+:::
+

@@ -12,3 +12,6 @@ fontsize: 12pt
 
 `Lista 1` (-/100)  
 📝 [[enunciado]](../listas/lista1/enunciado.pdf) · ✅ [[soluções]](../listas/lista1/solucoes.pdf)
+
+`Lista 2` (-/100)  
+📝 [[enunciado]](../listas/lista2/enunciado.pdf) · ✅ [[soluções]](../listas/lista2/solucoes.pdf)

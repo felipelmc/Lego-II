@@ -1,0 +1,90 @@
+---
+title: "Forma funcional, uso de logs, interações"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 12pt
+---
+
+# @huntingtonklein2021linear
+
+> The standard approximation of a natural logarithm in statistical analysis interprets a linear change of $p$ in $\ln (X)$ as a $(1 + p)$ proportional change in $X$, which is only accurate for small values of $p$. I suggest base-$(1+p)$ logarithms, where $p$ is chosen ahead of time. A one-unit change in $\log_{1+p} (X)$ is exactly equivalent to a $(1+p)$ proportional change in $X$. This avoids an approximation applied too broadly, makes exact interpretation easier and less error-prone, improves approximation quality when approximations are used, makes the change of interest a one-log-unit change like other regression variables, and reduces error from the use of $\log (1 + X)$. [@huntingtonklein2021linear, Abstract]
+
+> All three problems can be solved by simply changing the base of the logarithm. Selecting a percentage increase $p \times 100 %$ ahead of time and using $\log_{1+p} (X)$ in place of $\ln (X)$ means that a one-unit change in $\log_{1+p} (X)$ is exactly equivalent to a $p \times 100\%$ increase in $X$.
+
+# Anotações de aula
+
+## Uso de $\log (.)$
+
+1. `lin-lin`: $y = \beta_0 + \beta_1 x + \epsilon$
+
+2. `lin-log`: $y = \beta_0 + \beta_1 \log (x) + \epsilon$. Como "regra de bolso", podemos dizer que o log transforma a leitura da variável em "variação percentual". Assim, lemos: o aumento de 1% em X está associado ao aumento de $\frac{\beta_1}{100}$ unidades de $y$.
+
+3. `log-lin`: $\log (y) = \beta_0 + \beta_1 x + \epsilon$. Nesse caso, o aumento de uma unidade de $X$ (na métrica original) está associado a um aumento de ($\beta_1 \times 100$)% em Y. Agora multiplicamos o $\beta_1$ por 100.
+
+4. `log-log`: $\log (y) = \beta_0 + \beta_1 \log (x) + \epsilon$. Nesse caso, o aumento de 1% de x leva a um aumento de $\beta_1\%$ em y. 
+
+Sugestão: faça o gráfico e veja o que se adequa melhor -- ou seja, avalie se você deveria ou não usar log.
+
+## Polinômios
+
+Sugestão: faça gráficos bivariados das relações parciais (isto é, o gráfico dos resíduos). Mas e aí: adiantou? Para avaliar isso, usamos o $R^2$-ajustado e o Teste F -- o `ANOVA` de dois modelos, comparando dois modelos distintos (um incluindo o polinômio e outro o excluindo).
+
+```
+m1 = y ~ x
+m2 = y ~ x + I(x^2)
+m3 = y ~ x + I(x^2) + I(x^3)
+```
+
+O ANOVA é útil nesse caso para testar modelos aninhados: `ANOVA(m1, m2)`, `ANOVA(m2, m3)` e assim por diante. De fato, o $R^2$ é útil, mas é uma estatística unidimensional sem qualquer tipo de intervalo de confiança ou outra medida de incerteza. Nesse caso, o ideal é fazer o Teste F.
+
+## Termos interativos e efeitos marginais
+
+Os termos interativos são multiplicações entre variáveis explicativas. Suponha, por exemplo:
+
+```
+anosEst ~ sexo + raça
+```  
+
+Para fins didáticos, suponha que as duas variáveis explicativas são binárias (mulher = 1, negro = 1) Suponha que estimamos essa regressão e observamos o seguinte:
+
+$$
+\text{anosEst} = \beta_0 + \beta_1 \text{sexo} + \beta_2 \text{raça}
+$$
+
+Os valores preditos para as combinações seriam:
+
+- Mulher negra: $\beta_0 + \beta_1 + \beta_2$
+- Mulher branca: $\beta_0 + \beta_1$
+- Homem negro: $\beta_0 + \beta_2$
+- Homem branco: $\beta_0$
+
+Agora, note: muito provavelmente, o que as mulheres negras experimentam em relação aos anos de estudo provavelmente não é o efeito de ser "mulher E negra"; é, na verdade, o efeito das coisas combinadas (o que, para algumas combinações, pode gerar mais ou menos desigualdade). Portanto, vamos ajustar o seguinte modelo:
+
+$$
+\text{anosEst} = \beta_0 + \beta_1 \text{sexo} + \beta_2 \text{raça} + \beta_3 (\text{sexo} \times \text{raça})
+$$
+
+Nesse caso, apenas as mulheres negras teriam o $\beta_3$ somado para calcular o valor predito (porque é o único caso em que as duas variáveis assumem valor 1): Mulher negra: $\beta_0 + \beta_1 + \beta_2 + \beta_3$.
+
+Poderíamos encontrar os resultados (isto é, os valores preditos) executando o código abaixo. O que o termo interativo faz, no entanto, é permitir uma separação dos efeitos.
+
+```
+df %>%
+  group_by(sexo, raca) %>%
+  summarise(mean(anosEst))
+```
+
+Suponha agora um outro modelo:
+
+$$
+\log (\text{renda}) = \beta_0 + \beta_1 \text{sexo} + \beta_2 \text{anosEst} + \beta_3 (\text{sexo} \times \text{anosEst})
+$$
+
+Nesse caso, teríamos uma equação para os homens e outra equação para as mulheres:
+
+- **Mulheres:** $\beta_0 + \beta_1 + \beta_2 \text{anosEst} + \beta_3 \text{anosEst} \Longrightarrow (\beta_0 + \beta_1) + (\beta_2 + \beta_3) \text{anosEst}$
+- **Homens:** $\beta_0 + \beta_2 \text{anosEst}$
+
+Note: a interpretação é que o termo interativo representa um incremento (ou decrescimento) no coeficiente de anos de estudo -- isto é, trata-se de uma mudança no efeito.

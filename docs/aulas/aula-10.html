@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Felipe Lamarca">
+
+<title>11&nbsp; Inferência em amostras pequenas e Teste-F – Lego II</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../aulas/aula-11.html" rel="next">
+<link href="../aulas/aula-9.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7271f29f9498218151f3120baddb7363.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-684fd4d5cca103f0a36d8d6452d65d79.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-e48631cd0f686fc60c0a94b589431da6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-684fd4d5cca103f0a36d8d6452d65d79.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    window.setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      window.setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    window.hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(darkModeDefault) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const darkModeDefault = false;
+    document.querySelector('link.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !window.hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+    };
+    // Switch to dark mode if need be
+    if (window.hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-10.html">Forma funcional e Predição</a></li><li class="breadcrumb-item"><a href="../aulas/aula-10.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inferência em amostras pequenas e Teste-F</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Lego II</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Apresentação do curso</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Nivelamento</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/nivelamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Nivelamento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Regressão Linear, o básico</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Derivando os estimadores da regressão</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Um pouco mais de cálculo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">O método dos mínimos quadrados</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-4_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Regressão linear múltipla</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Incerteza e inferência</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Variância dos estimadores</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multicolinearidade</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Forma funcional e Predição</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-10.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inferência em amostras pequenas e Teste-F</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Valores preditos como estratégia de apresentação de dados</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/aula-12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Forma funcional, uso de logs, interações</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Listas</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../listas/listas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Listas</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Bibliografia</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../aulas/bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Bibliografia</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#wooldridge2020intro-chapter-4-section-4.5-testing-multiple-linear-restrictions-the-f-test" id="toc-wooldridge2020intro-chapter-4-section-4.5-testing-multiple-linear-restrictions-the-f-test" class="nav-link active" data-scroll-target="#wooldridge2020intro-chapter-4-section-4.5-testing-multiple-linear-restrictions-the-f-test"><span class="citation" data-cites="wooldridge2020intro">Wooldridge (2020)</span>, chapter 4, section 4.5: Testing Multiple Linear Restrictions: The <span class="math inline">\(F\)</span> Test</a></li>
+  <li><a href="#wooldridge2020intro-chapter-6-further-issues" id="toc-wooldridge2020intro-chapter-6-further-issues" class="nav-link" data-scroll-target="#wooldridge2020intro-chapter-6-further-issues"><span class="citation" data-cites="wooldridge2020intro">Wooldridge (2020)</span>, chapter 6 – Further Issues</a>
+  <ul class="collapse">
+  <li><a href="#effects-of-data-scaling-on-ols-statistics-wooldridge2020intro-p.-181" id="toc-effects-of-data-scaling-on-ols-statistics-wooldridge2020intro-p.-181" class="nav-link" data-scroll-target="#effects-of-data-scaling-on-ols-statistics-wooldridge2020intro-p.-181">Effects of Data Scaling on OLS Statistics <span class="citation" data-cites="wooldridge2020intro">(Wooldridge 2020, 181)</span></a></li>
+  <li><a href="#more-on-functional-form-6.2" id="toc-more-on-functional-form-6.2" class="nav-link" data-scroll-target="#more-on-functional-form-6.2">More on Functional Form (6.2)</a>
+  <ul class="collapse">
+  <li><a href="#more-on-using-logarithmic-functional-forms" id="toc-more-on-using-logarithmic-functional-forms" class="nav-link" data-scroll-target="#more-on-using-logarithmic-functional-forms">More on using logarithmic functional forms</a></li>
+  <li><a href="#models-with-quadratics" id="toc-models-with-quadratics" class="nav-link" data-scroll-target="#models-with-quadratics">Models with Quadratics</a></li>
+  <li><a href="#models-with-interaction-terms" id="toc-models-with-interaction-terms" class="nav-link" data-scroll-target="#models-with-interaction-terms">Models with Interaction Terms</a></li>
+  </ul></li>
+  <li><a href="#more-on-goodness-of-fit-and-selection-of-regressors-6.3" id="toc-more-on-goodness-of-fit-and-selection-of-regressors-6.3" class="nav-link" data-scroll-target="#more-on-goodness-of-fit-and-selection-of-regressors-6.3">More on Goodness-of-Fit and Selection of Regressors (6.3)</a>
+  <ul class="collapse">
+  <li><a href="#controlling-for-too-many-factors-in-regression-analysis" id="toc-controlling-for-too-many-factors-in-regression-analysis" class="nav-link" data-scroll-target="#controlling-for-too-many-factors-in-regression-analysis">Controlling for Too Many Factors in Regression Analysis</a></li>
+  <li><a href="#adding-regressors-to-reduce-the-error-variance" id="toc-adding-regressors-to-reduce-the-error-variance" class="nav-link" data-scroll-target="#adding-regressors-to-reduce-the-error-variance">Adding Regressors to Reduce the Error Variance</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#anotações-de-aula" id="toc-anotações-de-aula" class="nav-link" data-scroll-target="#anotações-de-aula">Anotações de aula</a>
+  <ul class="collapse">
+  <li><a href="#inferência-em-amostras-pequenas" id="toc-inferência-em-amostras-pequenas" class="nav-link" data-scroll-target="#inferência-em-amostras-pequenas">Inferência em amostras pequenas</a></li>
+  <li><a href="#teste-f-teste-de-múltiplas-hipóteses-lineares" id="toc-teste-f-teste-de-múltiplas-hipóteses-lineares" class="nav-link" data-scroll-target="#teste-f-teste-de-múltiplas-hipóteses-lineares"><span class="header-section-number">11.1</span> Teste-F: teste de múltiplas hipóteses lineares</a>
+  <ul class="collapse">
+  <li><a href="#lições-de-probabilidade" id="toc-lições-de-probabilidade" class="nav-link" data-scroll-target="#lições-de-probabilidade"><span class="header-section-number">11.1.1</span> Lições de probabilidade</a></li>
+  <li><a href="#acertando-algumas-coisas" id="toc-acertando-algumas-coisas" class="nav-link" data-scroll-target="#acertando-algumas-coisas"><span class="header-section-number">11.1.2</span> <strong>Acertando algumas coisas</strong></a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-10.html">Forma funcional e Predição</a></li><li class="breadcrumb-item"><a href="../aulas/aula-10.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inferência em amostras pequenas e Teste-F</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inferência em amostras pequenas e Teste-F</span></h1>
+<p class="subtitle lead">Ajustando curvas ao invés de linhas</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Felipe Lamarca <a href="mailto:felipelamarca@iesp.uerj.br" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="wooldridge2020intro-chapter-4-section-4.5-testing-multiple-linear-restrictions-the-f-test" class="level1 unnumbered">
+<h1 class="unnumbered"><span class="citation" data-cites="wooldridge2020intro">Wooldridge (<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">2020</a>)</span>, chapter 4, section 4.5: Testing Multiple Linear Restrictions: The <span class="math inline">\(F\)</span> Test</h1>
+<blockquote class="blockquote">
+<p>Frequently, we wish to test multiple hypotheses about the underlying parameters <span class="math inline">\(\beta_0, \beta_1, \cdots, \beta_k\)</span>. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 139</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>We already know how to test whether a particular variable has no partial effect on the dependent variable: use the <span class="math inline">\(t\)</span> statistic. Now, we want to test whether a group of variables has no effect on the dependent variable. More precisely, the null hypothesis is that a set of variables has no effect on <span class="math inline">\(y\)</span>, once another set of variables has been controlled. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 139</a>)</span></p>
+</blockquote>
+<p>Suppose the following model:</p>
+<p><span class="math display">\[
+\log (salary) = \beta_0 + \beta_1 years + \beta_2 gamesyr + \beta_3 bavg + \beta_4 hrunsyr + \beta_5 rbisyr + u
+\]</span></p>
+<blockquote class="blockquote">
+<p>In terms of the paramters of the model, the null hypothesis is stated as <span class="math inline">\(H_0: \beta_3 = 0, \beta_4 = 0, \beta_5 = 0\)</span>. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 139</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>This is an example of a set of <strong>multiple restrictions</strong> because we are putting more than one restriction on the parameters […]. […]. A test of multiple restrictions is called a <strong>multiple hypotheses test</strong> or a <strong>joint hypotheses test</strong>. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 139</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>How should we proceed in testing (4.29) [the null hypothesis] against (4.30) [the alternative hypothesis]? It is tempting to test (4.29) by using the <span class="math inline">\(t\)</span> statistics on the variables <em>bavg</em>, <em>hrunsyr</em>, and <em>rbisyr</em> to determine whether each variable is individually significant. This option is not appropriate. A particular <span class="math inline">\(t\)</span> statistic tests a hypothesis that puts no restrictions on the other parameters. Besides, we would have three outcomes to contend with – one for each <span class="math inline">\(t\)</span> statistic. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 140</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Knowing the sum of squared residuals in (4.31) [the estimated model] tells us nothing about the truth of the hypothesis in (4.29). However, the factor that will tell us something is how much the SSR increases when we drop the variables <em>bavg</em>, <em>hrunsyr</em>, and <em>rbisyr</em> from the model. Remember that, because the OLS estimates are chosen to minimize the sum of squared residuals, the SSR always increases when variables are dropped from the model; this is an algebraic fact. The question is whether this increase is large enough, realtive to the SSR in the model with all the variables, to warrant rejecting the null hypothesis. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 140</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>The <span class="math inline">\(F\)</span> statistic (or <span class="math inline">\(F\)</span> <em>ratio</em>) is defined by</p>
+<p><span class="math display">\[
+F \equiv \dfrac{ (SSR_r - SSR_{ur}) / q}{ SSR_{ur} / (n - k - 1) },
+\]</span></p>
+<p>where the <span class="math inline">\(SSR_r\)</span> is the sum of squared residuals from the restricted model and <span class="math inline">\(SSR_{ur}\)</span> is the sum of squared residuals from the unrestricted model.</p>
+</blockquote>
+<p>I add, also, that <span class="math inline">\(q\)</span> is the number of removed covariates (i.e., those we believe that the effect on <span class="math inline">\(y\)</span> is zero when controlling for the other covariates). <span class="math inline">\(q\)</span> can also be called the numerator degrees of freedom = <span class="math inline">\(df_r - df_{ur}\)</span>.</p>
+<blockquote class="blockquote">
+<p>To use the <span class="math inline">\(F\)</span> statistic, we must know its sampling distribution under the null in order to choose critical values and rejection rules. It can be shown that, under <span class="math inline">\(H_0\)</span> (and assuming the CLM assumptions hold), <span class="math inline">\(F\)</span> is distributed as an <span class="math inline">\(F\)</span> random variable with <span class="math inline">\((q, n - k - 1)\)</span> degrees of freedom. We write this as</p>
+<p><span class="math display">\[
+F \sim F_{q, n - k - 1}.
+\]</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>The <span class="math inline">\(F\)</span> statistic is often useful for testing exclusion of a group of variables when the variables in the group are highly correlated. For example, suppose we want to test whether firm performance affects the salaries of chief executive officers. There are many ways to measure firm performance, and it probably it would not be clear ahead of time which measures would be most important. Because measures of firm performance are likely to be highly correlated, hoping to find individually significant measures might be asking too much due to multicollinearity. But an F test can be used to determine whether, as a group, the firm performance variables affect salary. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 144</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>What happens if we apply the <span class="math inline">\(F\)</span> statistic to the case of testing significance of a <em>single</em> independent variable? This case is certainly not ruled out by the previous development. […]. The question, then, is: do we have two separate ways of testing hypotheses about a ingle coefficient? The answer is no. It can be shown that the <span class="math inline">\(F\)</span> statistic for testing exclusion of a single variable is equal to the <em>square</em> of the corresponding <span class="math inline">\(t\)</span> statistic. Because <span class="math inline">\(t^2_{n - k - 1}\)</span> has an <span class="math inline">\(F_{1, n - k - 1}\)</span> distribution, the two approaches lead to exactly the same outcome, provided that the alternative is two-sided. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 144</a>)</span></p>
+</blockquote>
+<p>Of course, we can also compute the <span class="math inline">\(F\)</span> statistic using <span class="math inline">\(R^2\)</span>:</p>
+<p><span class="math display">\[
+F = \dfrac{ (R^2_{ur} - R^2_r) / q }{ (1 - R^2_{ur}) / (n - k - 1) } = \dfrac{ (R^2_{ur} - R^2_r) / q }{ (1 - R^2_{ur}) / df_{ur} }
+\]</span></p>
+<p>Using the F statistic, we can say things are <em>jointly significant</em> or <em>jointly insignificant</em>.</p>
+</section>
+<section id="wooldridge2020intro-chapter-6-further-issues" class="level1 unnumbered">
+<h1 class="unnumbered"><span class="citation" data-cites="wooldridge2020intro">Wooldridge (<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">2020</a>)</span>, chapter 6 – Further Issues</h1>
+<section id="effects-of-data-scaling-on-ols-statistics-wooldridge2020intro-p.-181" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="effects-of-data-scaling-on-ols-statistics-wooldridge2020intro-p.-181">Effects of Data Scaling on OLS Statistics <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 181</a>)</span></h2>
+<blockquote class="blockquote">
+<p>We will discover that everything expected to happen, does happen. When variables are rescaled, the coefficients, standard errors, confidence intervals, <span class="math inline">\(t\)</span> statistics, and <span class="math inline">\(F\)</span> statistics change in ways that preserve all measured effects and testing outcomes.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Sometimes, in econometric applications, a key variable is measured on a scale that is difficult to interpret. Labor economists often include test scores in wage equations, and the scale on which these tests are scored is often arbitrary and not easy to interpret (at least for economists!). In almost all cases, we are interested in how a particular individual’s score compares with the population. Thus, instead of asking about the effect of hourly wage if, say, a test score is 10 points higher, it makes more sense to ask what happens when the test score is one <em>standard deviation</em> higher.</p>
+<p>[…]</p>
+<p>Sometimes, it is useful to obtain regression results when all variables involved, the dependent as well as all the independent variables, have been <em>standardized</em>. A variable is standardized in the sample by subtracting off its mean and dividing by its standard deviation (see Math Refresher C). This means that we compute the <span class="math inline">\(z-score\)</span> for every variable in the sample. Then, we run a regression using the z-scores. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 184</a>)</span></p>
+</blockquote>
+<p><span class="math display">\[
+y_i = \hat{\beta_0} + \hat{\beta_1}x_{i1} + \hat{\beta_2}x_{i2} + \cdots + \hat{\beta_k}x_{ik} + \hat{u_i}
+\]</span></p>
+<p>Then we substract the mean:</p>
+<p><span class="math display">\[
+y_i - \bar{y} = \hat{\beta_1}(x_{i1} - \bar{x_1}) + \hat{\beta_2}(x_{i2} - \bar{x_2}) + \cdots + \hat{\beta_k}(x_{ik} - \bar{x_k}) + \hat{u_i}
+\]</span></p>
+<p>This is the mean-centered regression equation, where every term has mean 0. By now, each term has its own units – <span class="math inline">\(y\)</span> might be in dollars, <span class="math inline">\(x_1\)</span> might be in years, etc. We can’t compare magnitudes yet. We divide the entire equation by <span class="math inline">\(\hat{\sigma}_y\)</span> to express everything in standard-deviation units of <span class="math inline">\(y\)</span>:</p>
+<p><span class="math display">\[
+\dfrac{y_i - \bar{y}}{\hat{\sigma}_y} = \hat{\beta_1} \dfrac{(x_{i1} - \bar{x_1})}{\hat{\sigma}_y} + \hat{\beta_2} \dfrac{(x_{i2} - \bar{x_2})}{\hat{\sigma}_y} + \cdots + \hat{\beta_k} \dfrac{(x_{ik} - \bar{x_k})}{\hat{\sigma}_y} + \dfrac{\hat{u_i}}{\hat{\sigma}_y}
+\]</span></p>
+<p>This makes the left-hand side a standardized dependent variable, but <span class="math inline">\(x\)</span>’s are still on their original scales. Now we multiply and divide by <span class="math inline">\(\hat{\sigma}_{x_{j}}\)</span>:</p>
+<p><span class="math display">\[
+\dfrac{y_i - \bar{y}}{\hat{\sigma}_y} =
+\dfrac{\hat{\sigma}_1}{\hat{\sigma}_y} \hat{\beta_1} \dfrac{(x_{i1} - \bar{x_1})}{\hat{\sigma}_1} +
+\dfrac{\hat{\sigma}_2}{\hat{\sigma}_y} \hat{\beta_2} \dfrac{(x_{i2} - \bar{x_2})}{\hat{\sigma}_2} + \cdots +
+\dfrac{\hat{\sigma}_k}{\hat{\sigma}_y} \hat{\beta_k} \dfrac{(x_{ik} - \bar{x_k})}{\hat{\sigma}_k} + \dfrac{\hat{u_i}}{\hat{\sigma}_y}
+\]</span></p>
+<blockquote class="blockquote">
+<p>This is simply the original coefficient, <span class="math inline">\(\hat{\beta}_1\)</span>, multiplied by the ratio of the standard deviation of <span class="math inline">\(x_1\)</span> to the standard deviation of <span class="math inline">\(y\)</span>. The intercept has dropped out altogether. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 184</a>)</span></p>
+</blockquote>
+<p>We can write that as:</p>
+<p><span class="math display">\[
+z_y = \hat{b}_1 z_1 + \hat{b}_2 z_2 + \cdots + \hat{b}_k z_k + error,
+\]</span></p>
+<p>where <span class="math inline">\(z_y\)</span> denotes the z-score of <span class="math inline">\(y\)</span>, <span class="math inline">\(z_1\)</span> is the z-score of <span class="math inline">\(x_1\)</span>, and so on. The new coefficients are</p>
+<p><span class="math display">\[
+\hat{b}_j = \dfrac{\hat{\sigma}_j}{\hat{\sigma}_y} \hat{\beta}_j \text{ for } j = 1, ..., k
+\]</span></p>
+</section>
+<section id="more-on-functional-form-6.2" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="more-on-functional-form-6.2">More on Functional Form (6.2)</h2>
+<section id="more-on-using-logarithmic-functional-forms" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="more-on-using-logarithmic-functional-forms">More on using logarithmic functional forms</h3>
+<p>Suppose the estimated model:</p>
+<p><span class="math display">\[
+\hat{\log (price)} = 9.23 - .718 \log (nox) + .306 rooms
+\]</span></p>
+<blockquote class="blockquote">
+<p>Thus, when <em>nox</em> increases by 1%, <em>price</em> falls by .718%, holding <em>rooms</em> fixed. When rooms increases by one, <em>price</em> increases by approximately 100(.306) = 30.6%.</p>
+<p>The estimate that one more room increases price by about 30.6% turns out to be somewhat inaccurate for this application. The approximation error occurs because, as the change in <span class="math inline">\(\log (y)\)</span> becomes larger and larger, the approximation <span class="math inline">\(\% \delta y \approx 100 \cdot \Delta \log (y)\)</span> becomes more and more inaccurate. Fortunately, a simple calculation is available to compute the exact percantage change.</p>
+<p>To describe the procedure, we consider the general estimated model</p>
+<p><span class="math display">\[
+\hat{\log (y)} = \hat{\beta_0} + \hat{\beta_1} \log (x_1) + \hat{\beta_2} x_2
+\]</span></p>
+<p>(Adding additional independent variables does not change the procedure.) Now, fixing <span class="math inline">\(x_1\)</span>, we have <span class="math inline">\(\Delta \log (y) = \hat{\beta_2} \Delta x_2\)</span>. Using simple algebraic properties of the exponential and logarithmic funcions gives the exact percentage change in the predicted <span class="math inline">\(y\)</span> as</p>
+<p><span class="math display">\[
+\% \Delta \hat{y} = 100 \cdot [\exp{(\hat{\beta_2} \Delta x_2)} - 1]
+\]</span></p>
+<p>[…]</p>
+<p>Applied to the housing price example with <span class="math inline">\(x_2 = rooms\)</span> and <span class="math inline">\(\hat{\beta_2} = .306\)</span>, <span class="math inline">\(\% \Delta \hat{price} = 100[\exp{(.306)} - 1] = 35.8\%\)</span>, which is notably larger than the approximate percentage change, <span class="math inline">\(30.6\%\)</span>, obtained directly from (6.7). <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 186</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>We have seen that using natural logs leads to coefficients with appealing interpretations, and we can be ignorant about the units of measurement of variables appearing in logarithmic form because the slope coefficients are invariant to rescaling. There are several other reasons logs are used so much in applied work. First, when <span class="math inline">\(y &gt; 0\)</span>, models using <span class="math inline">\(\log (y)\)</span> as the dependent variable often satisfy the CLM assumptions more closely than models using the level of <span class="math inline">\(y\)</span>. Strictly positive variables often have conditional distributions that are heteroskedastic or skewed; taking the log can mitigate, if not eliminate, both problems.</p>
+<p>Another potential benefit of using logs is that taking the log of a variable often narrows its range. This is particularly true of variables that can be large monetary values, such as firms’ annual sales or baseball players’ salaries. Population variables also tend to vary widely. Narrowing the range of the dependent and independent variables can make OLS estimates less sensitive to outlying (or extreme) values; we take up the issue of outlying observations in Chapter 9. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 187</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Variables that are measured in years – such as education, experience, tenure, age, and so on – usually appear in their original form. A variable that is a proportion or a percentage – such as the unemployment rate, the participation rate in a pension plan, the percentage of students passing a standardized exam, and the arrest rate on reported crimes – can appear in either original or logarithmic form, although there is a tendency to use them in level forms. This is because any regression coefficients involving the original variable – whether it is the dependent or independent variable – will have a percentage point change interpretation. […]. If we use, say, <span class="math inline">\(\log (unem)\)</span> in a regression, where <em>unem</em> is the percentage of unemployed individuals, we must be very careful to distinguish between a percentage point change and a percentage change. Remember, if unem goes from 8 to 9, this is an increase of one percentage point, but a 12.5% increase from the initial unemployment leel. Using the log means that we are looking at the percentage change in the unemployment rate […]. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 187–88</a>)</span></p>
+</blockquote>
+</section>
+<section id="models-with-quadratics" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="models-with-quadratics">Models with Quadratics</h3>
+<blockquote class="blockquote">
+<p>In the simples case, <span class="math inline">\(y\)</span> depends on a single observed factor <span class="math inline">\(x\)</span>, but it does so in a quadratic fashion:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x + \beta_2 x^2 + u
+\]</span></p>
+<p>[…]</p>
+<p>It is important to remember that <span class="math inline">\(\beta_1\)</span> does not measure the change in <span class="math inline">\(y\)</span> with respect to <span class="math inline">\(x\)</span>; it makes no sense to hold <span class="math inline">\(x^2\)</span> fixed while changing <span class="math inline">\(x\)</span>. If we write the estimated equation as</p>
+<p><span class="math display">\[
+\hat{y} = \hat{\beta_0} + \hat{\beta_1} x + \hat{\beta_2} x^2,
+\]</span></p>
+<p>then we have the approximation</p>
+<p><span class="math display">\[
+\Delta \hat{y} \approx (\hat{\beta_1} + 2 \hat{\beta_2} x) \Delta x, \text{ so } \Delta \hat{y} / \Delta x \approx \hat{\beta_1} + 2 \hat{\beta_2} x
+\]</span></p>
+<p>This says that the slope of the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> depends on the value of <span class="math inline">\(x\)</span>; the estimated slope is <span class="math inline">\(\hat{\beta_1} + 2 \hat{\beta_2} x\)</span>. If we plug in <span class="math inline">\(x = 0\)</span>, we see that <span class="math inline">\(\hat{\beta_1}\)</span> can be interpreted as the approximate slope in going from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = 1\)</span>. After that, the second term, <span class="math inline">\(2 \hat{\beta_2} x\)</span>, must be accounted for.</p>
+<p>In many applications, <span class="math inline">\(\hat{\beta_1}\)</span> is positive and <span class="math inline">\(\hat{\beta_2}\)</span> is negative. For example, using the wage data in WAGE1, we obtain</p>
+<p><span class="math display">\[
+\hat{wage} = 3.73 + .298 \cdot exper - 0.0061 \cdot exper^2
+\]</span></p>
+<p>This estimated equation implies that <em>exper</em> has a diminishing effect on <em>wage</em>. The first year of experience is worth roughtly 30c per hour. The second year of experience is worth less. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 188–89</a>)</span></p>
+</blockquote>
+<p>This is exactly the same idea of interactive terms (precisely because it is the same thing kk).</p>
+</section>
+<section id="models-with-interaction-terms" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="models-with-interaction-terms">Models with Interaction Terms</h3>
+<blockquote class="blockquote">
+<p>Sometimes, it is natural for the partial effect, elasticity, or semi-elasticity of the dependent variable with respect to an explanatory variable to depend on the magnitude of yet <em>another</em> explanatory variable. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 192</a>)</span></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>The parameters on the original variables can be tricky to interpret when we include an interaction term. For example, in the previous housing price equation, equation (6.17) shows that <span class="math inline">\(\beta_2\)</span> is the effect of <em>bdrms</em> on <em>price</em> for a home with zero square feet! This effect is clearly not of much interest. Instead, we must be careful to put interesting values of <em>sqrft</em>, such as the mean or median values in the sample, into the estimated version of equation (6.17).</p>
+<p>Often, it is useful to reparameterize a model so that the coefficients on the original variables have an interesting meaning. Consider a model with two explanatory variables and an interaction:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1 x_2 + u.
+\]</span></p>
+<p>As just mentioned, <span class="math inline">\(\beta_2\)</span> is the partial effect of <span class="math inline">\(x_2\)</span> on <span class="math inline">\(y\)</span> when <span class="math inline">\(x_1 = 0\)</span>. Often, this is not of interest. Instead, we can reparameterize the model as</p>
+<p><span class="math display">\[
+y = \alpha_0 + \delta x_1 + \delta_2 x_2 + \beta_3 (x_1 - \mu_1)(x_2 - \mu_2) + u,
+\]</span></p>
+<p>where <span class="math inline">\(\mu_1\)</span> is the population mean of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(\mu_2\)</span> is the population mean of <span class="math inline">\(x_2\)</span>. We can easily see that now the coefficient on <span class="math inline">\(x^2\)</span>, <span class="math inline">\(\delta_2\)</span>, is the partial effect of <span class="math inline">\(x_2\)</span> on <span class="math inline">\(y\)</span> at the mean value of <span class="math inline">\(x_1\)</span>. (By multiplying out the interaction in the second equation and comparing the coefficients, we can easily show that <span class="math inline">\(\delta_2 = \beta_2 + \beta_3 \mu_1\)</span>. The parameter <span class="math inline">\(\delta_1\)</span> has similar interpretation.) Therefore, if we subtract the means of the variables – in practice, these would typically be the sample means – before creating the interaction term, the coefficients on the original variables have a useful interpretation.</p>
+</blockquote>
+</section>
+</section>
+<section id="more-on-goodness-of-fit-and-selection-of-regressors-6.3" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="more-on-goodness-of-fit-and-selection-of-regressors-6.3">More on Goodness-of-Fit and Selection of Regressors (6.3)</h2>
+<blockquote class="blockquote">
+<p>Nothing about the classical linear model assumptions requires that <span class="math inline">\(R^2\)</span> be above any particular value; <span class="math inline">\(R^2\)</span> is simply an estimate of how much variation in <span class="math inline">\(y\)</span> is explained by <span class="math inline">\(x_1, x_2, ..., x_k\)</span> in the population. We have seen several regressions that have had pretty small R-squareds. Although this means that we have not accounted for several factors that affect <span class="math inline">\(y\)</span>, this does not mean that the factors in <span class="math inline">\(u\)</span> are correlated with the independent variables. The zero conditional mean assumption MLR.4 is what determines whether we get unbiased estimators of the ceteris paribus effects of the independent variables, and the size of the R-squared has no direct bearing on this.</p>
+<p>A small R-squared does imply that the error variance is large relative to the variance of <span class="math inline">\(y\)</span>, which means we may have a hard time precisely estimating the <span class="math inline">\(\beta_j\)</span>. But temember, we say in section 3.4 that a large error variance can be offset by a large sample size: if we have enought data, we may be able to precisely estimate the partial effects even though we have not controlled for many unobserved factors. Whether or not we can get precise enough estimates depends on the application. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 195</a>)</span></p>
+</blockquote>
+<section id="controlling-for-too-many-factors-in-regression-analysis" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="controlling-for-too-many-factors-in-regression-analysis">Controlling for Too Many Factors in Regression Analysis</h3>
+<blockquote class="blockquote">
+<p>The previous examples [where we add too many variables to the regression model] are what can be called over controlling for factors in multiple regression. Often this results from nervousness about potential biases that might arise by leaving out an important explanatory variable. But it is important to remember the ceteris paribus nature of multiple regression. In some cases, it makes no sense to hold some factors fixed precisely because they should be allowed to change when a policy variable changes. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 200</a>)</span></p>
+</blockquote>
+</section>
+<section id="adding-regressors-to-reduce-the-error-variance" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="adding-regressors-to-reduce-the-error-variance">Adding Regressors to Reduce the Error Variance</h3>
+<blockquote class="blockquote">
+<p>We have just seen some examples of where certain independent variables should not be included in a regression model, even though they are correlated with the dependent variable. From Chapter 3, we know that adding a new independent variable to a regression can exacerbate the multicollinearity problem. On the other hand, because we are taking something out of the error term, adding a variable generally reduces the error variance. Generally, we cannot know which effect will dominate.</p>
+<p>However, there is one case that is clear: we should always include independent variables that affect <span class="math inline">\(y\)</span> and are <em>uncorrelated</em> with all of the independent variables of interest. Why? Because adding such a variable does not induce multicollinearity in the population (and therefore multicollinearity in the sample should be negligible), but it will reduce the error variance. In larger sample sizes, the standard errors of all OLS estimators will be reduced. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 200</a>)</span></p>
+</blockquote>
+</section>
+</section>
+</section>
+<section id="anotações-de-aula" class="level1 unnumbered">
+<h1 class="unnumbered">Anotações de aula</h1>
+<p>A homocedasticidade é frequentemente chamada de ML.5. Não se trata de um pressuposto de identificação (isto é, uma estratégia de obter os <span class="math inline">\(\beta\)</span>’s verdadeiros do processo gerador de dados). Os pressupostos de identificação são:</p>
+<p>ML.1 – forma funcional ML.2 – generalidade do processo gerador de dados (i.e., IID) ML.3 – matemático (<span class="math inline">\(X^TX\)</span> é invertível) ML.4 – exogeneidade</p>
+<p>Supor homocedasticidade, ML.5, facilita o cálculo dos erros; fica mais fácil de calcular. Mas isso não é uma necessidade, então não é um pressuposto.</p>
+<section id="inferência-em-amostras-pequenas" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="inferência-em-amostras-pequenas">Inferência em amostras pequenas</h2>
+<p>A gente normalmente faz a teoria da regressão assumindo que a amostra é muito grande; não é raro, no entanto, que a gente colete nossos próprios dados, <span class="math inline">\(n\)</span> pequeno é muito comum. O problema é que o Teorema do Limite Central diz o seguinte:</p>
+<p><span class="math display">\[
+\text{TCL (informalmente): } \hat{\beta} \overset{d}{\longrightarrow} \mathcal{N}(\beta, \text{Var}(\hat{\beta}))
+\]</span></p>
+<p>Dizer que “converge em distribuição” significa que cada amostra precisa ter <span class="math inline">\(n\)</span> grande, i.e., tendendo a infinito, ficando infinitamente melhor. No caso de <span class="math inline">\(n\)</span> pequeno, o Teorema do Limite Central ainda não opera. Isso significa que se você fizer infinitas amostras de tamanho 10, a sua distribuição <strong>não terá</strong>, muito provavelmente, a forma de uma distribuição normal.</p>
+<hr>
+<p>Essa não é a versão formal do TCL. Seria mais correto dizer o seguinte:</p>
+<div class="theorem">
+<p><strong>Teorema (TCL clássico).</strong><br>
+Sejam <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> i.i.d. com <span class="math inline">\(\mathbb{E}[X_i]=\mu\)</span> e <span class="math inline">\(\operatorname{Var}(X_i)=\sigma^2&lt;\infty\)</span>.<br>
+Defina <span class="math inline">\(\bar X_n=\frac{1}{n}\sum_{i=1}^n X_i\)</span>. Então</p>
+<p><span class="math display">\[
+\frac{\sqrt{n}\,(\bar X_n-\mu)}{\sigma}\ \xrightarrow{d}\ \mathcal{N}(0,1),
+\]</span></p>
+<p>isto é,</p>
+<p><span class="math display">\[
+\sqrt{n}\,(\bar X_n-\mu)\ \xrightarrow{d}\ \mathcal{N}(0,\sigma^2).
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>Corolário (normalidade assintótica de estimadores).</strong><br>
+Um estimador <span class="math inline">\((\hat\theta_n)\)</span> de <span class="math inline">\((\theta\)\)</span> é <em>assintoticamente normal</em> se existe <span class="math inline">\((\Sigma)\)</span> (escala ou matriz) tal que</p>
+<p><span class="math display">\[
+\sqrt{n}\,(\hat\theta_n-\theta)\ \xrightarrow{d}\ \mathcal{N}(0,\Sigma).
+\]</span></p>
+<p>Equivalentemente, para <span class="math inline">\(n\)</span> grande, <span class="math inline">\(\hat\theta_n \approx \mathcal{N}\!\big(\theta,\ \Sigma/n\big)\)</span>.</p>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span><strong>Observação.</strong> A seta <span class="math inline">\(\xrightarrow{d}\)</span> indica <strong>convergência em distribuição</strong>.</p>
+</div>
+<p> Em outras palavras, a distribuição da média amostral (devidamente centrada e normalizada) converge em distribuição para uma normal, independentemente da distribuição original das variáveis <span class="math inline">\(X_i\)</span>, desde que possuam variância finita.</p>
+<hr>
+<p>O fato é: o ML.6 supõe a normalidade dos erros individuais:</p>
+<p><span class="math display">\[
+\begin{align*}
+y_i &amp;= \beta_0 + \beta_1 x_i + \epsilon_i \\
+\epsilon_i &amp;\sim \mathcal{N}(0, \sigma^2)
+\end{align*}
+\]</span></p>
+<p>O suposto da normalidade é uma hipótese auxiliar, que facilita o cálculo dos erros em amostras pequenas. E note: isso também assume homocedasticidade, com o mesmo <span class="math inline">\(\sigma^2 \ \forall \ \epsilon\)</span>.</p>
+<blockquote class="blockquote">
+<p><strong>Lição de probabilidade:</strong></p>
+<p>Se <span class="math inline">\(W \sim \mathcal{N}(\mu, \sigma^2)\)</span>, então <span class="math inline">\((a + bW) \sim \mathcal{N}(a + b \mu, b^2 \sigma^2)\)</span>. Isto é, a forma continua sendo a de uma distribuição normal.</p>
+<p>Naturalmente, isso vem dos seguintes fatos:</p>
+<p><span class="math inline">\(\mathbb{E}[a + bW] = \mathbb{E}[a] + \mathbb{E}[bW] = a + b \mathbb{E}[W]\)</span></p>
+<p><span class="math inline">\(\operatorname{Var} (a + bW) = \operatorname{Var} (bW) = b^2 \operatorname{Var}(W)\)</span></p>
+</blockquote>
+<p>Sabemos que:</p>
+<p><span class="math display">\[
+\hat{\beta} = \beta + (X^TX)^{-1} X^T \epsilon,
+\]</span></p>
+<p>e que <span class="math inline">\((X^TX)^{-1} X^T \epsilon\)</span> não é exatamente zero em amostras finitas. <span class="math inline">\(\hat{\beta}\)</span> é o beta amostral, <span class="math inline">\(\beta\)</span> é o parâmetro verdadeiro (um escalar), e <span class="math inline">\(X\)</span> é constante numa amostra já coletada (de fato, depois que você já coletou, esse dado é fixo). <span class="math inline">\(\epsilon\)</span>, por definição, é puramente aleatório e o causador de qualquer variação (afinal, <span class="math inline">\(X\)</span> é dado).</p>
+<p>Ora, essa fórmula é novamente a soma de duas constantes, sendo uma delas multiplicada por uma variável. Portanto, se assumimos que <span class="math inline">\(\epsilon\)</span> tem distribuição normal, então temos garantia, mesmo na amostra pequena, que a distribuição de <span class="math inline">\(\hat{\beta}\)</span> será normal.</p>
+<p>Bom, ajustado um modelo, podemos olhar os resíduos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>e1 <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">50</span> , <span class="at">sd=</span><span class="dv">5</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>e2 <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">40</span> , <span class="at">sd=</span><span class="dv">4</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>e_hat <span class="ot">=</span> e1 <span class="sc">+</span> e2</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(e_hat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aula-10_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Outra maneira é olhando o Q-Q Plot (gráfico de quantil por quantil):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>percentis_residuos <span class="ot">=</span> <span class="fu">quantile</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  e_hat, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">probs=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>percentis_normal <span class="ot">=</span> <span class="fu">qnorm</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean =</span> <span class="fu">mean</span>(e_hat),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">sd</span>(e_hat)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">tibble</span>(percentis_residuos, percentis_normal)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> percentis_normal, <span class="at">y =</span> percentis_residuos)) <span class="sc">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aula-10_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A assumption de normalidade de resíduos só é necessária no caso de amostras pequenas, quando o TCL não se aplica. De fato, para amostras pequenas você não terá certeza de que o parâmetro estimado se distribui de forma normal em torno do parâmetro populacional, porque o TCL ainda não operou; para amostras grandes, vale o TCL e tanto faz a forma com que os erros se distribuem.</p>
+</section>
+<section id="teste-f-teste-de-múltiplas-hipóteses-lineares" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="teste-f-teste-de-múltiplas-hipóteses-lineares"><span class="header-section-number">11.1</span> Teste-F: teste de múltiplas hipóteses lineares</h2>
+<p>Há várias estatísticas que medem a qualidade geral do ajuste do modelo. O teste F, na verdade, é a análise de variância – algo que, aliás, antecede a regressão. De saída, então, vamos falar de análise de variância.</p>
+<p><strong>De onde vem a maior parte da variação:</strong> entre grupos ou dentro dos grupos? É essa pergunta que o teste-F responde.</p>
+<p><span class="math display">\[
+\operatorname{F} = \dfrac{ \operatorname{Variação entre grupos} }{ \operatorname{Variação dentro dos grupos} }
+\]</span></p>
+<p><span class="math display">\[
+\operatorname{F} = \dfrac{
+  \dfrac{ \sum^G_{g=1} ( \bar{X}_g - \bar{X} )^2 }{ G - 1 }
+  } {
+    \dfrac{\sum^G_{g = 1} [\sum_{i \in g} (X_{ig} - \bar{X}_g)^2]}{ n - G}
+  },
+\]</span></p>
+<p>onde:</p>
+<ul>
+<li><span class="math inline">\(i\)</span> é o indexador de indivíduos</li>
+<li><span class="math inline">\(n\)</span> é o número total de indivíduos na amostra</li>
+<li><span class="math inline">\(g\)</span> é o indexador de grupos</li>
+<li><span class="math inline">\(G\)</span> é o número de grupos na amostra</li>
+<li><span class="math inline">\(X_{ig}\)</span> = valor de <span class="math inline">\(X\)</span> para a pessoa <span class="math inline">\(i\)</span> do grupo <span class="math inline">\(g\)</span></li>
+<li><span class="math inline">\(\bar{X}_g\)</span> é a média de <span class="math inline">\(X\)</span> no grupo <span class="math inline">\(g\)</span></li>
+<li><span class="math inline">\(\bar{X}\)</span> é a média incondicional de <span class="math inline">\(X\)</span></li>
+</ul>
+<p>Trata-se de uma razão entre variâncias. Se a maior parte da variação é entre os grupos, a parte de cima será maior; se a maior parte da variação é dentro dos grupos, então a parte de baixo será maior.</p>
+<p>Quando dizemos que algo é um teste estatístico, isso significa que queremos diferenciar ruído amostral de sinal sistemático. Quando estávamos calculando a variância dos <span class="math inline">\(\hat{\beta}\)</span>’s, sabíamos que havia uma margem (um ruído) de flutuação amostral resumida pela margem de erro. O teste-F calculado dessa maneira não nos diz nada sobre incerteza. Há uma imprecisão relacionada ao fato de que eu estou calculando médias que não são sempre as mesmas, variando (pelo menos um pouco) conforme a amostra. Neste ponto, <span class="math inline">\(F\)</span> é apenas um número, que é uma razão. Precisamos, portanto, situar essa estatística numa distribuição.</p>
+<blockquote class="blockquote">
+<p>Vamos nos lembrar do teste <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[
+t = \dfrac{ \operatorname{valor empírico} - H_0}{ \operatorname{erro-padrão} }.
+\]</span></p>
+<p>Com isso, poderíamos fazer:</p>
+<p><span class="math display">\[
+\begin{align*}
+t_m &amp;= \dfrac{\bar{X}_m - \bar{X}}{\text{erro-padrão das mulheres}} \\
+t_h &amp;= \dfrac{\bar{X}_h - \bar{X}}{\text{erro-padrão dos homens}}
+\end{align*}
+\]</span></p>
+<p>Isso retorna dois números, e não apenas um. Podemos testar, de fato, a hipótese de que as mulheres são diferentes da média normal, que os homens são diferentes da média normal, ou ainda que mulheres são diferentes de homens. O teste <span class="math inline">\(F\)</span>, no entanto, nos permite fazer um teste só.</p>
+</blockquote>
+<section id="lições-de-probabilidade" class="level3" data-number="11.1.1">
+<h3 data-number="11.1.1" class="anchored" data-anchor-id="lições-de-probabilidade"><span class="header-section-number">11.1.1</span> Lições de probabilidade</h3>
+<p><strong>Lição de Probabilidade 1:</strong> A soma de variáveis distribuídas como uma normal também é uma distribuição normal</p>
+<p>Se <span class="math inline">\(W_1 \sim \mathcal{N}(\mu_1, \sigma^2_1)\)</span> e <span class="math inline">\(W_2 \sim \mathcal{N}(\mu_2, \sigma^2_2)\)</span>, então <span class="math inline">\(W_1 + W_2 \sim \mathcal{N}(\mu_1 + \mu_2, \sigma^2_1 + \sigma^2_2 + 2 \operatorname{Cov}(W_1, W_2))\)</span>.</p>
+<p>Pelo TCL, as médias amostrais se distribuem como uma normal em torno da média populacional:</p>
+<p><span class="math display">\[
+\begin{align*}
+\bar{X_1} &amp;\sim \mathcal{N}(.) \\
+\bar{X_2} &amp;\sim \mathcal{N}(.) \\
+\bar{X_3} &amp;\sim \mathcal{N}(.) \\
+&amp;\cdots
+\end{align*}
+\]</span></p>
+<p>Então:</p>
+<p><span class="math display">\[
+\dfrac{ \bar{X_1} - \bar{X} }{ \frac{S_1}{ \sqrt{n_1} } } + \dfrac{ \bar{X_2} - \bar{X} }{ \frac{S_2}{ \sqrt{n_2} } } + \cdots \sim \mathcal{N}(.)
+\]</span></p>
+<p><strong>Lição de Probabilidade 2:</strong> O quadrado de uma distribuição normal padrão é uma distribuição <span class="math inline">\(\chi^2\)</span> (qui-quadrado) com um grau de liberdade (<span class="math inline">\(\chi^2_1\)</span>). Logo, se <span class="math inline">\(Z \sim \mathcal{N}(0, 1)\)</span> (com valores positivos e negativos), a distribuição <span class="math inline">\(\chi^2_1\)</span> tem apenas valores positivos e com alta massa de probabilidade nos arredores do zero.</p>
+<blockquote class="blockquote">
+<p>Veja: Para sortear um <span class="math inline">\(\chi^2_1\)</span>, basta sortear um número de uma distribuição normal e elevá-lo ao quadrado. Em outras palavras, <span class="math inline">\(Z^2 \sim \chi^2_1\)</span>.</p>
+</blockquote>
+<p><strong>Lição de Probabilidade 3:</strong> A soma de uma distribuição <span class="math inline">\(\chi^2\)</span> com <span class="math inline">\(m\)</span> graus de liberdade e outra distribuição <span class="math inline">\(\chi^2\)</span> com <span class="math inline">\(n\)</span> graus de liberdade será uma distribuição <span class="math inline">\(\chi^2\)</span> com <span class="math inline">\(m + n\)</span> graus de liberdade.</p>
+<p>Se <span class="math inline">\(A \sim \chi^2_1\)</span> e <span class="math inline">\(B \sim \chi^2_1\)</span>, então <span class="math inline">\(A + B \sim \chi^2_2\)</span>.</p>
+<p>Bom, então tínhamos parado neste ponto:</p>
+<p><span class="math display">\[
+\dfrac{ \bar{X_1} - \bar{X} }{ \frac{S_1}{ \sqrt{n_1} } } + \dfrac{ \bar{X_2} - \bar{X} }{ \frac{S_2}{ \sqrt{n_2} } } + \cdots \sim \mathcal{N}(.)
+\]</span></p>
+<p>Se elevarmos tudo ao quadrado, teremos:</p>
+<p><span class="math display">\[
+\left[ \dfrac{ \bar{X_1} - \bar{X} }{ \frac{S_1}{ \sqrt{n_1} } } \right]^2 + \left[ \dfrac{ \bar{X_2} - \bar{X} }{ \frac{S_2}{ \sqrt{n_2} } } \right]^2 + \cdots \sim \chi^2_G
+\]</span></p>
+<p>Sabemos que <span class="math inline">\(\bar{X}_g \sim \mathcal{N}(.)\)</span>. Então, da fração que define <span class="math inline">\(F\)</span>, sabemos que:</p>
+<p><span class="math display">\[
+\dfrac{ \sum^G_{g=1} ( \bar{X}_g - \bar{X} )^2 }{ G - 1 } \sim \chi^2_{G-1}
+\]</span></p>
+<p><span class="math display">\[
+\dfrac{\sum^G_{g = 1} [\sum_{i \in g} (X_{ig} - \bar{X}_g)^2]}{ n - G} \sim \chi^2_{n - G}
+\]</span></p>
+<p><strong>Lição de Probabilidade 4:</strong> a distribuição resultante das divisões de duas distribuições Qui-Quadrado é chamada distribuição <span class="math inline">\(F\)</span> de Fisher, <span class="math inline">\(F(a, b)\)</span>, onde <span class="math inline">\(a\)</span> é o número de graus de liberdade do numerador e <span class="math inline">\(b\)</span> é o número de graus de liberdade do denominador.</p>
+<hr>
+</section>
+<section id="acertando-algumas-coisas" class="level3" data-number="11.1.2">
+<h3 data-number="11.1.2" class="anchored" data-anchor-id="acertando-algumas-coisas"><span class="header-section-number">11.1.2</span> <strong>Acertando algumas coisas</strong></h3>
+<p>Variância dos grupos em torno da média global dividido pela variância interna dos grupos. Um valor F alto, por exemplo, de 7.8, quer dizer que a variância dos grupos em relação à média global é 7.8 vezes maior do que a variância interna dos grupos. Isso significa que os grupos são muito informativos – afinal, a variância dentro dos grupos é pequena, e entre grupos é grande.</p>
+<p>No entanto, voltemos à fórmula do teste F:</p>
+<p><span class="math display">\[
+\operatorname{F} = \dfrac{
+  \dfrac{ \sum^G_{g=1} ( \bar{X}_g - \bar{X} )^2 }{ G - 1 }
+  } {
+    \dfrac{\sum^G_{g = 1} [\sum_{i \in g} (X_{ig} - \bar{X}_g)^2]}{ n - G}
+  },
+\]</span></p>
+<p>De saída, há uma sensação estranha. Onde está o desvio-padrão? Afinal, só podemos dizer que se trata de uma distribuição <span class="math inline">\(\chi^2\)</span> quando observamos a soma de variáveis aleatórias com distribuição normal padrão. O que acontece é o seguinte: tanto o denominador quanto o numerador são divididos pelo mesmo desvio-padrão:</p>
+<p><span class="math display">\[
+\begin{align*}
+\text{variância entre grupos} &amp;= \sum^G_{g=1} \left( \dfrac{\bar{X}_g - \bar{X}}{\operatorname{se}} \right)^2 \\
+\text{variância dentro dos grupos} &amp;= \sum^G_{g=1} \sum_{i \in g} \left( \dfrac{X_{ig} - \bar{X}_g}{\operatorname{se}} \right)^2
+\end{align*}
+\]</span></p>
+<p>A divisão pelo mesmo desvio-padrão diz respeito à hipótese nula, ou a hipótese de homogeneidade das variâncias – isto é, todos os grupos têm a mesma variância populacional. Sob essa hipótese, o erro padrão que aparece em ambos os termos vem da mesma estimativa de <span class="math inline">\(\sigma\)</span>, e é isso que justifica usar o mesmo denominador. Com efeito, podemos dizer com tranquilidade que tanto o numerador quanto o denominador seguem uma distribuição <span class="math inline">\(\chi^2\)</span>, sendo o primeiro <span class="math inline">\(\chi^2_{G-1}\)</span> e o segundo <span class="math inline">\(\chi^2_{N-G}\)</span>.</p>
+<p>Um ponto importante é que o teste F não é exatamente uma divisão de <span class="math inline">\(\chi^2\)</span>; na verdade, é uma divisão de <span class="math inline">\(\chi^2\)</span> tendo cada um dividido pelos seus respectivos graus de liberdade. Daí a fórmula é:</p>
+<p><span class="math display">\[
+\operatorname{F} = \dfrac{
+  \dfrac{ \sum^G_{g=1} ( \bar{X}_g - \bar{X} )^2 }{ G - 1 }
+  } {
+    \dfrac{\sum^G_{g = 1} \sum_{i \in g} (X_{ig} - \bar{X}_g)^2}{ n - G}
+  } \sim \operatorname{F}(G-1, N-G)
+\]</span></p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-wooldridge2020intro" class="csl-entry" role="listitem">
+Wooldridge, Jeffrey M. 2020. <em>Introductory Econometrics: A Modern Approach</em>. 7th ed. Boston, MA: Cengage Learning.
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    window.setColorSchemeToggle(window.hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../aulas/aula-9.html" class="pagination-link" aria-label="Multicolinearidade">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multicolinearidade</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../aulas/aula-11.html" class="pagination-link" aria-label="Valores preditos como estratégia de apresentação de dados">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Valores preditos como estratégia de apresentação de dados</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

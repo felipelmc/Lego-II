@@ -8,7 +8,7 @@
 
 <meta name="author" content="Felipe Lamarca">
 
-<title>8&nbsp; Heterocedasticidade pt.&nbsp;1 – Lego II</title>
+<title>13&nbsp; Forma funcional, uso de logs, interações – Lego II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -86,8 +51,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../aulas/aula-8.html" rel="next">
-<link href="../aulas/aula-6.html" rel="prev">
+<link href="../listas/listas.html" rel="next">
+<link href="../aulas/aula-11.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -330,7 +295,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-6.html">Incerteza e inferência</a></li><li class="breadcrumb-item"><a href="../aulas/aula-7.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;1</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-10.html">Forma funcional e Predição</a></li><li class="breadcrumb-item"><a href="../aulas/aula-12.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Forma funcional, uso de logs, interações</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -433,7 +398,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../aulas/aula-7.html" class="sidebar-item-text sidebar-link active">
+  <a href="../aulas/aula-7.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;1</span></span></a>
   </div>
 </li>
@@ -474,7 +439,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../aulas/aula-12.html" class="sidebar-item-text sidebar-link">
+  <a href="../aulas/aula-12.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Forma funcional, uso de logs, interações</span></span></a>
   </div>
 </li>
@@ -524,10 +489,12 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#heteroskedasticity-wooldridge2020intro-chapter-8" id="toc-heteroskedasticity-wooldridge2020intro-chapter-8" class="nav-link active" data-scroll-target="#heteroskedasticity-wooldridge2020intro-chapter-8"><em>Heteroskedasticity</em>, <span class="citation" data-cites="wooldridge2020intro">(Wooldridge 2020, chap. 8)</span></a></li>
-  <li><a href="#anotações-de-aula" id="toc-anotações-de-aula" class="nav-link" data-scroll-target="#anotações-de-aula">Anotações de aula</a>
+  <li><a href="#huntingtonklein2021linear" id="toc-huntingtonklein2021linear" class="nav-link active" data-scroll-target="#huntingtonklein2021linear"><span class="header-section-number">14</span> <span class="citation" data-cites="huntingtonklein2021linear">Huntington-Klein (2021)</span></a></li>
+  <li><a href="#anotações-de-aula" id="toc-anotações-de-aula" class="nav-link" data-scroll-target="#anotações-de-aula"><span class="header-section-number">15</span> Anotações de aula</a>
   <ul class="collapse">
-  <li><a href="#os-erros-padrão-de-huber-white" id="toc-os-erros-padrão-de-huber-white" class="nav-link" data-scroll-target="#os-erros-padrão-de-huber-white"><span class="header-section-number">8.1</span> Os erros-padrão de Huber-White</a></li>
+  <li><a href="#uso-de-log-." id="toc-uso-de-log-." class="nav-link" data-scroll-target="#uso-de-log-."><span class="header-section-number">15.1</span> Uso de <span class="math inline">\(\log (.)\)</span></a></li>
+  <li><a href="#polinômios" id="toc-polinômios" class="nav-link" data-scroll-target="#polinômios"><span class="header-section-number">15.2</span> Polinômios</a></li>
+  <li><a href="#termos-interativos-e-efeitos-marginais" id="toc-termos-interativos-e-efeitos-marginais" class="nav-link" data-scroll-target="#termos-interativos-e-efeitos-marginais"><span class="header-section-number">15.3</span> Termos interativos e efeitos marginais</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -536,9 +503,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-6.html">Incerteza e inferência</a></li><li class="breadcrumb-item"><a href="../aulas/aula-7.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;1</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-10.html">Forma funcional e Predição</a></li><li class="breadcrumb-item"><a href="../aulas/aula-12.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Forma funcional, uso de logs, interações</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;1</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Forma funcional, uso de logs, interações</span></h1>
 </div>
 
 
@@ -561,277 +528,74 @@ window.Quarto = {
 </header>
 
 
-<section id="heteroskedasticity-wooldridge2020intro-chapter-8" class="level1 unnumbered">
-<h1 class="unnumbered"><em>Heteroskedasticity</em>, <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, chap. 8</a>)</span></h1>
+<section id="huntingtonklein2021linear" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> <span class="citation" data-cites="huntingtonklein2021linear">Huntington-Klein (<a href="bibliography.html#ref-huntingtonklein2021linear" role="doc-biblioref">2021</a>)</span></h1>
 <blockquote class="blockquote">
-<p>The homoskedasticity assumption, introduced in Chapter 3 for multiple regression, states that the variance of the unobserved error, <span class="math inline">\(u\)</span>, conditional on the explanatory variables, is constant. Homoskedasticity fails whenever the variance of the unobserved factors change across different segments of the population, where the segments are determined by the different values of the explanatory variables. For example, in a savings equation, heteroskedasticity is present if the variance of the unobserved factors affecting savings increases with income. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 263</a>)</span></p>
+<p>The standard approximation of a natural logarithm in statistical analysis interprets a linear change of <span class="math inline">\(p\)</span> in <span class="math inline">\(\ln (X)\)</span> as a <span class="math inline">\((1 + p)\)</span> proportional change in <span class="math inline">\(X\)</span>, which is only accurate for small values of <span class="math inline">\(p\)</span>. I suggest base-<span class="math inline">\((1+p)\)</span> logarithms, where <span class="math inline">\(p\)</span> is chosen ahead of time. A one-unit change in <span class="math inline">\(\log_{1+p} (X)\)</span> is exactly equivalent to a <span class="math inline">\((1+p)\)</span> proportional change in <span class="math inline">\(X\)</span>. This avoids an approximation applied too broadly, makes exact interpretation easier and less error-prone, improves approximation quality when approximations are used, makes the change of interest a one-log-unit change like other regression variables, and reduces error from the use of <span class="math inline">\(\log (1 + X)\)</span>. <span class="citation" data-cites="huntingtonklein2021linear">(<a href="bibliography.html#ref-huntingtonklein2021linear" role="doc-biblioref">Huntington-Klein 2021</a>, Abstract)</span></p>
 </blockquote>
 <blockquote class="blockquote">
-<p>If heteroskedasticity does not cause bias or inconsistency in the OLS estimators, why did we introduce it as one of the Gauss-Markov assumptions? Recall from Chapter 3 that the estimators of the variances, <span class="math inline">\(\text{Var}(\hat{\beta}_j)\)</span>, are biased without the homoskedasticity assumption. Because the OLS standard errors are based directly on these variances, they are no longer valid for constructing confidence intervals and <span class="math inline">\(t\)</span> statistics. The usual OLS <span class="math inline">\(t\)</span> statistics do not have <span class="math inline">\(t\)</span> distributions in the presence of heteroskedasticity, and the problem is not resolved by using large sample sizes. We will see this explicitly for the simple regression case in the next section, where we derive the variance of the OLS slope estimator under heteroskedasticity and propose a valid estimator in the presence of heteroskedasticity. Similarly, F statistics are no longer F distributed, and the LM statistic no longer has an asymptotic chi-square distribution. In summary, the statistics we used to test hypotheses under the Gauss-Markov assumptions are not valid in the presence of heteroskedasticity. <span class="citation" data-cites="wooldridge2020intro">(<a href="bibliography.html#ref-wooldridge2020intro" role="doc-biblioref">Wooldridge 2020, 263</a>)</span></p>
+<p>All three problems can be solved by simply changing the base of the logarithm. Selecting a percentage increase <span class="math inline">\(p \times 100 %\)</span> ahead of time and using <span class="math inline">\(\log_{1+p} (X)\)</span> in place of <span class="math inline">\(\ln (X)\)</span> means that a one-unit change in <span class="math inline">\(\log_{1+p} (X)\)</span> is exactly equivalent to a <span class="math inline">\(p \times 100\%\)</span> increase in <span class="math inline">\(X\)</span>.</p>
 </blockquote>
 </section>
-<section id="anotações-de-aula" class="level1 unnumbered">
-<h1 class="unnumbered">Anotações de aula</h1>
-<p>Gostaríamos que uma função de regressão (por nós programada) tivesse algo mais ou menos assim:</p>
-<pre><code>nome_da_funcao(formula = y ~ x1 + x2, data = dados)</code></pre>
-<p>Essa função, é claro, já existe – `lm()`. Mas vamos programar nós mesmos. No código abaixo, implementamos uma função que estima o efeito das despesas de campanha nos votos de candidatos a deputados federais:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## bibliotecas e setup</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: pacote 'ggplot2' foi compilado no R versão 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">## dados</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"../data/data.csv"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## regressão implementada do zero</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>minha_regressao <span class="ot">=</span> <span class="cf">function</span>(formula_informada, data){</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  dep_var_name <span class="ot">=</span> <span class="fu">as.character</span>(formula_informada[[<span class="dv">2</span>]])</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">model.matrix</span>(formula_informada, <span class="at">data =</span> data)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> data[[dep_var_name]]</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  y_hat <span class="ot">=</span> X <span class="sc">%*%</span> beta</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  residuos <span class="ot">=</span> y <span class="sc">-</span> X <span class="sc">%*%</span> beta</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">nrow</span>(data)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">=</span> <span class="fu">ncol</span>(data)</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  var_residuos <span class="ot">=</span> <span class="fu">sum</span>(residuos<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> k)</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  RMSE <span class="ot">=</span> <span class="fu">sqrt</span>(var_residuos)</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  r2 <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> var_residuos<span class="sc">/</span><span class="fu">var</span>(y)</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  varcov_beta <span class="ot">=</span> var_residuos <span class="sc">*</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  se_beta <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(varcov_beta))</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  H0 <span class="ot">=</span> <span class="dv">0</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">=</span> (beta <span class="sc">-</span> H0) <span class="sc">/</span> se_beta</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  p_valor <span class="ot">=</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(t)))</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">coefs =</span> <span class="fu">tibble</span>(</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">Coeficientes =</span> <span class="fu">colnames</span>(X),</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">Estimativas =</span> <span class="fu">round</span>(beta, <span class="dv">2</span>),</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">Erros_padrao =</span> <span class="fu">round</span>(se_beta, <span class="dv">2</span>),</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">t =</span> t,</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">p_valor =</span> p_valor</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    r2,</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    RMSE,</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    var_residuos</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">#y_hat,</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="co">#residuos</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="do">## funciona!</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="fu">minha_regressao</span>(<span class="at">formula_informada =</span> votos <span class="sc">~</span> despesa_total, <span class="at">data =</span> data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$coefs
-# A tibble: 2 × 5
-  Coeficientes  Estimativas[,1] Erros_padrao t[,1] p_valor[,1]
-  &lt;chr&gt;                   &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
-1 (Intercept)           4916.           485.  10.1           0
-2 despesa_total            0.05           0   69.1           0
-
-[[2]]
-[1] 0.3088915
-
-[[3]]
-[1] 45943.98
-
-[[4]]
-[1] 2110849210</code></pre>
-</div>
-</div>
-<hr>
-<p>Agora, vamos voltar para o tema da homocedasticidade. Em particular, sabemos que <span class="math inline">\(\text{Var}(\hat{\beta})\ = (X^T X)^{-1} \text{Var}(\epsilon) X (X^T X)^{-1}\)</span>. A ideia da homocedasticidade é facilitar o cálculo da variância de <span class="math inline">\(\beta\)</span> ao impor que a variância dos erros é fixa em <span class="math inline">\(\sigma^2\)</span>. De fato, sob homocedasticidade:</p>
+<section id="anotações-de-aula" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Anotações de aula</h1>
+<section id="uso-de-log-." class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="uso-de-log-."><span class="header-section-number">15.1</span> Uso de <span class="math inline">\(\log (.)\)</span></h2>
+<ol type="1">
+<li><p><code>lin-lin</code>: <span class="math inline">\(y = \beta_0 + \beta_1 x + \epsilon\)</span></p></li>
+<li><p><code>lin-log</code>: <span class="math inline">\(y = \beta_0 + \beta_1 \log (x) + \epsilon\)</span>. Como “regra de bolso”, podemos dizer que o log transforma a leitura da variável em “variação percentual”. Assim, lemos: o aumento de 1% em X está associado ao aumento de <span class="math inline">\(\frac{\beta_1}{100}\)</span> unidades de <span class="math inline">\(y\)</span>.</p></li>
+<li><p><code>log-lin</code>: <span class="math inline">\(\log (y) = \beta_0 + \beta_1 x + \epsilon\)</span>. Nesse caso, o aumento de uma unidade de <span class="math inline">\(X\)</span> (na métrica original) está associado a um aumento de (<span class="math inline">\(\beta_1 \times 100\)</span>)% em Y. Agora multiplicamos o <span class="math inline">\(\beta_1\)</span> por 100.</p></li>
+<li><p><code>log-log</code>: <span class="math inline">\(\log (y) = \beta_0 + \beta_1 \log (x) + \epsilon\)</span>. Nesse caso, o aumento de 1% de x leva a um aumento de <span class="math inline">\(\beta_1\%\)</span> em y.</p></li>
+</ol>
+<p>Sugestão: faça o gráfico e veja o que se adequa melhor – ou seja, avalie se você deveria ou não usar log.</p>
+</section>
+<section id="polinômios" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="polinômios"><span class="header-section-number">15.2</span> Polinômios</h2>
+<p>Sugestão: faça gráficos bivariados das relações parciais (isto é, o gráfico dos resíduos). Mas e aí: adiantou? Para avaliar isso, usamos o <span class="math inline">\(R^2\)</span>-ajustado e o Teste F – o <code>ANOVA</code> de dois modelos, comparando dois modelos distintos (um incluindo o polinômio e outro o excluindo).</p>
+<pre><code>m1 = y ~ x
+m2 = y ~ x + I(x^2)
+m3 = y ~ x + I(x^2) + I(x^3)</code></pre>
+<p>O ANOVA é útil nesse caso para testar modelos aninhados: <code>ANOVA(m1, m2)</code>, <code>ANOVA(m2, m3)</code> e assim por diante. De fato, o <span class="math inline">\(R^2\)</span> é útil, mas é uma estatística unidimensional sem qualquer tipo de intervalo de confiança ou outra medida de incerteza. Nesse caso, o ideal é fazer o Teste F.</p>
+</section>
+<section id="termos-interativos-e-efeitos-marginais" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="termos-interativos-e-efeitos-marginais"><span class="header-section-number">15.3</span> Termos interativos e efeitos marginais</h2>
+<p>Os termos interativos são multiplicações entre variáveis explicativas. Suponha, por exemplo:</p>
+<pre><code>anosEst ~ sexo + raça</code></pre>
+<p>Para fins didáticos, suponha que as duas variáveis explicativas são binárias (mulher = 1, negro = 1) Suponha que estimamos essa regressão e observamos o seguinte:</p>
 <p><span class="math display">\[
-\text{Var}(\hat{\epsilon}) = \hat{\sigma}^2 I,
+\text{anosEst} = \beta_0 + \beta_1 \text{sexo} + \beta_2 \text{raça}
 \]</span></p>
-<p>onde <span class="math inline">\(\hat{\sigma}^2 = \dfrac{\sum (y - \hat{y})^2}{n - k}\)</span>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">=</span> <span class="fu">rpois</span>(n, <span class="at">lambda =</span> <span class="dv">3</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="dv">10</span> <span class="sc">-</span> <span class="dv">5</span><span class="sc">*</span>x1 <span class="sc">+</span> e</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">tibble</span>(y, x1)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">minha_regressao</span>(y <span class="sc">~</span> x1, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$coefs
-# A tibble: 2 × 5
-  Coeficientes Estimativas[,1] Erros_padrao t[,1] p_valor[,1]
-  &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
-1 (Intercept)             9.92         0.06  158.           0
-2 x1                     -4.99         0.02 -282.           0
-
-[[2]]
-[1] 0.9875652
-
-[[3]]
-[1] 1.012406
-
-[[4]]
-[1] 1.024966</code></pre>
-</div>
-</div>
-<p>A hipótese da homocedasticidade está em <code>e = rnorm(n, mean = 0, sd = 1)</code>: utilizamos o mesmo desvio-padrão (e variância) para gerar todas as observações. Há casos, no entanto, em que isso não faz sentido. Por exemplo, salários de diretores variam muito dependendo do setor da empresa. Isso é heterocedasticidade.</p>
-<p>Um exemplo simples disso seria se, no exemplo anterior, parte dos erros tivessem sido gerados de uma maneira e a outra parte de outra maneira: <code>e1 = rnorm(n/2, mean = 0, sd = 1)</code> e <code>e2 = rnorm(n/2, mean = 0, sd = 5)</code>. A hipótese da homocedasticidade nos leva a erros-padrão muito pequenos, e aí <span class="math inline">\(\frac{\hat{\beta}}{\text{se}(\hat{\beta})}\)</span> nos leva a estimativas maiores do que são de fato.</p>
-<section id="os-erros-padrão-de-huber-white" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="os-erros-padrão-de-huber-white"><span class="header-section-number">8.1</span> Os erros-padrão de Huber-White</h2>
+<p>Os valores preditos para as combinações seriam:</p>
+<ul>
+<li>Mulher negra: <span class="math inline">\(\beta_0 + \beta_1 + \beta_2\)</span></li>
+<li>Mulher branca: <span class="math inline">\(\beta_0 + \beta_1\)</span></li>
+<li>Homem negro: <span class="math inline">\(\beta_0 + \beta_2\)</span></li>
+<li>Homem branco: <span class="math inline">\(\beta_0\)</span></li>
+</ul>
+<p>Agora, note: muito provavelmente, o que as mulheres negras experimentam em relação aos anos de estudo provavelmente não é o efeito de ser “mulher E negra”; é, na verdade, o efeito das coisas combinadas (o que, para algumas combinações, pode gerar mais ou menos desigualdade). Portanto, vamos ajustar o seguinte modelo:</p>
 <p><span class="math display">\[
-\text{Var}(\hat{\beta}) = (X^T X)^{-1} X^T \text{Var}(\epsilon) X (X^T X)^{-1}
+\text{anosEst} = \beta_0 + \beta_1 \text{sexo} + \beta_2 \text{raça} + \beta_3 (\text{sexo} \times \text{raça})
 \]</span></p>
-<p>A hipótese de Huber-White é que a variância dos erros é uma diagonal preenchida de valores potencialmente distintos entre si e com zeros ao redor.</p>
+<p>Nesse caso, apenas as mulheres negras teriam o <span class="math inline">\(\beta_3\)</span> somado para calcular o valor predito (porque é o único caso em que as duas variáveis assumem valor 1): Mulher negra: <span class="math inline">\(\beta_0 + \beta_1 + \beta_2 + \beta_3\)</span>.</p>
+<p>Poderíamos encontrar os resultados (isto é, os valores preditos) executando o código abaixo. O que o termo interativo faz, no entanto, é permitir uma separação dos efeitos.</p>
+<pre><code>df %&gt;%
+  group_by(sexo, raca) %&gt;%
+  summarise(mean(anosEst))</code></pre>
+<p>Suponha agora um outro modelo:</p>
 <p><span class="math display">\[
-\text{Var}(\vec{\epsilon}) =
-\begin{bmatrix}
-\sigma^2_1 &amp; 0          &amp; \cdots &amp; 0 \\
-0          &amp; \sigma^2_2 &amp; \cdots &amp; 0 \\
-\vdots     &amp; \vdots     &amp; \ddots &amp; \vdots \\
-0          &amp; 0          &amp; \cdots &amp; \sigma^2_n
-\end{bmatrix} \\
+\log (\text{renda}) = \beta_0 + \beta_1 \text{sexo} + \beta_2 \text{anosEst} + \beta_3 (\text{sexo} \times \text{anosEst})
 \]</span></p>
-<p>Isso é essencialmente dizer, em termos de R, <code>for (i in 1:n) {e_i = rnorm(1, 0, sd = rpois(1, 10))}</code>. A regra que gerou o erro não importa muito, mas o fato é que cada pessoa pode ter um desvio-padrão arbitrário. Mas como fazer isso, já que só observamos cada indivíduo uma única vez? O que White (1980) mostra é que o próprio resíduo ao quadrado já funciona bem:</p>
-<p><span class="math display">\[
-\hat{\text{Var}}(\vec{\epsilon}) =
-\begin{bmatrix}
-\hat{\epsilon}_1^2 &amp; 0                  &amp; \cdots &amp; 0 \\
-0                  &amp; \hat{\epsilon}_2^2 &amp; \cdots &amp; 0 \\
-\vdots             &amp; \vdots             &amp; \ddots &amp; \vdots \\
-0                  &amp; 0                  &amp; \cdots &amp; \hat{\epsilon}_n^2
-\end{bmatrix} \\
-\]</span></p>
-<p>Em outras palavras, o que o autor mostra é que <span class="math inline">\(\text{Var}(\hat{\beta})^{\text{HW}} \overset{p}{\rightarrow} \text{Var}(\hat{\beta})\)</span>; isto é, a matriz de variância-covariância estimada sob a hipótese de Huber-White converge em probabilidade para a matriz</p>
-<p>Em vista disso, vamos atualizar nossa implementação de regressão.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## regressão implementada do zero</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>minha_regressao <span class="ot">=</span> <span class="cf">function</span>(formula_informada, data, <span class="at">erros =</span> <span class="st">"heterocedasticos"</span>){</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  dep_var_name <span class="ot">=</span> <span class="fu">as.character</span>(formula_informada[[<span class="dv">2</span>]])</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">model.matrix</span>(formula_informada, <span class="at">data =</span> data)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> data[[dep_var_name]]</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  y_hat <span class="ot">=</span> X <span class="sc">%*%</span> beta</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  residuos <span class="ot">=</span> y <span class="sc">-</span> X <span class="sc">%*%</span> beta</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">nrow</span>(data)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">=</span> <span class="fu">ncol</span>(data)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  var_residuos <span class="ot">=</span> <span class="fu">sum</span>(residuos<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> k)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  RMSE <span class="ot">=</span> <span class="fu">sqrt</span>(var_residuos)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  r2 <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> var_residuos<span class="sc">/</span><span class="fu">var</span>(y)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (erros <span class="sc">==</span> <span class="st">"homocedasticos"</span>) {</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    varcov_beta <span class="ot">=</span> var_residuos <span class="sc">*</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (erros <span class="sc">==</span> <span class="st">"heterocedasticos"</span>) {</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    omega <span class="ot">=</span> <span class="fu">diag</span>(<span class="fu">as.numeric</span>(residuos<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># forma otimizada se omega for muito grande</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#    omega = Matrix::sparseMatrix(</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#      i = 1:n,</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co">#      j = 1:n,</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">#      X = residuos^2</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co">#    )</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    varcov_beta <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> omega <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  se_beta <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(varcov_beta))</span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  H0 <span class="ot">=</span> <span class="dv">0</span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">=</span> (beta <span class="sc">-</span> H0) <span class="sc">/</span> se_beta</span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>  p_valor <span class="ot">=</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(t)))</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">coefs =</span> <span class="fu">tibble</span>(</span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>      <span class="at">Coeficientes =</span> <span class="fu">colnames</span>(X),</span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>      <span class="at">Estimativas =</span> <span class="fu">round</span>(beta, <span class="dv">2</span>),</span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>      <span class="at">Erros_padrao =</span> <span class="fu">round</span>(se_beta, <span class="dv">2</span>),</span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>      <span class="at">t =</span> t,</span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>      <span class="at">p_valor =</span> p_valor</span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>    r2,</span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>    RMSE,</span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>    var_residuos</span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>    <span class="co">#y_hat,</span></span>
-<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>    <span class="co">#residuos</span></span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>resultados_ho <span class="ot">=</span> <span class="fu">minha_regressao</span>(y <span class="sc">~</span> x1, <span class="at">data =</span> df, <span class="at">erros =</span> <span class="st">"homocedasticos"</span>)</span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>resultados_he <span class="ot">=</span> <span class="fu">minha_regressao</span>(y <span class="sc">~</span> x1, <span class="at">data =</span> df, <span class="at">erros =</span> <span class="st">"heterocedasticos"</span>)</span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>resultados_ho</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$coefs
-# A tibble: 2 × 5
-  Coeficientes Estimativas[,1] Erros_padrao t[,1] p_valor[,1]
-  &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
-1 (Intercept)             9.92         0.06  158.           0
-2 x1                     -4.99         0.02 -282.           0
-
-[[2]]
-[1] 0.9875652
-
-[[3]]
-[1] 1.012406
-
-[[4]]
-[1] 1.024966</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>resultados_he</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$coefs
-# A tibble: 2 × 5
-  Coeficientes Estimativas[,1] Erros_padrao t[,1] p_valor[,1]
-  &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
-1 (Intercept)             9.92         0.06  159.           0
-2 x1                     -4.99         0.02 -293.           0
-
-[[2]]
-[1] 0.9875652
-
-[[3]]
-[1] 1.012406
-
-[[4]]
-[1] 1.024966</code></pre>
-</div>
-</div>
-<p>Nesse caso os resultados não são muito diferentes. Isso significa, na prática, que a hipótese da homocedasticidade nesse caso não é absurda. Além disso, vale notar que as estimativas não se alteram – o que é esperado, já que a hipótese de homo/heterocedasticidade diz respeito apenas à variância dos erros (e, de fato, os erros padrão são ligeiramente diferentes, o que observamos a partir das diferenças entre os valores <span class="math inline">\(t\)</span>).</p>
-<p>O interessante da hipótese da heterocedasticidade é que ela pode assumir diversas formas. <span class="citation" data-cites="king2015robust">King and Roberts (<a href="bibliography.html#ref-king2015robust" role="doc-biblioref">2015</a>)</span> falam que a existência de heterocedasticidade é um sintoma, e não um problema em si mesmo. Mas um sintoma do quê, exatamente? De que você errou a forma funcional! Dependendo do jeito que traçamos a curva/reta, a variância poderia ser “constante”.</p>
-<p>Direto ao ponto: <span class="citation" data-cites="king2015robust">King and Roberts (<a href="bibliography.html#ref-king2015robust" role="doc-biblioref">2015</a>)</span> argumentam que heterocedasticidade pode ser sintoma de má especificação funcional. Então, quando calculamos erros de Huber-White e eles dão muito distantes dos erros homocedásticos, deveríamos dar um passo atrás e avaliar se estamos acertando a forma funcional.</p>
+<p>Nesse caso, teríamos uma equação para os homens e outra equação para as mulheres:</p>
+<ul>
+<li><strong>Mulheres:</strong> <span class="math inline">\(\beta_0 + \beta_1 + \beta_2 \text{anosEst} + \beta_3 \text{anosEst} \Longrightarrow (\beta_0 + \beta_1) + (\beta_2 + \beta_3) \text{anosEst}\)</span></li>
+<li><strong>Homens:</strong> <span class="math inline">\(\beta_0 + \beta_2 \text{anosEst}\)</span></li>
+</ul>
+<p>Note: a interpretação é que o termo interativo representa um incremento (ou decrescimento) no coeficiente de anos de estudo – isto é, trata-se de uma mudança no efeito.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-king2015robust" class="csl-entry" role="listitem">
-King, Gary, and Margaret E. Roberts. 2015. <span>“How Robust Standard Errors Expose Methodological Problems They Do Not Fix, and What to Do about It.”</span> <em>Political Analysis</em> 23 (2): 159–79. <a href="https://doi.org/10.1093/pan/mpu015">https://doi.org/10.1093/pan/mpu015</a>.
-</div>
-<div id="ref-wooldridge2020intro" class="csl-entry" role="listitem">
-Wooldridge, Jeffrey M. 2020. <em>Introductory Econometrics: A Modern Approach</em>. 7th ed. Boston, MA: Cengage Learning.
+<div id="ref-huntingtonklein2021linear" class="csl-entry" role="listitem">
+Huntington-Klein, Nick. 2021. <span>“Linear Rescaling to Accurately Interpret Logarithms.”</span> <em>Preprint</em>. <a href="https://arxiv.org/abs/2106.03070">https://arxiv.org/abs/2106.03070</a>.
 </div>
 </div>
 </section>
@@ -1252,13 +1016,13 @@ Wooldridge, Jeffrey M. 2020. <em>Introductory Econometrics: A Modern Approach</e
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../aulas/aula-6.html" class="pagination-link" aria-label="Variância dos estimadores">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Variância dos estimadores</span></span>
+      <a href="../aulas/aula-11.html" class="pagination-link" aria-label="Valores preditos como estratégia de apresentação de dados">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Valores preditos como estratégia de apresentação de dados</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../aulas/aula-8.html" class="pagination-link" aria-label="Heterocedasticidade pt. 2">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;2</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../listas/listas.html" class="pagination-link" aria-label="Listas">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Listas</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

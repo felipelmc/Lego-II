@@ -1,0 +1,92 @@
+---
+title: "Valores preditos como estratégia de apresentação de dados"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 12pt
+---
+
+# @wooldridge2020intro, chapter 6 -- Further Issues
+
+## Prediction and Residual Analysis (6.4)
+
+### Confidence intervals for predictions
+
+> In Chapter 3, we defined the OLS predicted or fitted values and the OLS residuals. Predictions are certainly useful, but they are subject to sampling variation, because they are obtained using the OLS estimators. Thus, in this section, we show how to obtain confidence intervals for a prediction from the OLS regression line. [@wooldridge2020intro, p. 201]
+
+The fact is that, by default, the model returns a predicted value, which is point estimate. We want some measure of uncertainty in this predicted value.
+
+The parameter we would like to estimate is
+
+$$
+\begin{align*}
+\theta_0 &= \beta_0 + \beta_1 c_1 + \beta_2 c_2 + ... + \beta_k c_k \\
+&= \mathbb{E}(y|x_1 = c_1, x_2 = c_2, ..., x_k = c_k).
+\end{align*}
+$$
+
+The estimator for $\theta_0$ is
+
+$$
+\hat{\theta}_0 = \hat{\beta}_0 + \hat{\beta}_1 c_1 + \hat{\beta}_2 c_2 + ... + \hat{\beta}_k c_k
+$$
+
+> To obtain a confidence interval for $\theta_0$, we need a standard error for $\hat{\theta}_0$. Then, with a large $df$, we can construct a 95% confidence interval using the rule of thumb $\hat{\theta}_0 \pm 2 \cdot \text{se}(\hat{\theta}_0)$. [@wooldridge2020intro, p. 202]
+
+To obtain the standard error of $\hat{\theta}_0$ we do the following:
+
+1. Write $\beta_0 = \theta_0 - \beta_1 c_1 - ... - \beta_k c_k$
+2. Plug this into $y = \beta_0 + \beta_1 x_1 + ... + \beta_k x_k + u$
+3. Obtain $y = \theta_0 + \beta_1 (x_1 - c_1) + \beta_2 (x_2 - c_2) + ... + \beta_k (x_k - c_k) + u$
+
+> The predicted value in (6.29) and, more importantly, its standard error, are obtained from the intercept (or constant) in regression (6.31). [@wooldridge2020intro, p. 202]
+
+AWESOME🤩
+
+> The previous method allows us to put a confidence interval around the OLS estimate for $\mathbb{E}(y | x_1, ..., x_k)$ for any values of the explanatory variables. In other words, we obtain a confidence interval for the _average_ value of $y$ for the subpopulation with a given set of covariates. But a confidence interval for the average person in the subpopulation is not the same as a confidence interval for a particular unit (individual, family, firm, and so on) from the population. In forming a confidence interval for an unknown outcome on $y$, we must account for another very important source of variation: the variance in the unobserved error, which measures our ignorance of the unobserved factors that affect $y$. [@wooldridge2020intro, p. 203]
+
+Prediction error:
+
+$$
+\hat{e}^0 = y^0 - \hat{y}^0 = (\beta_0 + \beta_1 x_1^0 + ... + \beta_k x_k^0) + u^0 - \hat{y}^0
+$$
+
+A 95% confidence interval for any estimated $\hat{y}$ is:
+
+$$
+\hat{y}^0 \pm t_{.025} \cdot \text{se}(\hat{e}^0)
+$$
+
+### Residual analysis
+
+> Sometimes, it is useful to examine individual observations to see whether the actual value of the dependent variable is above or below the predicted value; that is, to examine the residuals for the individual observations. This process is called residual analysis. [@wooldridge2020intro, p. 205]
+
+# @barbosa2022incerteza
+
+> Dizer que os coeficientes têm um erro-padrão (ou uma variância) significa dizer que ao longo de diversas amostras possíveis, extraídas de uma mesma população ou PGD, eles não serão numericamente idênticos, mas variarão conforme uma distribuição de probabilidade. E, segundo o Teorema do Limite Central (TCL), essa distribuição é a Normal: assumindo que a amostra foi mesmo probabilística, as estimativas se distribuirão como uma Normal em torno do parâmetro verdadeiro. Chamamos essa distribuição das estatísticas produzidas por infinitas amostras (de mesmo tamanho!) de "Distribuição Amostral das Estimativas". Nesse caso, estamos tratando da distribuição amostral dos coeficientes (ou "betas", como costumamos dizer). [@barbosa2022incerteza, p. 2]
+
+> Por exemplo, podemos pensar que os coeficientes do Processo Gerador (ou da População Finita) são iguais a um determinado valor $a$, do seu interesse. De acordo com o Teorema do Limite Central, as estimativas das amostras se distribuiriam como uma Normal em torno desse valor $a$. E maioria das estimativas (95%, por exemplo) não cairiam a mais do que 1.96 desvios-padrão dessa média. O desvio-padrão estimado dos coeficientes é o erro-padrão! Ou seja: por mera flutuação amostral, os valores das estatísticas já se diferenciariam do parâmetro (nesse nosso caso, do parâmetro que supomos ser o verdadeiro) -- mas essa distância não seria muito grnade na maioria das vezes. Teríamos então que se $a$ fosse mesmo o parâmetro verdadeiro, seria improvável (i.e. raro) que o coeficiente estimado de interesse, $\hat{\beta}_j$, distasse mais do que $1.96$ erros-padrão de $a$. [@barbosa2022incerteza, p. 6]
+
+> Dizemos, assim, que as extrapolações são Dependentes do Modelo (_Model Dependent_). Isso significa que a especificação e a escolha da forma funcional passam a cumprir um papel muito expressivo, quando tentamos estender suas capacidades para além do que deveríamos. Como proceder então? Bem, devemos avaliar a região de suporte (ou domínio) das variáveis independentes -- para apenas produzir valores preditos dentro desse escopo. [@barbosa2022incerteza, p. 12]
+
+> Aí então usando dados da PNADC, que contém essas mesmas variáveis independentes, mas não a dependente, produzir valores preditos sobre a saúde das pessoas. Por meio desse "truque", imputamos uma informação antes inexistente no banco de dados. Mas até que ponto isso é válido? Devemos considerar se as amostras são comparáveis, desenhadas para representar populações equivalentes. Devemos avaliar se os mesmos grupos e regiões estão incluídos etc. E, em todos esses quesitos, PNADC e PNS são compatíveis. Esse último ponto é extremamente importante: pesquisas diferentes usam formas distintas de perguntas e variáveis, com enunciados e opções por vezes incomparáveis. Não basta ter, assim variáveis que simplesmente "parecem ser as mesmas"!!! [@barbosa2022incerteza, p. 12]
+
+O pacote `WhatIf` nos permite avaliar se o perfil está dentro de um _Convex Hull_.
+
+> Tente então se manter dentro do Hull. Não faça extrapolações. Muito menos extrapolações extremas. [@barbosa2022incerteza, p. 21]
+
+> Uma forma alternativa e mais divertida de produzir intervalos de confiança é por meio de simulações de números aleatórios. Ao longo da disciplina, usamos várias vezes funções como `rnorm()` e `rbinom()`, para gerar números (pseudo-)aleatórios a partir de distribuições paramétricas de interesse. Ora, pelo Teorema do Limite Central, os betas seguem uma distribuição paramétrica: uma Normal Multivariada. Já falamos disso diversas vezes. A Equação 1 dizia: $\hat{\beta} \sim \mathcal{N}(\beta, \Sigma)$.
+>
+> Podemos então usar $\hat{\beta}$ como substituto de $\beta$ (já que é sua melhor estimativa!) e $\hat{\Sigma}$ como substituto de $\Sigma$ e então simular uma Normal Multivariada com $\mathcal{N}(\hat{\beta}, \hat{\Sigma})$. Mas como se faz isso?! Simples: há uma função chamada `mvrnorm()` (abreviação para "Multivariate `rnorm`" ou ainda "Random Draws from a Multivariate Normal Distribution"). Ela está no pacote MASS. [@barbosa2022incerteza, p. 24]
+
+Podemos fazer isso para simular vários $\hat{\beta}$ e, portanto, vários valores preditos sob betas ligeiramente distintos. Depois, podemos calcular diretamente os quantis nas posições 2.5% e 97.5% para obter os valores no intervalo de confiança de 95%.
+
+# @king2006danger
+
+> Although this represents considerable progress in reducing the barriers between technique and substance, we address here a crucial remaining disconnect, one that threatens to undermine the validity of a considerable body of important research. This is the problem of extreme counterfactuals -- predictions, what-if questions, and causal inferences that are so fat from the data that inferences wind up being drawn on the basis of a minor model specification choices no one would like to defend, rather than empirical evidence. [@king2006danger, p. 132]
+
+> The problem with extreme counterfactuals is that whatever statistical model we use to compute the 2% counterfactual inference could also be used to compute the 200% one. Our confidence interval for counterfactuals farther from the data are wider, but the inference may be considerably more uncertain than the confidence interval indicates. [...]. The problem is that we have little reason to assume the model is right when the counterfactual is so far from the data. In other words, the 200% inference is far more _model dependent_ than the first. [@king2006danger, p. 132]
+
+> The key is that even though no statistical assumption may be violated as a result of the choice of any set of real numbers for $x$, the model obviously produces better forecasts (and what-if evaluations) for some values of $x$ then others, but no measure produced by standard statistics packages helps guide research in choosing reasonable counterfactuals. [@king2006danger, p. 134]
+
