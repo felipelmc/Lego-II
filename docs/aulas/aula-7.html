@@ -483,7 +483,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Listas</span></a>
+ <span class="menu-text">Modelos para variáveis dependentes limitadas</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -491,8 +491,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../listas/listas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Listas</span></span></a>
+  <a href="../aulas/aula-13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Revisão de probabilidade</span></span></a>
   </div>
 </li>
       </ul>
@@ -500,7 +500,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Bibliografia</span></a>
+ <span class="menu-text">Listas</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -508,8 +508,25 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../listas/listas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Listas</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Bibliografia</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../aulas/bibliography.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Bibliografia</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Bibliografia</span></span></a>
   </div>
 </li>
       </ul>
@@ -680,17 +697,17 @@ window.Quarto = {
 # A tibble: 2 × 5
   Coeficientes Estimativas[,1] Erros_padrao t[,1] p_valor[,1]
   &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
-1 (Intercept)             9.92         0.06  158.           0
-2 x1                     -4.99         0.02 -282.           0
+1 (Intercept)             9.92         0.06  153.           0
+2 x1                     -4.97         0.02 -269.           0
 
 [[2]]
-[1] 0.9875652
+[1] 0.9864072
 
 [[3]]
-[1] 1.012406
+[1] 1.013364
 
 [[4]]
-[1] 1.024966</code></pre>
+[1] 1.026906</code></pre>
 </div>
 </div>
 <p>A hipótese da homocedasticidade está em <code>e = rnorm(n, mean = 0, sd = 1)</code>: utilizamos o mesmo desvio-padrão (e variância) para gerar todas as observações. Há casos, no entanto, em que isso não faz sentido. Por exemplo, salários de diretores variam muito dependendo do setor da empresa. Isso é heterocedasticidade.</p>
@@ -790,17 +807,17 @@ window.Quarto = {
 # A tibble: 2 × 5
   Coeficientes Estimativas[,1] Erros_padrao t[,1] p_valor[,1]
   &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
-1 (Intercept)             9.92         0.06  158.           0
-2 x1                     -4.99         0.02 -282.           0
+1 (Intercept)             9.92         0.06  153.           0
+2 x1                     -4.97         0.02 -269.           0
 
 [[2]]
-[1] 0.9875652
+[1] 0.9864072
 
 [[3]]
-[1] 1.012406
+[1] 1.013364
 
 [[4]]
-[1] 1.024966</code></pre>
+[1] 1.026906</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>resultados_he</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -808,17 +825,17 @@ window.Quarto = {
 # A tibble: 2 × 5
   Coeficientes Estimativas[,1] Erros_padrao t[,1] p_valor[,1]
   &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
-1 (Intercept)             9.92         0.06  159.           0
-2 x1                     -4.99         0.02 -293.           0
+1 (Intercept)             9.92         0.07  144.           0
+2 x1                     -4.97         0.02 -261.           0
 
 [[2]]
-[1] 0.9875652
+[1] 0.9864072
 
 [[3]]
-[1] 1.012406
+[1] 1.013364
 
 [[4]]
-[1] 1.024966</code></pre>
+[1] 1.026906</code></pre>
 </div>
 </div>
 <p>Nesse caso os resultados não são muito diferentes. Isso significa, na prática, que a hipótese da homocedasticidade nesse caso não é absurda. Além disso, vale notar que as estimativas não se alteram – o que é esperado, já que a hipótese de homo/heterocedasticidade diz respeito apenas à variância dos erros (e, de fato, os erros padrão são ligeiramente diferentes, o que observamos a partir das diferenças entre os valores <span class="math inline">\(t\)</span>).</p>

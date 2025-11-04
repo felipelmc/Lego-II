@@ -8,7 +8,7 @@
 
 <meta name="author" content="Felipe Lamarca">
 
-<title>9&nbsp; Heterocedasticidade pt.&nbsp;2 – Lego II</title>
+<title>14&nbsp; Revisão de probabilidade – Lego II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,8 +66,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../aulas/aula-9.html" rel="next">
-<link href="../aulas/aula-7.html" rel="prev">
+<link href="../listas/listas.html" rel="next">
+<link href="../aulas/aula-12.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -275,7 +310,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-6.html">Incerteza e inferência</a></li><li class="breadcrumb-item"><a href="../aulas/aula-8.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;2</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-13.html">Modelos para variáveis dependentes limitadas</a></li><li class="breadcrumb-item"><a href="../aulas/aula-13.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Revisão de probabilidade</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -384,7 +419,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../aulas/aula-8.html" class="sidebar-item-text sidebar-link active">
+  <a href="../aulas/aula-8.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;2</span></span></a>
   </div>
 </li>
@@ -436,7 +471,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../aulas/aula-13.html" class="sidebar-item-text sidebar-link">
+  <a href="../aulas/aula-13.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Revisão de probabilidade</span></span></a>
   </div>
 </li>
@@ -481,16 +516,31 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#regras-básicas" id="toc-regras-básicas" class="nav-link active" data-scroll-target="#regras-básicas">Regras básicas</a></li>
+  <li><a href="#funções-de-distribuição-ou-distribuições-paramétricas" id="toc-funções-de-distribuição-ou-distribuições-paramétricas" class="nav-link" data-scroll-target="#funções-de-distribuição-ou-distribuições-paramétricas">Funções de Distribuição, ou Distribuições Paramétricas</a>
+  <ul class="collapse">
+  <li><a href="#bernoulli" id="toc-bernoulli" class="nav-link" data-scroll-target="#bernoulli">Bernoulli</a></li>
+  <li><a href="#binomial" id="toc-binomial" class="nav-link" data-scroll-target="#binomial">Binomial</a></li>
+  <li><a href="#poisson" id="toc-poisson" class="nav-link" data-scroll-target="#poisson">Poisson</a></li>
+  <li><a href="#normal" id="toc-normal" class="nav-link" data-scroll-target="#normal"><span class="header-section-number">14.0.1</span> Normal</a></li>
+  </ul></li>
+  <li><a href="#distribuições-discretas-e-contínuas" id="toc-distribuições-discretas-e-contínuas" class="nav-link" data-scroll-target="#distribuições-discretas-e-contínuas"><span class="header-section-number">14.1</span> Distribuições Discretas e Contínuas</a></li>
+  <li><a href="#momentos-da-distribuição" id="toc-momentos-da-distribuição" class="nav-link" data-scroll-target="#momentos-da-distribuição"><span class="header-section-number">14.2</span> Momentos da distribuição</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-6.html">Incerteza e inferência</a></li><li class="breadcrumb-item"><a href="../aulas/aula-8.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;2</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../aulas/aula-13.html">Modelos para variáveis dependentes limitadas</a></li><li class="breadcrumb-item"><a href="../aulas/aula-13.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Revisão de probabilidade</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;2</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Revisão de probabilidade</span></h1>
 </div>
 
 
@@ -513,31 +563,227 @@ window.Quarto = {
 </header>
 
 
-<p>Na aula passada, vimos que podemos estimar a variância de <span class="math inline">\(\beta\)</span> assumindo heterocedasticidade – em particular, assumindo que os elementos da diagonal principal na matriz de variância-covariância podem ser diferentes entre si, mantendo os zeros no entorno. Hoje, vamos relaxar a <em>assumption</em> dos zeros ao redor da diagnonal (permitindo que eles difiram de zero). Em outras palavras, estamos falando de <strong>erros clusterizados</strong>, quando há covariância entre as observações.</p>
-<p>Vamos pensar em um survey quando fazemos amostragem aleatória simples. Assumimos que há uma lista com todas as pessoas que moram no Brasil, e usamos um gerador de números aleatórios para sortear as pessoas a serem contactadas. Nesse caso, podemos assumir que não há correlação entre as observações. Isso é muito difícil de ser feito, mesmo porque uma lista como essa não existe. O que se faz, na prática, é sortear em etapas – sorteamos municípios, depois alguns setores censitários, daí alguns domicílios.</p>
-<p>Nesse contexto, faz sentido que as pessoas sorteadas sejam mais parecidas entre si, porque as observações são correlacionadas espacialmente. Fazer amostragens como essa, portanto, nos faz deixar de pegar pessoas que seriam diferentes.</p>
-<p>A causa da existência de correlação entre as observações é a estratégia de coleta. Trata-se, aliás, de um conhecimento moderno, e os erros clusterizados levam em consideração o fato de que temos menos informação em relação ao <em>approach</em> via amostragem aleatória simples. Tanto os erros homocedásticos quanto os erros heterocedásticos assumem amostragem aleatória simples.</p>
-<p>Os erros clusterizados são:</p>
+<p>Uma variável aleatória <span class="math inline">\(X\)</span> é uma função que mapeia alternativas do espaço amostral <span class="math inline">\(\Omega\)</span> para o conjunto dos números reais: <span class="math inline">\(X: \Omega \rightarrow \mathbb{R}\)</span>.</p>
+<p>O espaço amostral <span class="math inline">\(\Omega\)</span> é o conjunto das alternativas possíveis de serem sorteados. Exemplo:</p>
 <p><span class="math display">\[
-\text{Var}(\hat{\beta}) = (X^T X)^{-1} \left[ \sum_c X^T_c \Omega_c X_c \right] (X^T X)^{-1},
+\begin{align*}
+&amp;\Omega = \{ \text{cara, coroa} \} \\
+&amp;\Omega = \{ 1, 2, 3, 4, 5, 6 \} \\
+&amp;\Omega = [0, \infty^+)
+\end{align*}
 \]</span></p>
-<p>onde <span class="math inline">\(c\)</span> é um conglomerado, <span class="math inline">\(X\)</span> é a <em>design matrix</em> de todas as amostras e <span class="math inline">\(X_c\)</span> é a <em>design matrix</em> apenas para o conglomerado <span class="math inline">\(c\)</span>. Veja: <span class="math inline">\(X_c\)</span> tem <span class="math inline">\(k\)</span> colunas, tal como <span class="math inline">\(X\)</span>, mas tem apenas <span class="math inline">\(n_c\)</span> linhas (número de observações no conglomerado) ao invés de <span class="math inline">\(n\)</span> linhas.</p>
-<p>Nesse caso, estamos montando um esquema que permite usar a correlação entre os erros dentro de um mesmo conglomerado, mas não entre conglomerados distintos. I.e., saber a renda de alguém em um conglomerado <span class="math inline">\(x\)</span> não me diz nada sobre a renda de alguém no conglomerado <span class="math inline">\(y\)</span>. Isso é apenas uma abstração, é claro, mas uma abstração necessária: se quiséssemos compor uma matriz cheia com todas as correlações entre os erros, precisaríamos de muito mais informações do que temos disponível na prática.</p>
-<p><span class="math inline">\(\hat{\Omega}\)</span> é uma matriz na qual “todo mundo se multiplicou”:</p>
+<section id="regras-básicas" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="regras-básicas">Regras básicas</h2>
+<ul>
+<li><span class="math inline">\(0 \leq \mathbb{P} \leq 1\)</span></li>
+<li><span class="math inline">\(\mathbb{P} (\Omega) = 1\)</span> – soma das barras discretas é 1, e a área sob a curva contínua é 1</li>
+<li>Probabilidade de um evento ocorrer é <span class="math inline">\(p\)</span>, e a probabilidade de um evento não ocorrer é <span class="math inline">\(1-p\)</span>. Também podemos chamar isso de probabilidade complementar: <span class="math inline">\(p^c = 1-p\)</span></li>
+<li>Probabilidade condicional é a probabilidade de um evento <span class="math inline">\(A\)</span> dado um evento <span class="math inline">\(B\)</span>. Também escrevemos isso da seguinte maneira:</li>
+</ul>
 <p><span class="math display">\[
-\hat{\Omega}_c = X^T_c \left[ \hat{\epsilon}_c \hat{\epsilon}_c^T \right] X_c
+\mathbb{P}(A|B) = \dfrac{\mathbb{P}(A, B)}{\mathbb{P}(B)}
 \]</span></p>
+<p>Suponha um dado de 4 lados. Temos várias combinações possíveis. Agora, vamos calcular <span class="math inline">\(\mathbb{P}(\text{Dado 1} = 4 | \text{Dado 2} = 2)\)</span> – e devemos considerar essa segunda parte como uma espécie de “filtro”, ou seja, vamos considerar apenas os casos nos quais o segundo dado assumiu valor 2.</p>
+<p><span class="math inline">\(\mathbb{P}(A, B)\)</span> é a probabilidade conjunta e <span class="math inline">\(\mathbb{P}(B)\)</span> é a probabilidade marginal.</p>
+<p>E, por último:</p>
+<ul>
+<li><span class="math inline">\(\mathbb{P}(A \cap B)\)</span> é a probabilidade de co-ocorrência de eventos. Trata-se literalmente do cruzamento. Em caso de eventos independentes, <span class="math inline">\(\mathbb{P}(A \cap B) = \mathbb{P}(A) \cdot \mathbb{P}(B)\)</span>; no caso de eventos não independentes, essa probabilidade é empírica. De fato, exemplo anterior sobre dados, os eventos são independentes, já que não há qualquer relação entre os dois dados.</li>
+</ul>
+</section>
+<section id="funções-de-distribuição-ou-distribuições-paramétricas" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="funções-de-distribuição-ou-distribuições-paramétricas">Funções de Distribuição, ou Distribuições Paramétricas</h2>
+<section id="bernoulli" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="bernoulli">Bernoulli</h3>
+<p><span class="math display">\[
+\begin{align*}
+f(x) &amp;= p^x \cdot (1 - p)^{1-x} \\
+&amp;x \in \{0, 1\}
+\end{align*}
+\]</span></p>
+<p>Seja <span class="math inline">\(p = 0.7\)</span>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(\Omega\)</span></th>
+<th>Probabilidade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td><span class="math inline">\((0.7)^0 \cdot (0.3)^1 = 0.3\)</span></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td><span class="math inline">\((0.7)^1 \cdot (0.3)^0 = 0.7\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="binomial" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="binomial">Binomial</h3>
+<p>A distribuição Binomial representa a soma de várias variáveis Bernoulli independentes (com o mesmo valor de <span class="math inline">\(p\)</span>) – ou seja, a Bernoulli é um caso especial da Binomial. A Bernoulli, mas especificamente, modela um único experimento que pode resultar em sucesso (com probabilidade <span class="math inline">\(p\)</span>) e fracasso (com probabilidade <span class="math inline">\(1-p\)</span>).</p>
+<p><span class="math display">\[
+\begin{align*}
+f(x) = \mathbb{P}(X = x) &amp;= \binom{n}{x} p^{x} (1 - p)^{n - x}, \quad x = 0, 1, 2, \ldots, n \\
+&amp;= \dfrac{n!}{x! (n-x)!} \cdot p^x (1 - p)^{n-x}
+\end{align*}
+\]</span></p>
+<p>Os parâmetros são <span class="math inline">\(p\)</span> e <span class="math inline">\(n\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># parâmetros da binomial</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">3</span>       <span class="co"># número de tentativas</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.3</span>     <span class="co"># probabilidade de sucesso</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># suporte</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span>n</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># pmf</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>fx <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(x, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># gráfico</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, fx,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">"h"</span>, <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"P(X = x)"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">sprintf</span>(<span class="st">"Distribuição Binomial(n = %d, p = %.1f)"</span>, n, p))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x, fx, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aula-13_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <blockquote class="blockquote">
-<p>Os erros clusterizados têm a ver com a maneira como os dados são coletados. Se os dados são coletados utilizando alguma variável específica como cluster, podemos falar em erros clusterizados. Criar clusters “a posteriori”, no entanto, não faz sentido.</p>
+<p>Distribuições paramétricas “resumem” uma “tabela grande” em um pequeno conjunto de parâmetros (i.e.&nbsp;números pré-definidos) e uma fórmula.</p>
+<p><span class="math inline">\(\rightarrow\)</span> Qual é a fórmula? (qual é a distribuição?)</p>
+<p><span class="math inline">\(\rightarrow\)</span> Qual é o valor pré-determinado dos parâmetros?</p>
 </blockquote>
-<p>A autocorrelação dos erros é o quanto de informação estamos perdendo ao coletar pessoas num mesmo cluster.</p>
-<p>Podemos incorporar os pesos na regressão (<em>weighted least squares</em> no caso da regressão linear):</p>
+</section>
+<section id="poisson" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="poisson">Poisson</h3>
+<p>É uma distribuição com espaço amostral <span class="math inline">\(x \in \mathbb{I}\)</span> com um único parâmetro <span class="math inline">\(\lambda\)</span>, que define, ao mesmo tempo, o ponto central e a dispersão.</p>
 <p><span class="math display">\[
-\hat{\beta}_w = (X^T W X)^{-1} X^T W y,
+f(x) = \dfrac{e^{-\lambda} \lambda^x}{x!}, \quad \lambda \in \mathbb{R}^+
 \]</span></p>
-<p>onde <span class="math inline">\(W\)</span> é uma matriz diagonal com os pesos de cada observação na diagonal principal. E note: se o banco de dados possui pesos, não tem como fazermos de outro jeito. Em particular, se o banco possui pesos e os erros forem clusterizados, a diferença entre os erros homocedásticos e os erros heterocedásticos poderão ser dramaticamente diferentes.</p>
+<p>Suponha <span class="math inline">\(\lambda = 2.5\)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(\Omega\)</span></th>
+<th style="text-align: left;">Probabilidade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: left;"><span class="math inline">\(\mathbb{P}(X=0) = \dfrac{e^{-2.5}(2.5)^0}{0!} = e^{-2.5} \approx 0.0821\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><span class="math inline">\(\mathbb{P}(X=1) = \dfrac{e^{-2.5}(2.5)^1}{1!} = 2.5\,e^{-2.5} \approx 0.2052\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"><span class="math inline">\(\mathbb{P}(X=2) = \dfrac{e^{-2.5}(2.5)^2}{2!} = 3.125\,e^{-2.5} \approx 0.2565\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><span class="math inline">\(\mathbb{P}(X=3) = \dfrac{e^{-2.5}(2.5)^3}{3!} = 2.604\,e^{-2.5} \approx 0.2138\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: left;"><span class="math inline">\(\mathbb{P}(X=4) = \dfrac{e^{-2.5}(2.5)^4}{4!} = 1.6276\,e^{-2.5} \approx 0.1336\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">=</span> <span class="cf">function</span>(x, l){</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  e <span class="ot">=</span> <span class="fu">exp</span>(<span class="dv">1</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  ((e<span class="sc">^-</span>l) <span class="sc">*</span> l<span class="sc">^</span>x) <span class="sc">/</span> <span class="fu">factorial</span>(x)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># loop de 0 a 5</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (x <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"x ="</span>, x, <span class="st">"-&gt;"</span>, <span class="fu">prob</span>(x, <span class="at">l =</span> <span class="fl">2.5</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>x = 0 -&gt; 0.082085 
+x = 1 -&gt; 0.2052125 
+x = 2 -&gt; 0.2565156 
+x = 3 -&gt; 0.213763 
+x = 4 -&gt; 0.1336019 
+x = 5 -&gt; 0.06680094 </code></pre>
+</div>
+</div>
+</section>
+<section id="normal" class="level3" data-number="14.0.1">
+<h3 data-number="14.0.1" class="anchored" data-anchor-id="normal"><span class="header-section-number">14.0.1</span> Normal</h3>
+<p><span class="math display">\[
+f(x) = \dfrac{1}{\sqrt{\sigma^2 2\pi}} e^{(-\frac{1}{2} \frac{(x-\mu)^2}{\sigma^2})},
+\]</span></p>
+<p>tendo <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma^2\)</span> como parâmetros. Neste caso, <span class="math inline">\(\mu\)</span> altera o “lugar” da distribuição, e <span class="math inline">\(\sigma^2\)</span> altera a dispersão da distribuição.</p>
+<p>Trata-se de uma distribuição impossível de tabular, porque se trata de um conjunto não enumerável – <span class="math inline">\(x \in \mathbb{R} \leftrightarrow x \in (-\infty, +\infty)\)</span>.</p>
+<p>Vejamos a forma da função com <span class="math inline">\(\mu = 1, \sigma^2 = 4\)</span>:</p>
+<p><span class="math display">\[
+f(x) = \dfrac{1}{4 \cdot 2\pi} e^{-\frac{1}{2} \cdot \frac{(x-1)^2}{4}}
+\]</span></p>
+<p>Supondo <span class="math inline">\(x = 1\)</span>, teríamos:</p>
+<p><span class="math display">\[
+f(1) = \dfrac{1}{8\pi} e^{0} \approx 0.1995
+\]</span></p>
+</section>
+</section>
+<section id="distribuições-discretas-e-contínuas" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="distribuições-discretas-e-contínuas"><span class="header-section-number">14.1</span> Distribuições Discretas e Contínuas</h2>
+<p>As distribuições discretas tem um espaço amostral enumerável, contável e é possível calcular a probabilidade de cada valor no espaço amostral exatamente.</p>
+<p>Distribuições contínuas, por sua vez, têm <span class="math inline">\(\Omega\)</span> não contável, não enumerável, e a probabilidade de um valor específico é irrisória e não é de interesse. Calculamos a probabilidade de intervalos. Valores na região da média são muito prováveis (i.e.&nbsp;há alta densidade de probabilidade). Nesse caso, o cálculo da probabilidade é a área na região entre dois valores.</p>
+<p>Se quiséssemos calcular a área entre <span class="math inline">\(-\infty\)</span> e <span class="math inline">\(3\)</span>, faríamos:</p>
+<p><span class="math display">\[
+\int^3_{-\infty} f(x) dx
+\]</span></p>
+</section>
+<section id="momentos-da-distribuição" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="momentos-da-distribuição"><span class="header-section-number">14.2</span> Momentos da distribuição</h2>
+<p>Nas distribuições paramétricas, os momentos da distribuição são obtidos por meio de alguma função/transformação dos parâmetros.</p>
+<blockquote class="blockquote">
+<p>Momento é um valor esperado de uma potência (centrada ou não) da distribuição.</p>
+<p><span class="math inline">\(\mathbb{E}[X]\)</span> (média), <span class="math inline">\(\mathbb{E}[X^2]\)</span>, <span class="math inline">\(\mathbb{E}[X^3]\)</span>, <span class="math inline">\(\mathbb{E}[X - \mathbb{E}[X]]\)</span>, <span class="math inline">\(\mathbb{E}[(X - \mathbb{E}[X])^2]\)</span> (variância).</p>
+</blockquote>
+<p><span class="math display">\[
+\text{Bernoulli} \left\{
+\begin{array}{l}
+\mathbb{E}[X] = p \\
+\operatorname{Var}(X) = p(1-p)
+\end{array}
+\right.
+\]</span></p>
+<p><span class="math display">\[
+\text{Binomial} \left\{
+\begin{array}{l}
+\mathbb{E}[X] = np \\
+\operatorname{Var}(X) = n \cdot p \cdot (1-p)
+\end{array}
+\right.
+\]</span></p>
+<p><span class="math display">\[
+\text{Poisson} \left\{
+\begin{array}{l}
+\mathbb{E}[X] = \lambda \\
+\operatorname{Var}(X) = \lambda
+\end{array}
+\right.
+\]</span></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -954,13 +1200,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../aulas/aula-7.html" class="pagination-link" aria-label="Heterocedasticidade pt. 1">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Heterocedasticidade pt.&nbsp;1</span></span>
+      <a href="../aulas/aula-12.html" class="pagination-link" aria-label="Forma funcional, uso de logs, interações">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Forma funcional, uso de logs, interações</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../aulas/aula-9.html" class="pagination-link" aria-label="Multicolinearidade">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multicolinearidade</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../listas/listas.html" class="pagination-link" aria-label="Listas">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Listas</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

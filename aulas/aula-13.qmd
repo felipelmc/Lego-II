@@ -1,0 +1,198 @@
+---
+title: "Revisão de probabilidade"
+bibliography: ../bibliography.bib
+author:
+  - name: Felipe Lamarca
+    email: felipelamarca@iesp.uerj.br
+fontsize: 12pt
+---
+
+Uma variável aleatória $X$ é uma função que mapeia alternativas do espaço amostral $\Omega$ para o conjunto dos números reais: $X: \Omega \rightarrow \mathbb{R}$.
+
+O espaço amostral $\Omega$ é o conjunto das alternativas possíveis de serem sorteados. Exemplo:
+
+$$
+\begin{align*}
+&\Omega = \{ \text{cara, coroa} \} \\
+&\Omega = \{ 1, 2, 3, 4, 5, 6 \} \\
+&\Omega = [0, \infty^+)
+\end{align*}
+$$
+
+## Regras básicas {.unnumbered}
+
+- $0 \leq \mathbb{P} \leq 1$
+- $\mathbb{P} (\Omega) = 1$ -- soma das barras discretas é 1, e a área sob a curva contínua é 1
+- Probabilidade de um evento ocorrer é $p$, e a probabilidade de um evento não ocorrer é $1-p$. Também podemos chamar isso de probabilidade complementar: $p^c = 1-p$
+- Probabilidade condicional é a probabilidade de um evento $A$ dado um evento $B$. Também escrevemos isso da seguinte maneira:
+
+$$
+\mathbb{P}(A|B) = \dfrac{\mathbb{P}(A, B)}{\mathbb{P}(B)}
+$$
+
+Suponha um dado de 4 lados. Temos várias combinações possíveis. Agora, vamos calcular $\mathbb{P}(\text{Dado 1} = 4 | \text{Dado 2} = 2)$ -- e devemos considerar essa segunda parte como uma espécie de "filtro", ou seja, vamos considerar apenas os casos nos quais o segundo dado assumiu valor 2.
+
+$\mathbb{P}(A, B)$ é a probabilidade conjunta e $\mathbb{P}(B)$ é a probabilidade marginal.
+
+E, por último:
+
+- $\mathbb{P}(A \cap B)$ é a probabilidade de co-ocorrência de eventos. Trata-se literalmente do cruzamento. Em caso de eventos independentes, $\mathbb{P}(A \cap B) = \mathbb{P}(A) \cdot \mathbb{P}(B)$; no caso de eventos não independentes, essa probabilidade é empírica. De fato, exemplo anterior sobre dados, os eventos são independentes, já que não há qualquer relação entre os dois dados.
+
+## Funções de Distribuição, ou Distribuições Paramétricas {.unnumbered}
+
+### Bernoulli {.unnumbered}
+
+$$
+\begin{align*}
+f(x) &= p^x \cdot (1 - p)^{1-x} \\
+&x \in \{0, 1\}
+\end{align*}
+$$
+
+Seja $p = 0.7$:
+
+| $\Omega$ | Probabilidade                 |
+|----------|-------------------------------|
+| 0        | $(0.7)^0 \cdot (0.3)^1 = 0.3$ |
+| 1        | $(0.7)^1 \cdot (0.3)^0 = 0.7$ |
+
+### Binomial {.unnumbered}
+
+A distribuição Binomial representa a soma de várias variáveis Bernoulli independentes (com o mesmo valor de $p$) -- ou seja, a Bernoulli é um caso especial da Binomial. A Bernoulli, mas especificamente, modela um único experimento que pode resultar em sucesso (com probabilidade $p$) e fracasso (com probabilidade $1-p$).
+
+$$
+\begin{align*}
+f(x) = \mathbb{P}(X = x) &= \binom{n}{x} p^{x} (1 - p)^{n - x}, \quad x = 0, 1, 2, \ldots, n \\
+&= \dfrac{n!}{x! (n-x)!} \cdot p^x (1 - p)^{n-x}
+\end{align*}
+$$
+
+Os parâmetros são $p$ e $n$.
+
+```{r}
+set.seed(42)
+
+# parâmetros da binomial
+n <- 3       # número de tentativas
+p <- 0.3     # probabilidade de sucesso
+
+# suporte
+x <- 0:n
+
+# pmf
+fx <- dbinom(x, size = n, prob = p)
+
+# gráfico
+plot(x, fx,
+     type = "h", lwd = 3,
+     xlab = "x", ylab = "P(X = x)",
+     main = sprintf("Distribuição Binomial(n = %d, p = %.1f)", n, p))
+points(x, fx, pch = 16)
+
+```
+
+> Distribuições paramétricas "resumem" uma "tabela grande" em um pequeno conjunto de parâmetros (i.e. números pré-definidos) e uma fórmula. 
+> 
+> $\rightarrow$ Qual é a fórmula? (qual é a distribuição?)
+>
+> $\rightarrow$ Qual é o valor pré-determinado dos parâmetros?
+
+### Poisson {.unnumbered}
+
+É uma distribuição com espaço amostral $x \in \mathbb{I}$ com um único parâmetro $\lambda$, que define, ao mesmo tempo, o ponto central e a dispersão.
+
+$$
+f(x) = \dfrac{e^{-\lambda} \lambda^x}{x!}, \quad \lambda \in \mathbb{R}^+
+$$
+
+Suponha $\lambda = 2.5$:
+
+| $\Omega$ | Probabilidade |
+|:---------:|:--------------|
+| 0 | $\mathbb{P}(X=0) = \dfrac{e^{-2.5}(2.5)^0}{0!} = e^{-2.5} \approx 0.0821$ |
+| 1 | $\mathbb{P}(X=1) = \dfrac{e^{-2.5}(2.5)^1}{1!} = 2.5\,e^{-2.5} \approx 0.2052$ |
+| 2 | $\mathbb{P}(X=2) = \dfrac{e^{-2.5}(2.5)^2}{2!} = 3.125\,e^{-2.5} \approx 0.2565$ |
+| 3 | $\mathbb{P}(X=3) = \dfrac{e^{-2.5}(2.5)^3}{3!} = 2.604\,e^{-2.5} \approx 0.2138$ |
+| 4 | $\mathbb{P}(X=4) = \dfrac{e^{-2.5}(2.5)^4}{4!} = 1.6276\,e^{-2.5} \approx 0.1336$ |
+
+```{r}
+prob = function(x, l){
+  e = exp(1)
+  ((e^-l) * l^x) / factorial(x)
+}
+
+# loop de 0 a 5
+for (x in 0:5) {
+  cat("x =", x, "->", prob(x, l = 2.5), "\n")
+}
+```
+
+### Normal
+
+$$
+f(x) = \dfrac{1}{\sqrt{\sigma^2 2\pi}} e^{(-\frac{1}{2} \frac{(x-\mu)^2}{\sigma^2})},
+$$
+
+tendo $\mu$ e $\sigma^2$ como parâmetros. Neste caso, $\mu$ altera o "lugar" da distribuição, e $\sigma^2$ altera a dispersão da distribuição.
+
+Trata-se de uma distribuição impossível de tabular, porque se trata de um conjunto não enumerável -- $x \in \mathbb{R} \leftrightarrow x \in (-\infty, +\infty)$.
+
+Vejamos a forma da função com $\mu = 1, \sigma^2 = 4$:
+
+$$
+f(x) = \dfrac{1}{4 \cdot 2\pi} e^{-\frac{1}{2} \cdot \frac{(x-1)^2}{4}}
+$$
+
+Supondo $x = 1$, teríamos:
+
+$$
+f(1) = \dfrac{1}{8\pi} e^{0} \approx 0.1995
+$$
+
+## Distribuições Discretas e Contínuas
+
+As distribuições discretas tem um espaço amostral enumerável, contável e é possível calcular a probabilidade de cada valor no espaço amostral exatamente. 
+
+Distribuições contínuas, por sua vez, têm $\Omega$ não contável, não enumerável, e a probabilidade de um valor específico é irrisória e não é de interesse. Calculamos a probabilidade de intervalos. Valores na região da média são muito prováveis (i.e. há alta densidade de probabilidade). Nesse caso, o cálculo da probabilidade é a área na região entre dois valores.
+
+Se quiséssemos calcular a área entre $-\infty$ e $3$, faríamos:
+
+$$
+\int^3_{-\infty} f(x) dx
+$$
+
+## Momentos da distribuição
+
+Nas distribuições paramétricas, os momentos da distribuição são obtidos por meio de alguma função/transformação dos parâmetros.
+
+> Momento é um valor esperado de uma potência (centrada ou não) da distribuição.
+>
+> $\mathbb{E}[X]$ (média), $\mathbb{E}[X^2]$, $\mathbb{E}[X^3]$, $\mathbb{E}[X - \mathbb{E}[X]]$, $\mathbb{E}[(X - \mathbb{E}[X])^2]$ (variância).
+
+$$
+\text{Bernoulli} \left\{
+\begin{array}{l}
+\mathbb{E}[X] = p \\
+\operatorname{Var}(X) = p(1-p)
+\end{array}
+\right.
+$$
+
+$$
+\text{Binomial} \left\{
+\begin{array}{l}
+\mathbb{E}[X] = np \\
+\operatorname{Var}(X) = n \cdot p \cdot (1-p)
+\end{array}
+\right.
+$$
+
+$$
+\text{Poisson} \left\{
+\begin{array}{l}
+\mathbb{E}[X] = \lambda \\
+\operatorname{Var}(X) = \lambda
+\end{array}
+\right.
+$$
+

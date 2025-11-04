@@ -7,11 +7,11 @@ author:
 fontsize: 12pt
 ---
 
-# @wooldridge2020intro, chapter 6 -- Further Issues
+# @wooldridge2020intro, chapter 6 -- Further Issues {.unnumbered}
 
-## Prediction and Residual Analysis (6.4)
+## Prediction and Residual Analysis (6.4) {.unnumbered}
 
-### Confidence intervals for predictions
+### Confidence intervals for predictions {.unnumbered}
 
 > In Chapter 3, we defined the OLS predicted or fitted values and the OLS residuals. Predictions are certainly useful, but they are subject to sampling variation, because they are obtained using the OLS estimators. Thus, in this section, we show how to obtain confidence intervals for a prediction from the OLS regression line. [@wooldridge2020intro, p. 201]
 
@@ -58,11 +58,11 @@ $$
 \hat{y}^0 \pm t_{.025} \cdot \text{se}(\hat{e}^0)
 $$
 
-### Residual analysis
+### Residual analysis {.unnumbered}
 
 > Sometimes, it is useful to examine individual observations to see whether the actual value of the dependent variable is above or below the predicted value; that is, to examine the residuals for the individual observations. This process is called residual analysis. [@wooldridge2020intro, p. 205]
 
-# @barbosa2022incerteza
+# @barbosa2022incerteza {.unnumbered}
 
 > Dizer que os coeficientes têm um erro-padrão (ou uma variância) significa dizer que ao longo de diversas amostras possíveis, extraídas de uma mesma população ou PGD, eles não serão numericamente idênticos, mas variarão conforme uma distribuição de probabilidade. E, segundo o Teorema do Limite Central (TCL), essa distribuição é a Normal: assumindo que a amostra foi mesmo probabilística, as estimativas se distribuirão como uma Normal em torno do parâmetro verdadeiro. Chamamos essa distribuição das estatísticas produzidas por infinitas amostras (de mesmo tamanho!) de "Distribuição Amostral das Estimativas". Nesse caso, estamos tratando da distribuição amostral dos coeficientes (ou "betas", como costumamos dizer). [@barbosa2022incerteza, p. 2]
 
@@ -82,7 +82,7 @@ O pacote `WhatIf` nos permite avaliar se o perfil está dentro de um _Convex Hul
 
 Podemos fazer isso para simular vários $\hat{\beta}$ e, portanto, vários valores preditos sob betas ligeiramente distintos. Depois, podemos calcular diretamente os quantis nas posições 2.5% e 97.5% para obter os valores no intervalo de confiança de 95%.
 
-# @king2006danger
+# @king2006danger {.unnumbered}
 
 > Although this represents considerable progress in reducing the barriers between technique and substance, we address here a crucial remaining disconnect, one that threatens to undermine the validity of a considerable body of important research. This is the problem of extreme counterfactuals -- predictions, what-if questions, and causal inferences that are so fat from the data that inferences wind up being drawn on the basis of a minor model specification choices no one would like to defend, rather than empirical evidence. [@king2006danger, p. 132]
 
