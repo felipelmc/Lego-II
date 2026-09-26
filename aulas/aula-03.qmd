@@ -15,7 +15,7 @@ aula: 3
 
 > Note that an extremum does not have to be, but may be, the absolutely highest or lowest value in a function. We say an extremum is **local** whenever it is the largest (or smallest) value of the function over some interval of values in the domain of the function, e.g., over some interval on the $x$-axis. So we can have local maxima, and local minima. A **global** extremum, in comparison, is the highest (or lowest) point of the function. [@moore2013mathematics, p. 154-155]
 
-> These [the points 0 and 1 in the interval (0, 1)] are the supremum and the infimum, which are similar to the maximum and the minimum, respectively. The supremum can be thought of as the least upper bound of any set, and the infimum can be thought of as the greatest lower bound of any set. [@moore2013mathematics, 156]
+> These [the points 0 and 1 in the interval (0, 1)] are the supremum and the infimum, which are similar to the maximum and the minimum, respectively. The supremum can be thought of as the least upper bound of any set, and the infimum can be thought of as the greatest lower bound of any set. [@moore2013mathematics, p. 156]
 
 #### Higher-order derivatives
 
