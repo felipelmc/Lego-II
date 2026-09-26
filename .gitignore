@@ -55,3 +55,11 @@ datasets
 literatura
 
 data
+**/*.quarto_ipynb
+
+# Course Notes
+/_book/
+/docs/
+**/.quarto/
+render.log
+/.claude/
