@@ -23,11 +23,11 @@ aula: 12
 
 4. `log-log`: $\log (y) = \beta_0 + \beta_1 \log (x) + \epsilon$. Nesse caso, o aumento de 1% de x leva a um aumento de $\beta_1\%$ em y. 
 
-Sugestão: faça o gráfico e veja o que se adequa melhor -- ou seja, avalie se você deveria ou não usar log.
+Sugestão: faça o gráfico e veja o que se adequa melhor, ou seja, avalie se você deveria ou não usar log.
 
 ### Polinômios
 
-Sugestão: faça gráficos bivariados das relações parciais (isto é, o gráfico dos resíduos). Mas e aí: adiantou? Para avaliar isso, usamos o $R^2$-ajustado e o Teste F -- o `ANOVA` de dois modelos, comparando dois modelos distintos (um incluindo o polinômio e outro o excluindo).
+Sugestão: faça gráficos bivariados das relações parciais (isto é, o gráfico dos resíduos). Mas e aí: adiantou? Para avaliar isso, usamos o $R^2$-ajustado e o Teste F: o `ANOVA` de dois modelos, comparando dois modelos distintos (um incluindo o polinômio e outro o excluindo).
 
 ```
 m1 = y ~ x
@@ -85,4 +85,4 @@ Nesse caso, teríamos uma equação para os homens e outra equação para as mul
 - **Mulheres:** $\beta_0 + \beta_1 + \beta_2 \text{anosEst} + \beta_3 \text{anosEst} \Longrightarrow (\beta_0 + \beta_1) + (\beta_2 + \beta_3) \text{anosEst}$
 - **Homens:** $\beta_0 + \beta_2 \text{anosEst}$
 
-Note: a interpretação é que o termo interativo representa um incremento (ou decrescimento) no coeficiente de anos de estudo -- isto é, trata-se de uma mudança no efeito.
+Note: a interpretação é que o termo interativo representa um incremento (ou decrescimento) no coeficiente de anos de estudo, isto é, trata-se de uma mudança no efeito.

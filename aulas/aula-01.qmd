@@ -35,7 +35,7 @@ $$
 
 for each $i$. 
 
-There are many ways to motivate this procedure; let's use the following approach. It is an assumption of the linear model that $\mathbb{E}[u] = 0$, what also means that the covariance between $x$ and $u$ is zero -- $\text{Cov}(x, u) = \mathbb{E}[xu] = 0$. That being said, we can write these two equations below:
+There are many ways to motivate this procedure; let's use the following approach. It is an assumption of the linear model that $\mathbb{E}[u] = 0$, what also means that the covariance between $x$ and $u$ is zero: $\text{Cov}(x, u) = \mathbb{E}[xu] = 0$. That being said, we can write these two equations below:
 
 $$
 \begin{align*}

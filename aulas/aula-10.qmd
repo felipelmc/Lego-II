@@ -76,7 +76,7 @@ $$
 y_i - \bar{y} = \hat{\beta_1}(x_{i1} - \bar{x_1}) + \hat{\beta_2}(x_{i2} - \bar{x_2}) + \cdots + \hat{\beta_k}(x_{ik} - \bar{x_k}) + \hat{u_i}
 $$
 
-This is the mean-centered regression equation, where every term has mean 0. By now, each term has its own units -- $y$ might be in dollars, $x_1$ might be in years, etc. We can't compare magnitudes yet. We divide the entire equation by $\hat{\sigma}_y$ to express everything in standard-deviation units of $y$:
+This is the mean-centered regression equation, where every term has mean 0. By now, each term has its own units: $y$ might be in dollars, $x_1$ might be in years, etc. We can't compare magnitudes yet. We divide the entire equation by $\hat{\sigma}_y$ to express everything in standard-deviation units of $y$:
 
 $$
 \dfrac{y_i - \bar{y}}{\hat{\sigma}_y} = \hat{\beta_1} \dfrac{(x_{i1} - \bar{x_1})}{\hat{\sigma}_y} + \hat{\beta_2} \dfrac{(x_{i2} - \bar{x_2})}{\hat{\sigma}_y} + \cdots + \hat{\beta_k} \dfrac{(x_{ik} - \bar{x_k})}{\hat{\sigma}_y} + \dfrac{\hat{u_i}}{\hat{\sigma}_y}
@@ -215,10 +215,10 @@ This is exactly the same idea of interactive terms (precisely because it is the 
 
 A homocedasticidade é frequentemente chamada de ML.5. Não se trata de um pressuposto de identificação (isto é, uma estratégia de obter os $\beta$'s verdadeiros do processo gerador de dados). Os pressupostos de identificação são:
 
-ML.1 -- forma funcional
-ML.2 -- generalidade do processo gerador de dados (i.e., IID)
-ML.3 -- matemático ($X^TX$ é invertível)
-ML.4 -- exogeneidade
+- ML.1: forma funcional
+- ML.2: generalidade do processo gerador de dados (i.e., IID)
+- ML.3: matemático ($X^TX$ é invertível)
+- ML.4: exogeneidade
 
 Supor homocedasticidade, ML.5, facilita o cálculo dos erros; fica mais fácil de calcular. Mas isso não é uma necessidade, então não é um pressuposto.
 
@@ -350,7 +350,7 @@ A assumption de normalidade de resíduos só é necessária no caso de amostras 
 
 ### Teste-F: teste de múltiplas hipóteses lineares
 
-Há várias estatísticas que medem a qualidade geral do ajuste do modelo. O teste F, na verdade, é a análise de variância -- algo que, aliás, antecede a regressão. De saída, então, vamos falar de análise de variância.
+Há várias estatísticas que medem a qualidade geral do ajuste do modelo. O teste F, na verdade, é a análise de variância, algo que, aliás, antecede a regressão. De saída, então, vamos falar de análise de variância.
 
 **De onde vem a maior parte da variação:** entre grupos ou dentro dos grupos? É essa pergunta que o teste-F responde. 
 
@@ -457,7 +457,7 @@ $$
 
 #### **Acertando algumas coisas**
 
-Variância dos grupos em torno da média global dividido pela variância interna dos grupos. Um valor F alto, por exemplo, de 7.8, quer dizer que a variância dos grupos em relação à média global é 7.8 vezes maior do que a variância interna dos grupos. Isso significa que os grupos são muito informativos -- afinal, a variância dentro dos grupos é pequena, e entre grupos é grande.
+Variância dos grupos em torno da média global dividido pela variância interna dos grupos. Um valor F alto, por exemplo, de 7.8, quer dizer que a variância dos grupos em relação à média global é 7.8 vezes maior do que a variância interna dos grupos. Isso significa que os grupos são muito informativos: afinal, a variância dentro dos grupos é pequena, e entre grupos é grande.
 
 No entanto, voltemos à fórmula do teste F:
 
@@ -478,7 +478,7 @@ $$
 \end{align*}
 $$
 
-A divisão pelo mesmo desvio-padrão diz respeito à hipótese nula, ou a hipótese de homogeneidade das variâncias -- isto é, todos os grupos têm a mesma variância populacional. Sob essa hipótese, o erro padrão que aparece em ambos os termos vem da mesma estimativa de $\sigma$, e é isso que justifica usar o mesmo denominador. Com efeito, podemos dizer com tranquilidade que tanto o numerador quanto o denominador seguem uma distribuição $\chi^2$, sendo o primeiro $\chi^2_{G-1}$ e o segundo $\chi^2_{N-G}$.
+A divisão pelo mesmo desvio-padrão diz respeito à hipótese nula, ou a hipótese de homogeneidade das variâncias, isto é, todos os grupos têm a mesma variância populacional. Sob essa hipótese, o erro padrão que aparece em ambos os termos vem da mesma estimativa de $\sigma$, e é isso que justifica usar o mesmo denominador. Com efeito, podemos dizer com tranquilidade que tanto o numerador quanto o denominador seguem uma distribuição $\chi^2$, sendo o primeiro $\chi^2_{G-1}$ e o segundo $\chi^2_{N-G}$.
 
 Um ponto importante é que o teste F não é exatamente uma divisão de $\chi^2$; na verdade, é uma divisão de $\chi^2$ tendo cada um dividido pelos seus respectivos graus de liberdade. Daí a fórmula é:
 

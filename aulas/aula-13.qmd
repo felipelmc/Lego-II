@@ -18,7 +18,7 @@ $$
 ## Regras básicas
 
 - $0 \leq \mathbb{P} \leq 1$
-- $\mathbb{P} (\Omega) = 1$ -- soma das barras discretas é 1, e a área sob a curva contínua é 1
+- $\mathbb{P} (\Omega) = 1$: soma das barras discretas é 1, e a área sob a curva contínua é 1
 - Probabilidade de um evento ocorrer é $p$, e a probabilidade de um evento não ocorrer é $1-p$. Também podemos chamar isso de probabilidade complementar: $p^c = 1-p$
 - Probabilidade condicional é a probabilidade de um evento $A$ dado um evento $B$. Também escrevemos isso da seguinte maneira:
 
@@ -26,7 +26,7 @@ $$
 \mathbb{P}(A|B) = \dfrac{\mathbb{P}(A, B)}{\mathbb{P}(B)}
 $$
 
-Suponha um dado de 4 lados. Temos várias combinações possíveis. Agora, vamos calcular $\mathbb{P}(\text{Dado 1} = 4 | \text{Dado 2} = 2)$ -- e devemos considerar essa segunda parte como uma espécie de "filtro", ou seja, vamos considerar apenas os casos nos quais o segundo dado assumiu valor 2.
+Suponha um dado de 4 lados. Temos várias combinações possíveis. Agora, vamos calcular $\mathbb{P}(\text{Dado 1} = 4 | \text{Dado 2} = 2)$, e devemos considerar essa segunda parte como uma espécie de "filtro", ou seja, vamos considerar apenas os casos nos quais o segundo dado assumiu valor 2.
 
 $\mathbb{P}(A, B)$ é a probabilidade conjunta e $\mathbb{P}(B)$ é a probabilidade marginal.
 
@@ -54,7 +54,7 @@ Seja $p = 0.7$:
 
 ### Binomial
 
-A distribuição Binomial representa a soma de várias variáveis Bernoulli independentes (com o mesmo valor de $p$) -- ou seja, a Bernoulli é um caso especial da Binomial. A Bernoulli, mais especificamente, modela um único experimento que pode resultar em sucesso (com probabilidade $p$) e fracasso (com probabilidade $1-p$).
+A distribuição Binomial representa a soma de várias variáveis Bernoulli independentes (com o mesmo valor de $p$), ou seja, a Bernoulli é um caso especial da Binomial. A Bernoulli, mais especificamente, modela um único experimento que pode resultar em sucesso (com probabilidade $p$) e fracasso (com probabilidade $1-p$).
 
 $$
 \begin{align*}
@@ -131,7 +131,7 @@ $$
 
 tendo $\mu$ e $\sigma^2$ como parâmetros. Neste caso, $\mu$ altera o "lugar" da distribuição, e $\sigma^2$ altera a dispersão da distribuição.
 
-Trata-se de uma distribuição impossível de tabular, porque se trata de um conjunto não enumerável -- $x \in \mathbb{R} \leftrightarrow x \in (-\infty, +\infty)$.
+Trata-se de uma distribuição impossível de tabular, porque se trata de um conjunto não enumerável: $x \in \mathbb{R} \leftrightarrow x \in (-\infty, +\infty)$.
 
 Vejamos a forma da função com $\mu = 1, \sigma^2 = 4$:
 

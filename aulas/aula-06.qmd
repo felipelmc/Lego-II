@@ -128,7 +128,7 @@ $$
 
 As variâncias individuais são o "erro" de cada indivíduo, o componente estocástico associado à ação individual. Agora, os erros das "pessoas juntas" são aqueles erros em grupos ("a sorte de um grupo é o azar de outro", e assim por diante). Podemos ter correlação entre observações por razões inúmeras. 
 
-Trata-se, no entanto, de uma matriz teórica, que nunca será usada de fato -- mesmo porque os erros não são observáveis. Chegamos a um ponto, portanto, que $[X^T X]^{-1} X^T \ \text{Var}(\vec{\epsilon}) \ X [X^T X]^{-1}$ não nos leva a lugar nenhum. Mas e se supuséssemos que todas as covariâncias são zero, e que, mais do que isso, que todas as variâncias são iguais? Isto é, e se impuséssemos a suposição da homocedasticidade?
+Trata-se, no entanto, de uma matriz teórica, que nunca será usada de fato, mesmo porque os erros não são observáveis. Chegamos a um ponto, portanto, que $[X^T X]^{-1} X^T \ \text{Var}(\vec{\epsilon}) \ X [X^T X]^{-1}$ não nos leva a lugar nenhum. Mas e se supuséssemos que todas as covariâncias são zero, e que, mais do que isso, que todas as variâncias são iguais? Isto é, e se impuséssemos a suposição da homocedasticidade?
 
 Em particular, sob a hipótese da homocedasticidade, teríamos:
 
@@ -163,5 +163,5 @@ $$
 \end{bmatrix}
 $$
 
-É claro, isso tudo está assentado sobre a assumption de homocedasticidade. Há maneiras de remover essa suposição sobre os erros individuais sem grandes complicações -- por heterocedasticidade, ou por hipótese dos erros clusterizados.
+É claro, isso tudo está assentado sobre a assumption de homocedasticidade. Há maneiras de remover essa suposição sobre os erros individuais sem grandes complicações: por heterocedasticidade, ou por hipótese dos erros clusterizados.
 
