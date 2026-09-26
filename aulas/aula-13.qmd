@@ -34,7 +34,7 @@ E, por último:
 
 - $\mathbb{P}(A \cap B)$ é a probabilidade de co-ocorrência de eventos. Trata-se literalmente do cruzamento. Em caso de eventos independentes, $\mathbb{P}(A \cap B) = \mathbb{P}(A) \cdot \mathbb{P}(B)$; no caso de eventos não independentes, essa probabilidade é empírica. De fato, no exemplo anterior sobre dados, os eventos são independentes, já que não há qualquer relação entre os dois dados.
 
-## Funções de Distribuição, ou Distribuições Paramétricas
+## Funções de distribuição, ou distribuições paramétricas
 
 ### Bernoulli
 
@@ -145,7 +145,7 @@ $$
 f(1) = \dfrac{1}{8\pi} e^{0} \approx 0.1995
 $$
 
-## Distribuições Discretas e Contínuas
+## Distribuições discretas e contínuas
 
 As distribuições discretas têm um espaço amostral enumerável, contável e é possível calcular a probabilidade de cada valor no espaço amostral exatamente. 
 

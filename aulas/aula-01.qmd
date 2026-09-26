@@ -21,7 +21,7 @@ $$
 
 > Before we state the key assumption about how $x$ and $u$ are related, we can always make one assumption about $u$. As long as the intercept $\beta_0$ is included in the equation, nothing is lost by assuming that the average value of $u$ in the population is zero. Mathematically, $\mathbb{E}(u) = 0$. [@wooldridge2020intro, p. 22]
 
-**This is a statement about the distribution of the unobserved factors in the population.**
+This is a statement about the distribution of the unobserved factors in the population.
 
 > Because $u$ and $x$ are random variables, we can define the conditional distribution of $u$ given any value of $x$. In particular, for any $x$, we can obtain the expected (or average) value of $u$ for that slice of the population described by the value of $x$. The crucial assumption is that the average value of $u$ does not depend on the value of $x$. We can weite this assumption as $\mathbb{E}(u|x) = \mathbb{E}(u)$. [@wooldridge2020intro, p. 22-23]
 
@@ -35,7 +35,7 @@ $$
 
 for each $i$. 
 
-There are many ways to motivate this procedure; let's use the following approach. It is an assumption of the linear model that $\mathbb{E}[u] = 0$, what also means that the covariance between $x$ and $u$ is zero: $\text{Cov}(x, u) = \mathbb{E}[xu] = 0$. That being said, we can write these two equations below:
+There are many ways to motivate this procedure; let's use the following approach. It is an assumption of the linear model that $\mathbb{E}[u] = 0$, which also means that the covariance between $x$ and $u$ is zero: $\text{Cov}(x, u) = \mathbb{E}[xu] = 0$. That being said, we can write these two equations below:
 
 $$
 \begin{align*}
@@ -64,7 +64,7 @@ $$
 \end{align*}
 $$
 
-We can then plug this result into the second equation (ignoring $n^{-1}$, which makes no difference in the equality), what gives us
+We can then plug this result into the second equation (ignoring $n^{-1}$, which makes no difference in the equality), which gives us
 
 $$
 \begin{align*}
@@ -288,7 +288,7 @@ t(X) %*% epsilon_hat
 
 ```
 
-### Pressupostos do modelo linear, ou os Supostos de Gauss-Markov
+### Pressupostos do modelo linear, ou os supostos de Gauss-Markov
 
 **ML.1:** Linearidade
 

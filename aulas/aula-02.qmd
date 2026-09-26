@@ -41,7 +41,7 @@ $$
 
 [Solução de alguns dos exercícios do capítulo](pdf-exercicios/moore2013mathematics_exercises_chapter_6.pdf).
 
-The derivative is a **linear operator**, what implies that $\frac{ d(f+g) }{dx} = \frac{df}{dx} + \frac{dg}{dx}$ and $\frac{d(cf)}{dx} = c \frac{df}{dx}$.
+The derivative is a **linear operator**, which implies that $\frac{ d(f+g) }{dx} = \frac{df}{dx} + \frac{dg}{dx}$ and $\frac{d(cf)}{dx} = c \frac{df}{dx}$.
 
 > Recall from Chapter 3 that a composite function looks like g(f(x)). To see why we're bringing this up now, note that most complex functions can be written as composite functions. [...]. Thus, we can break complicated functions down into the composition of simpler functions. If we can devise a rule for differentiating composite functions, a rule known as the **chain rule**, then we can simplify the differentiation of complex functions immensely. [@moore2013mathematics, p. 119]
 

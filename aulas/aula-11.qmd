@@ -7,7 +7,7 @@ aula: 11
 
 ### @wooldridge2020intro, cap. 6: *Multiple Regression Analysis: Further Issues*
 
-#### Prediction and Residual Analysis (6.4)
+#### Prediction and residual analysis (6.4)
 
 ##### Confidence intervals for predictions
 
@@ -78,7 +78,7 @@ O pacote `WhatIf` nos permite avaliar se o perfil está dentro de um _Convex Hul
 >
 > Podemos então usar $\hat{\beta}$ como substituto de $\beta$ (já que é sua melhor estimativa!) e $\hat{\Sigma}$ como substituto de $\Sigma$ e então simular uma Normal Multivariada com $\mathcal{N}(\hat{\beta}, \hat{\Sigma})$. Mas como se faz isso?! Simples: há uma função chamada `mvrnorm()` (abreviação para "Multivariate `rnorm`" ou ainda "Random Draws from a Multivariate Normal Distribution"). Ela está no pacote MASS. [@barbosa2022incerteza, p. 24]
 
-Podemos fazer isso para simular vários $\hat{\beta}$ e, portanto, vários valores preditos sob betas ligeiramente distintos. Depois, podemos calcular diretamente os quantis nas posições 2.5% e 97.5% para obter os valores no intervalo de confiança de 95%.
+Podemos fazer isso para simular vários $\hat{\beta}$ e, portanto, vários valores preditos sob betas ligeiramente distintos. Depois, podemos calcular diretamente os quantis nas posições 2,5% e 97,5% para obter os valores no intervalo de confiança de 95%.
 
 ### @king2006danger
 

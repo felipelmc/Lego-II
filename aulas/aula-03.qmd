@@ -21,11 +21,11 @@ aula: 3
 
 > More generally, though, derivatives of any order tell us something about the _shape_ of the function. The first derivative tells us in which diretion it is trending: is it increasing or decreasing? The second derivative tells us the most basic curvature of the function: is the rate at which it is increasing or decreasing getting faster or slower? Higher-order derivatives provide more nuanced information about the shape of functions; however, we will typically find first and second derivatives sufficient for our purposes. [@moore2013mathematics, p. 158]
 
-#### Concavity and Convexity
+#### Concavity and convexity
 
 > To understand what the second derivative tells us, let's start by considering an increasing function. One with a rate of increase that slows as the value of the function gets bigger is an example of a concave function. One with a rate of increase that speeds up as the value of the function gets bigger is an example of a convex function. [@moore2013mathematics, p. 159]
 
-#### Taylor Series
+#### Taylor series
 
 > The first derivative tells us whether the function is increasing or decreasing, the second what the curvature is, and so on. This suggests that one could build up a function by incorporating all the information encoded in these derivatives. It turns out that one can do this for a large class of functions known as analytic functions. The series that expresses a function in terms of its derivatives is known as a **Taylor series**, named after the English mathematician Brook Taylor. If an analytic function $f(x)$ is infinitely differentiable close to some number $a$, then the Taylor series is given by the infinite sum
 >
@@ -52,7 +52,7 @@ aula: 3
 
 In the case of $f^{\prime \prime} (x^*) = 0$, we must take the third derivative to check if $x^*$ is an inflection point or not. An inflection point occurs whenever the sign of the second derivative changes, since it implies a shift from convex to concave, or vice versa. If $f(x) = x^3$, $f^{\prime \prime \prime}(x) = 6 > 0$, so zero is an inflection point, as we have found. However, if $f(x) = x^4$, $f^{\prime \prime \prime}(x) = 24x$, which is $0$ at $x = 0$, so this is not necessarily an inflection point.
 
-Example: $f(x) = x^3 - 3x^2 + 7$. The first derivative is $f^\prime (x) = 3x^2 - 6x$, which has $x^* = 0$ and $x^* = 2$ as extreme points. Something is happening there. So let's take the derivative again: $f^{\prime \prime} (x) = 6x - 6$. If we plug $x^* = 0$ into it, we get $-6 < 0$, which means that $x^* = 0$ is a local maximum of the function. $x^* = 2$, instead, gives us $6 > 0$, what makes that point a local minimum.
+Example: $f(x) = x^3 - 3x^2 + 7$. The first derivative is $f^\prime (x) = 3x^2 - 6x$, which has $x^* = 0$ and $x^* = 2$ as extreme points. Something is happening there. So let's take the derivative again: $f^{\prime \prime} (x) = 6x - 6$. If we plug $x^* = 0$ into it, we get $-6 < 0$, which means that $x^* = 0$ is a local maximum of the function. $x^* = 2$, instead, gives us $6 > 0$, which makes that point a local minimum.
 
 Well, and how do we find globals? Suppose we are in the interval $[-4, 4]$. The local minimum of this very function is $f(2) = 3$, and the local maximum is $f(0) = 7$. Given the domain, we know the boundaries are $f(-4) = -105$ and $f(4) = 23$. Since $-105 < 3$ and $23 > 7$, the global minimum and maximum are at $x = -4$ and $x = 4$. [@moore2013mathematics, p. 168]
 
@@ -81,16 +81,16 @@ Um estimador é uma fórmula para obter parâmetros. Parâmetros são quantias d
 
 Estratégias, hipóteses / pressupostos para obter estimadores
 
-**Exemplos:**
+Exemplos:
 
 - método dos mínimos quadrados
 - método dos momentos
 - método da máxima verossimilhança
 - ...  
 
-### Método dos Mínimos Quadrados
+### Método dos mínimos quadrados
 
-Suponha $Y = (y_1, y_2, y_3, \cdots, y_N)$. Quantia de interesse: $\alpha$, o valor que se subtraído de $Y$, faz com que os resíduos somem zero.
+Suponha $Y = (y_1, y_2, y_3, \cdots, y_N)$. Quantia de interesse: $\alpha$, o valor que, se subtraído de $Y$, faz com que os resíduos somem zero.
 
 $$
 \begin{align*}
