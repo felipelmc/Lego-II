@@ -95,7 +95,7 @@ points(x, fx, pch = 16)
 
 ### Poisson
 
-É uma distribuição com espaço amostral $x \in \mathbb{I}$ com um único parâmetro $\lambda$, que define, ao mesmo tempo, o ponto central e a dispersão.
+É uma distribuição com espaço amostral $x \in \mathbb{N}$ com um único parâmetro $\lambda$, que define, ao mesmo tempo, o ponto central e a dispersão.
 
 $$
 f(x) = \dfrac{e^{-\lambda} \lambda^x}{x!}, \quad \lambda \in \mathbb{R}^+
@@ -136,13 +136,13 @@ Trata-se de uma distribuição impossível de tabular, porque se trata de um con
 Vejamos a forma da função com $\mu = 1, \sigma^2 = 4$:
 
 $$
-f(x) = \dfrac{1}{4 \cdot 2\pi} e^{-\frac{1}{2} \cdot \frac{(x-1)^2}{4}}
+f(x) = \dfrac{1}{\sqrt{4 \cdot 2\pi}} e^{-\frac{1}{2} \cdot \frac{(x-1)^2}{4}}
 $$
 
 Supondo $x = 1$, teríamos:
 
 $$
-f(1) = \dfrac{1}{8\pi} e^{0} \approx 0.1995
+f(1) = \dfrac{1}{\sqrt{8\pi}} e^{0} \approx 0.1995
 $$
 
 ## Distribuições discretas e contínuas

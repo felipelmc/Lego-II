@@ -33,7 +33,7 @@ r2_j_idade = summary(reg_j_idade)$r.squared
 vif_idade = 1/(1 - r2_j_idade)
 ```
 
-Na prática, o que eu quero saber é quanto a idade traz de informação redundante para o modelo. O VIF calculado no exemplo é de 34,4, isto é, a variância da idade é 34 vezes maior do que seria se ela não estivesse correlacionada com as demais covariáveis do modelo.
+Na prática, o que eu quero saber é quanto a idade traz de informação redundante para o modelo. O VIF calculado no exemplo é de 34,4, isto é, a variância do coeficiente da idade é 34 vezes maior do que seria se ela não estivesse correlacionada com as demais covariáveis do modelo.
 
 ```
 # VIF do sexo

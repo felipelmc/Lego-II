@@ -24,7 +24,7 @@ Nesse caso, estamos montando um esquema que permite usar a correlação entre os
 $\hat{\Omega}$ é uma matriz na qual "todo mundo se multiplicou":
 
 $$
-\hat{\Omega}_c = X^T_c \left[ \hat{\epsilon}_c \hat{\epsilon}_c^T \right] X_c
+\hat{\Omega}_c = \hat{\epsilon}_c \hat{\epsilon}_c^T
 $$
 
 > Os erros clusterizados têm a ver com a maneira como os dados são coletados. Se os dados são coletados utilizando alguma variável específica como cluster, podemos falar em erros clusterizados. Criar clusters "a posteriori", no entanto, não faz sentido.

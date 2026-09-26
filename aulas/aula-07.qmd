@@ -52,7 +52,7 @@ minha_regressao = function(formula_informada, data){
   residuos = y - X %*% beta
   
   n = nrow(data)
-  k = ncol(data)
+  k = ncol(X)
   var_residuos = sum(residuos^2) / (n - k)
   RMSE = sqrt(var_residuos)
   r2 = 1 - var_residuos/var(y)
@@ -162,7 +162,7 @@ $$
 \end{bmatrix}
 $$
 
-Em outras palavras, o que o autor mostra é que $\text{Var}(\hat{\beta})^{\text{HW}} \overset{p}{\rightarrow} \text{Var}(\hat{\beta})$; isto é, a matriz de variância-covariância estimada sob a hipótese de Huber-White converge em probabilidade para a matriz
+Em outras palavras, o que o autor mostra é que $\text{Var}(\hat{\beta})^{\text{HW}} \overset{p}{\rightarrow} \text{Var}(\hat{\beta})$; isto é, a matriz de variância-covariância estimada sob a hipótese de Huber-White converge em probabilidade para a matriz verdadeira.
 
 Em vista disso, vamos atualizar nossa implementação de regressão.
 
@@ -182,7 +182,7 @@ minha_regressao = function(formula_informada, data, erros = "heterocedasticos"){
   residuos = y - X %*% beta
   
   n = nrow(data)
-  k = ncol(data)
+  k = ncol(X)
   var_residuos = sum(residuos^2) / (n - k)
   RMSE = sqrt(var_residuos)
   r2 = 1 - var_residuos/var(y)

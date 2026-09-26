@@ -79,7 +79,7 @@ c. _Por que, às vezes, a diferença entre eles e os erros clássicos podem ser 
 d. _Quando devemos usar erros clusterizados?_ Os erros clusterizados devem ser considerados quando há correlação entre as observações. Em particular, quando estamos tratando de _survey_, erros clusterizados normalmente são importantes quando a amostragem não segue o paradigma SRS (_Simple Random Sampling_) -- isto é, quase sempre --, porque o próprio processo de amostragem introduz correlação espacial entre as observações (por exemplo, quando entrevistamos os indivíduos de um mesmo domicílio ou conglomerado).
 
 
-## Questão 3: derivando a matriz de variância-covariância de
+## Questão 3: derivando a matriz de variância-covariância de $\hat{\beta}$
 
 Nesta questão, vamos derivar a fórmula mais geral da matriz de variância-covariância de $\hat{\beta}$, ou seja,
 
@@ -138,7 +138,7 @@ $$
 
 # Parte 2: Prática
 
-Na parte prática da lista, utilizaremos os dados do BH Area Survey, Pesquisa sobre a Região Metropolitana de Belo Horizonte, que foi a campo em 2002, sob coordenação da importantíssima socióloga Neuma Aguiar, então docente do Departamento de Sociologia da UFRM. Trata-se de um survey que utiliza amostragem probabilística em várias etapas e, portanto, é complexa.
+Na parte prática da lista, utilizaremos os dados do BH Area Survey, Pesquisa sobre a Região Metropolitana de Belo Horizonte, que foi a campo em 2002, sob coordenação da importantíssima socióloga Neuma Aguiar, então docente do Departamento de Sociologia da UFMG. Trata-se de um survey que utiliza amostragem probabilística em várias etapas e, portanto, é complexa.
 
 Vamos começar importando as bibliotecas necessárias e os dados do survey. Além disso, vamos aplicar algumas manipulações disponibilizadas no próprio enunciado da lista.
 
