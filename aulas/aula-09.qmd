@@ -46,7 +46,85 @@ Nesse caso o VIF é 1, o menor possível (é claro, multiplica a variância por 
 
 Multicolinearidade é um problema? Se sua amostra for grande, não. Aliás, ela é um problema porque ela significa o seguinte: você está usando variáveis explicativas redundantes, então talvez você devesse pensar em outras explicações. Do ponto de vista da variância dos $\beta$, isso é um problema, claro, mas o efeito disso é fazer com que as coisas não sejam estatisticamente significativas. Se sua amostra é grande o suficiente ou seu $X$ varia bastante, então isso acaba sendo compensado e as coisas são estatisticamente significativas de qualquer jeito.
 
+## Simulação
 
+::: {.nota-ia collapse="false" title="Simulação e texto preparados com auxílio do Claude"}
+Dois preditores com correlação $\rho$ entram no modelo $y = x_1 + x_2 + \epsilon$. Cada ponto do gráfico é o par $(\hat\beta_1, \hat\beta_2)$ de uma réplica. Com $\rho$ alto, as estimativas se espalham ao longo de uma diagonal: o modelo sabe estimar bem a soma dos efeitos, mas não separa um do outro. O VIF, $1/(1-R^2_j)$, que aqui vale $1/(1-\rho^2)$, diz quanto a variância de $\hat\beta_1$ fica inflada. Aumentar $n$ compensa a inflação, como diz a aula.
+:::
+
+::: {.panel-tabset}
+
+### Interativo
+
+```{ojs}
+//| echo: false
+import {scheme, palette, plotStyle, rng, ols, sd, fmt} from "/_extensions/felipelmc/course-notes/ojs/notes.js"
+mode = scheme()
+pal = palette(mode)
+```
+
+::: cn-sim
+
+```{ojs}
+//| echo: false
+viewof rho = Inputs.range([0, 0.99], {value: 0.9, step: 0.01, label: "Correlação entre x₁ e x₂ (ρ)"})
+viewof n = Inputs.range([20, 2000], {value: 100, step: 10, label: "Tamanho da amostra"})
+```
+
+```{ojs}
+//| echo: false
+sim = {
+  const r = rng(7), R = 400, pares = [];
+  for (let k = 0; k < R; k++) {
+    const X = [], y = [];
+    for (let i = 0; i < n; i++) {
+      const z1 = r.normal(), z2 = r.normal();
+      const x1 = z1, x2 = rho * z1 + Math.sqrt(1 - rho * rho) * z2;
+      X.push([x1, x2]); y.push(x1 + x2 + r.normal());
+    }
+    const b = ols(X, y);
+    pares.push({b1: b[1], b2: b[2]});
+  }
+  return {pares, sd1: sd(pares.map((d) => d.b1)), vif: 1 / (1 - rho * rho)};
+}
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  width, height: 320, style: plotStyle, marginLeft: 40, aspectRatio: 1,
+  x: {label: "β̂₁ →", domain: [0, 2]}, y: {label: "↑ β̂₂", domain: [0, 2]},
+  marks: [
+    Plot.ruleX([1], {stroke: pal.lineStrong}), Plot.ruleY([1], {stroke: pal.lineStrong}),
+    Plot.dot(sim.pares.filter((d) => d.b1 > 0 && d.b1 < 2 && d.b2 > 0 && d.b2 < 2), {x: "b1", y: "b2", r: 2, fill: pal.accent, fillOpacity: 0.5})
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+html`<p class="cn-readout">VIF = 1/(1 − ρ²) = <b>${fmt(sim.vif, 1)}</b> · desvio-padrão de β̂₁ entre réplicas: <b>${fmt(sim.sd1, 3)}</b> (sem correlação seria ~${fmt(1 / Math.sqrt(n), 3)})</p>`
+```
+
+:::
+
+### Em R
+
+```{r}
+#| eval: false
+set.seed(7)
+n <- 100; rho <- 0.9
+replica <- function() {
+  x1 <- rnorm(n)
+  x2 <- rho * x1 + sqrt(1 - rho^2) * rnorm(n)
+  y <- x1 + x2 + rnorm(n)
+  coef(lm(y ~ x1 + x2))[c("x1", "x2")]
+}
+b <- t(replicate(400, replica()))
+plot(b, xlab = "b1", ylab = "b2")
+1 / (1 - rho^2)    # VIF
+```
+
+:::
 
 [^1]: Isso é diferente de ferir o ML.4.
-

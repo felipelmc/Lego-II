@@ -238,3 +238,113 @@ Nesse caso os resultados não são muito diferentes. Isso significa, na prática
 O interessante da hipótese da heterocedasticidade é que ela pode assumir diversas formas. @king2015robust falam que a existência de heterocedasticidade é um sintoma, e não um problema em si mesmo. Mas um sintoma do quê, exatamente? De que você errou a forma funcional! Dependendo do jeito que traçamos a curva/reta, a variância poderia ser "constante".
 
 Direto ao ponto: @king2015robust argumentam que heterocedasticidade pode ser sintoma de má especificação funcional. Então, quando calculamos erros de Huber-White e eles dão muito distantes dos erros homocedásticos, deveríamos dar um passo atrás e avaliar se estamos acertando a forma funcional.
+
+## Simulação
+
+::: {.nota-ia collapse="false" title="Simulação e texto preparados com auxílio do Claude"}
+O modelo verdadeiro é $y_i = 1 + 2x_i + \epsilon_i$, com $x_i \sim U(0, 3)$ e $\text{Var}(\epsilon_i \mid x_i) = e^{\gamma x_i}$. Com $\gamma = 0$ o erro é homocedástico; com $\gamma > 0$ a variância cresce com $x$ (o "leque" do gráfico). A cada réplica estimamos $\hat\beta_1$ por MQO e dois erros-padrão: o clássico, que supõe variância constante, e o de Huber-White (HC1). O desvio-padrão de $\hat\beta_1$ entre as réplicas é o erro-padrão "verdadeiro". Com heterocedasticidade, o erro-padrão clássico se afasta dele e a cobertura do intervalo de 95% cai; o robusto continua perto.
+:::
+
+::: {.panel-tabset}
+
+### Interativo
+
+```{ojs}
+//| echo: false
+import {scheme, palette, plotStyle, rng, mean, sd, fmt} from "/_extensions/felipelmc/course-notes/ojs/notes.js"
+mode = scheme()
+pal = palette(mode)
+```
+
+::: cn-sim
+
+```{ojs}
+//| echo: false
+viewof gama = Inputs.range([0, 2], {value: 1.2, step: 0.1, label: "Heterocedasticidade (γ)"})
+viewof n = Inputs.range([20, 1000], {value: 100, step: 10, label: "Tamanho da amostra"})
+viewof sorteio = Inputs.button("Novo sorteio", {value: 1, reduce: (v) => v + 1})
+```
+
+```{ojs}
+//| echo: false
+sim = {
+  const r = rng(31 * sorteio), R = 500, z = 1.96;
+  const b = [], sec = [], shc = [];
+  let exemplo = null, cobreC = 0, cobreH = 0;
+  for (let k = 0; k < R; k++) {
+    const x = [], y = [];
+    for (let i = 0; i < n; i++) {
+      const xi = 3 * r.unif();
+      x.push(xi); y.push(1 + 2 * xi + Math.exp(gama * xi / 2) * r.normal());
+    }
+    const mx = mean(x), my = mean(y);
+    let sxx = 0, sxy = 0;
+    for (let i = 0; i < n; i++) { sxx += (x[i] - mx) ** 2; sxy += (x[i] - mx) * (y[i] - my); }
+    const b1 = sxy / sxx, b0 = my - b1 * mx;
+    let ssr = 0, meat = 0;
+    for (let i = 0; i < n; i++) { const e = y[i] - b0 - b1 * x[i]; ssr += e * e; meat += (x[i] - mx) ** 2 * e * e; }
+    const seC = Math.sqrt(ssr / (n - 2) / sxx);
+    const seH = Math.sqrt(n / (n - 2) * meat / (sxx * sxx));
+    b.push(b1); sec.push(seC); shc.push(seH);
+    if (Math.abs(b1 - 2) <= z * seC) cobreC++;
+    if (Math.abs(b1 - 2) <= z * seH) cobreH++;
+    if (k === 0) exemplo = x.map((xi, i) => ({x: xi, y: y[i]}));
+  }
+  return {exemplo, dp: sd(b), seC: mean(sec), seH: mean(shc), cobreC: cobreC / R, cobreH: cobreH / R};
+}
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  width, height: 240, style: plotStyle, marginLeft: 40,
+  x: {label: "x →"}, y: {label: "↑ y", grid: true},
+  marks: [
+    Plot.dot(sim.exemplo, {x: "x", y: "y", r: 2, fill: pal.accent, fillOpacity: 0.55}),
+    Plot.linearRegressionY(sim.exemplo, {x: "x", y: "y", stroke: pal.award, ci: 0})
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  width, height: 150, style: plotStyle, marginLeft: 190,
+  x: {label: "Erro-padrão de β̂₁ →", grid: true}, y: {label: null},
+  marks: [
+    Plot.barX([
+      {nome: "Desvio-padrão entre réplicas", v: sim.dp},
+      {nome: "Clássico (média)", v: sim.seC},
+      {nome: "Huber-White HC1 (média)", v: sim.seH}
+    ], {y: "nome", x: "v", fill: (d) => d.nome.startsWith("Desvio") ? pal.ink3 : d.nome.startsWith("Clássico") ? pal.award : pal.accent, sort: {y: null}}),
+    Plot.ruleX([0], {stroke: pal.lineStrong})
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+html`<p class="cn-readout">Cobertura do IC de 95% em 500 réplicas: clássico <b>${fmt(100 * sim.cobreC, 1)}%</b> · Huber-White <b>${fmt(100 * sim.cobreH, 1)}%</b></p>`
+```
+
+:::
+
+### Em R
+
+```{r}
+#| eval: false
+library(sandwich)
+set.seed(31)
+replica <- function(n = 100, gama = 1.2) {
+  x <- runif(n, 0, 3)
+  y <- 1 + 2 * x + exp(gama * x / 2) * rnorm(n)
+  fit <- lm(y ~ x)
+  c(b = coef(fit)[["x"]],
+    se_classico = sqrt(vcov(fit)["x", "x"]),
+    se_hc1 = sqrt(vcovHC(fit, type = "HC1")["x", "x"]))
+}
+res <- t(replicate(500, replica()))
+c(dp_entre_replicas = sd(res[, "b"]), colMeans(res[, -1]))
+```
+
+:::
