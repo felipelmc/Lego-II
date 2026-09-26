@@ -1,14 +1,12 @@
 ---
-title: "Inferência em amostras pequenas e Teste-F"
+title: "Inferência em amostras pequenas e teste F"
 subtitle: "Ajustando curvas ao invés de linhas"
-bibliography: ../bibliography.bib
-author:
-  - name: Felipe Lamarca
-    email: felipelamarca@iesp.uerj.br
-fontsize: 12pt
+aula: 10
 ---
 
-# @wooldridge2020intro, chapter 4, section 4.5: Testing Multiple Linear Restrictions: The $F$ Test {.unnumbered}
+## Leituras
+
+### @wooldridge2020intro, cap. 4, seção 4.5: *Testing Multiple Linear Restrictions: The $F$ Test*
 
 > Frequently, we wish to test multiple hypotheses about the underlying parameters $\beta_0, \beta_1, \cdots, \beta_k$. [@wooldridge2020intro, p. 139]
 
@@ -56,9 +54,9 @@ $$
 
 Using the F statistic, we can say things are _jointly significant_ or _jointly insignificant_.
 
-# @wooldridge2020intro, chapter 6 -- Further Issues {.unnumbered}
+### @wooldridge2020intro, cap. 6: *Multiple Regression Analysis: Further Issues*
 
-## Effects of Data Scaling on OLS Statistics [@wooldridge2020intro, p. 181] {.unnumbered}
+#### Effects of Data Scaling on OLS Statistics [@wooldridge2020intro, p. 181]
 
 > We will discover that everything expected to happen, does happen. When variables are rescaled, the coefficients, standard errors, confidence intervals, $t$ statistics, and $F$ statistics change in ways that preserve all measured effects and testing outcomes. 
 
@@ -107,9 +105,9 @@ $$
 \hat{b}_j = \dfrac{\hat{\sigma}_j}{\hat{\sigma}_y} \hat{\beta}_j \text{ for } j = 1, ..., k
 $$
 
-## More on Functional Form (6.2) {.unnumbered}
+#### More on Functional Form (6.2)
 
-### More on using logarithmic functional forms {.unnumbered}
+##### More on using logarithmic functional forms
 
 Suppose the estimated model:
 
@@ -143,7 +141,7 @@ $$
 
 > Variables that are measured in years -- such as education, experience, tenure, age, and so on -- usually appear in their original form. A variable that is a proportion or a percentage -- such as the unemployment rate, the participation rate in a pension plan, the percentage of students passing a standardized exam, and the arrest rate on reported crimes -- can appear in either original or logarithmic form, although there is a tendency to use them in level forms. This is because any regression coefficients involving the original variable -- whether it is the dependent or independent variable -- will have a percentage point change interpretation. [...]. If we use, say, $\log (unem)$ in a regression, where _unem_ is the percentage of unemployed individuals, we must be very careful to distinguish between a percentage point change and a percentage change. Remember, if unem goes from 8 to 9, this is an increase of one percentage point, but a 12.5% increase from the initial unemployment leel. Using the log means that we are looking at the percentage change in the unemployment rate [...]. [@wooldridge2020intro, p. 187-188]
 
-### Models with Quadratics {.unnumbered}
+##### Models with Quadratics
 
 > In the simples case, $y$ depends on a single observed factor $x$, but it does so in a quadratic fashion:
 >
@@ -177,7 +175,7 @@ $$
 
 This is exactly the same idea of interactive terms (precisely because it is the same thing kk).
 
-### Models with Interaction Terms {.unnumbered}
+##### Models with Interaction Terms
 
 > Sometimes, it is natural for the partial effect, elasticity, or semi-elasticity of the dependent variable with respect to an explanatory variable to depend on the magnitude of yet _another_ explanatory variable. [@wooldridge2020intro, p. 192]
 
@@ -197,23 +195,23 @@ This is exactly the same idea of interactive terms (precisely because it is the 
 > 
 > where $\mu_1$ is the population mean of $x_1$ and $\mu_2$ is the population mean of $x_2$. We can easily see that now the coefficient on $x^2$, $\delta_2$, is the partial effect of $x_2$ on $y$ at the mean value of $x_1$. (By multiplying out the interaction in the second equation and comparing the coefficients, we can easily show that $\delta_2 = \beta_2 + \beta_3 \mu_1$. The parameter $\delta_1$ has similar interpretation.) Therefore, if we subtract the means of the variables -- in practice, these would typically be the sample means -- before creating the interaction term, the coefficients on the original variables have a useful interpretation. 
 
-## More on Goodness-of-Fit and Selection of Regressors (6.3) {.unnumbered}
+#### More on Goodness-of-Fit and Selection of Regressors (6.3)
 
 > Nothing about the classical linear model assumptions requires that $R^2$ be above any particular value; $R^2$ is simply an estimate of how much variation in $y$ is explained by $x_1, x_2, ..., x_k$ in the population. We have seen several regressions that have had pretty small R-squareds. Although this means that we have not accounted for several factors that affect $y$, this does not mean that the factors in $u$ are correlated with the independent variables. The zero conditional mean assumption MLR.4 is what determines whether we get unbiased estimators of the ceteris paribus effects of the independent variables, and the size of the R-squared has no direct bearing on this.
 > 
 > A small R-squared does imply that the error variance is large relative to the variance of $y$, which means we may have a hard time precisely estimating the $\beta_j$. But temember, we say in section 3.4 that a large error variance can be offset by a large sample size: if we have enought data, we may be able to precisely estimate the partial effects even though we have not controlled for many unobserved factors. Whether or not we can get precise enough estimates depends on the application. [@wooldridge2020intro, p. 195]
 
-### Controlling for Too Many Factors in Regression Analysis {.unnumbered}
+##### Controlling for Too Many Factors in Regression Analysis
 
 > The previous examples [where we add too many variables to the regression model] are what can be called over controlling for factors in multiple regression. Often this results from nervousness about potential biases that might arise by leaving out an important explanatory variable. But it is important to remember the ceteris paribus nature of multiple regression. In some cases, it makes no sense to hold some factors fixed precisely because they should be allowed to change when a policy variable changes. [@wooldridge2020intro, p. 200]
 
-### Adding Regressors to Reduce the Error Variance {.unnumbered}
+##### Adding Regressors to Reduce the Error Variance
  
 > We have just seen some examples of where certain independent variables should not be included in a regression model, even though they are correlated with the dependent variable. From Chapter 3, we know that adding a new independent variable to a regression can exacerbate the multicollinearity problem. On the other hand, because we are taking something out of the error term, adding a variable generally reduces the error variance. Generally, we cannot know which effect will dominate.
 >
 > However, there is one case that is clear: we should always include independent variables that affect $y$ and are _uncorrelated_ with all of the independent variables of interest. Why? Because adding such a variable does not induce multicollinearity in the population (and therefore multicollinearity in the sample should be negligible), but it will reduce the error variance. In larger sample sizes, the standard errors of all OLS estimators will be reduced. [@wooldridge2020intro, p. 200]
 
-# Anotações de aula {.unnumbered}
+## Anotações de aula
 
 A homocedasticidade é frequentemente chamada de ML.5. Não se trata de um pressuposto de identificação (isto é, uma estratégia de obter os $\beta$'s verdadeiros do processo gerador de dados). Os pressupostos de identificação são:
 
@@ -224,7 +222,7 @@ ML.4 -- exogeneidade
 
 Supor homocedasticidade, ML.5, facilita o cálculo dos erros; fica mais fácil de calcular. Mas isso não é uma necessidade, então não é um pressuposto.
 
-## Inferência em amostras pequenas {.unnumbered}
+### Inferência em amostras pequenas
 
 A gente normalmente faz a teoria da regressão assumindo que a amostra é muito grande; não é raro, no entanto, que a gente colete nossos próprios dados, $n$ pequeno é muito comum. O problema é que o Teorema do Limite Central diz o seguinte:
 
@@ -313,7 +311,9 @@ Ora, essa fórmula é novamente a soma de duas constantes, sendo uma delas multi
 
 Bom, ajustado um modelo, podemos olhar os resíduos:
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
+#| message: false
+#| warning: false
 library(tidyverse)
 
 e1 = rnorm(100, mean=50 , sd=5)
@@ -325,7 +325,9 @@ hist(e_hat)
 
 Outra maneira é olhando o Q-Q Plot (gráfico de quantil por quantil):
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
+#| message: false
+#| warning: false
 percentis_residuos = quantile(
   e_hat, 
   probs=seq(0, 1, 0.01)
@@ -347,7 +349,7 @@ d %>%
 
 A assumption de normalidade de resíduos só é necessária no caso de amostras pequenas, quando o TCL não se aplica. De fato, para amostras pequenas você não terá certeza de que o parâmetro estimado se distribui de forma normal em torno do parâmetro populacional, porque o TCL ainda não operou; para amostras grandes, vale o TCL e tanto faz a forma com que os erros se distribuem.
 
-## Teste-F: teste de múltiplas hipóteses lineares
+### Teste-F: teste de múltiplas hipóteses lineares
 
 Há várias estatísticas que medem a qualidade geral do ajuste do modelo. O teste F, na verdade, é a análise de variância -- algo que, aliás, antecede a regressão. De saída, então, vamos falar de análise de variância.
 
@@ -397,7 +399,7 @@ Quando dizemos que algo é um teste estatístico, isso significa que queremos di
 > 
 > Isso retorna dois números, e não apenas um. Podemos testar, de fato, a hipótese de que as mulheres são diferentes da média normal, que os homens são diferentes da média normal, ou ainda que mulheres são diferentes de homens. O teste $F$, no entanto, nos permite fazer um teste só.
 
-### Lições de probabilidade
+#### Lições de probabilidade
 
 **Lição de Probabilidade 1:** A soma de variáveis distribuídas como uma normal também é uma distribuição normal
 
@@ -454,7 +456,7 @@ $$
 
 --- 
 
-### **Acertando algumas coisas**
+#### **Acertando algumas coisas**
 
 Variância dos grupos em torno da média global dividido pela variância interna dos grupos. Um valor F alto, por exemplo, de 7.8, quer dizer que a variância dos grupos em relação à média global é 7.8 vezes maior do que a variância interna dos grupos. Isso significa que os grupos são muito informativos -- afinal, a variância dentro dos grupos é pequena, e entre grupos é grande.
 

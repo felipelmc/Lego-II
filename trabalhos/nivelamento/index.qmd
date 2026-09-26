@@ -1,0 +1,15 @@
+---
+title: "Nivelamento em álgebra linear e cálculo"
+subtitle: "Lista de nivelamento"
+tipo: Lista
+date: 2025-08-18
+description: "A lista das aulas de nivelamento em matemática: propriedades da esperança e do somatório, vetores, combinações lineares, multiplicação de matrizes, eliminação de Gauss-Jordan, derivadas e mínimo de uma função. Soluções feitas à mão, num quadro branco digital."
+metodos: [Esperança, Álgebra linear, Cálculo]
+materiais:
+  - {text: Enunciado, href: enunciados.pdf}
+  - {text: Soluções (PDF), href: solucoes.pdf}
+---
+
+A lista de exercícios das [aulas de nivelamento](../../aulas/nivelamento.qmd) em matemática tem três partes: esperança estatística e propriedades do somatório; álgebra linear (vetores, combinações lineares, multiplicação de matrizes, produto escalar e norma, eliminação e inversão de matrizes pelo método de Gauss-Jordan); e cálculo (equação da reta, derivadas e mínimo de uma função).
+
+As soluções foram feitas à mão, num quadro branco digital (Microsoft Whiteboard), e estão no PDF acima.

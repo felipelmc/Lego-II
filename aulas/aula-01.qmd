@@ -1,15 +1,13 @@
 ---
 title: "Derivando os estimadores da regressão"
-bibliography: ../bibliography.bib
-author:
-  - name: Felipe Lamarca
-    email: felipelamarca@iesp.uerj.br
-fontsize: 12pt
-execute: 
+aula: 1
+execute:
   eval: false
 ---
 
-# @wooldridge2020intro, chapter 2 {.unnumbered}
+## Leituras
+
+### @wooldridge2020intro, cap. 2: *The Simple Regression Model*
 
 $$
 y = \beta_0 + \beta_1 x + u
@@ -27,7 +25,7 @@ $$
 
 > Because $u$ and $x$ are random variables, we can define the conditional distribution of $u$ given any value of $x$. In particular, for any $x$, we can obtain the expected (or average) value of $u$ for that slice of the population described by the value of $x$. The crucial assumption is that the average value of $u$ does not depend on the value of $x$. We can weite this assumption as $\mathbb{E}(u|x) = \mathbb{E}(u)$. [@wooldridge2020intro, p. 22-23]
 
-## Deriving the OLS estimates using the *method of moments*
+#### Deriving the OLS estimates using the *method of moments*
 
 Now, let's proceed to derive the ordinary least squares estimates. Of course, I'm just going to describe the step-by-step specified in the section 2.2 of @wooldridge2020intro. Assume we have a random sample $\{ (x_i, y_i): i = 1, ..., n \}$. We can write a simple regression model as follows:
 
@@ -104,13 +102,13 @@ $$
 
 The $\hat{\beta}_0$ and $\hat{\beta}_1$ estimates are the ordinary least squares (OLS) estimates of $\beta_0$ and $\beta_1$. These are the estimates that make the **sum of the squared residuals** as small as possible.
 
-## Some properties
+#### Some properties
 
 1. $\sum_{i = 1}^n \hat{u}_i = 0$
 2. $\sum_{i = 1}^n x_i \hat{u}_i = 0$
 3. The point $(\bar{x}, \bar{y})$ is always on the OLS regression line.
 
-## Errors
+#### Errors
 
 Define the total sume of squares (SST), the explained sum of squares (SSE), and the residual sum of squares (SSR):
 
@@ -130,15 +128,15 @@ $$
 R^2 = \frac{ \text{SSE} }{ \text{SST} } = 1 - \frac{ \text{SSR} }{ \text{SST} }
 $$
 
-# Anotações de aula {.unnumbered}
+## Anotações de aula
 
 A aula se dividiu em duas partes. Na primeira, derivamos o estimador dos coeficientes da regressão linear usando álgebra. As anotações estão [neste link](pdf-aulas/Lego%20II%20-%20Aula%201.pdf).
 
 Depois disso, discutimos um pouco de regressão linear múltipla usando o R.
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(cache = TRUE)
-
+```{r}
+#| label: setup
+#| include: false
 # setup ------------------------------------------------------------------------
 options(scipen = 999) # desabilita a notação científica
 
@@ -290,7 +288,7 @@ t(X) %*% epsilon_hat
 
 ```
 
-## Pressupostos do modelo linear, ou os Supostos de Gauss-Markov
+### Pressupostos do modelo linear, ou os Supostos de Gauss-Markov
 
 **ML.1:** Linearidade
 

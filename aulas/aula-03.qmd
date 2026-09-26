@@ -1,15 +1,13 @@
 ---
 title: "O método dos mínimos quadrados"
-bibliography: ../bibliography.bib
-author:
-  - name: Felipe Lamarca
-    email: felipelamarca@iesp.uerj.br
-fontsize: 12pt
+aula: 3
 ---
 
-# _Extrema in One Dimension_, @moore2013mathematics {.unnumbered}
+## Leituras
 
-[Solução de alguns dos exercícios do capítulo](pdf-exercicios\moore2023mathematics_exercises_chapter_8.pdf).
+### @moore2013mathematics, cap. 8: *Extrema in One Dimension*
+
+[Solução de alguns dos exercícios do capítulo](pdf-exercicios/moore2013mathematics_exercises_chapter_8.pdf).
 
 > Finding extrema is useful in optimization theory, a topic that comes up fairly often in political science, and one to which we return in Chapter 16. Theorists often assume that an actor wants to maximize or minimize something (e.g., power, utility, time in office, etc.). If one can write out an explicit function (i.e., identify the variables that would influence the thing the actor wants to minimize or maximize and their interrelationships), then one can use calculus to further evaluate those relationships and deduce hypotheses. That is, maximizing a utility function (or minimizing a loss) is a mathematical tool that is used to produce the deductions of many game theoretic models. [@moore2013mathematics, p. 152]
 
@@ -19,15 +17,15 @@ fontsize: 12pt
 
 > These [the points 0 and 1 in the interval (0, 1)] are the supremum and the infimum, which are similar to the maximum and the minimum, respectively. The supremum can be thought of as the least upper bound of any set, and the infimum can be thought of as the greatest lower bound of any set. [@moore2013mathematics, 156]
 
-## Higher-order derivatives
+#### Higher-order derivatives
 
 > More generally, though, derivatives of any order tell us something about the _shape_ of the function. The first derivative tells us in which diretion it is trending: is it increasing or decreasing? The second derivative tells us the most basic curvature of the function: is the rate at which it is increasing or decreasing getting faster or slower? Higher-order derivatives provide more nuanced information about the shape of functions; however, we will typically find first and second derivatives sufficient for our purposes. [@moore2013mathematics, p. 158]
 
-## Concavity and Convexity
+#### Concavity and Convexity
 
 > To understand what the second derivative tells us, let's start by considering an increasing function. One with a rate of increase that slows as the value of the function gets bigger is an example of a concave function. One with a rate of increase that speeds up as the value of the function gets bigger is an example of a convex function. [@moore2013mathematics, p. 159]
 
-## Taylor Series
+#### Taylor Series
 
 > The first derivative tells us whether the function is increasing or decreasing, the second what the curvature is, and so on. This suggests that one could build up a function by incorporating all the information encoded in these derivatives. It turns out that one can do this for a large class of functions known as analytic functions. The series that expresses a function in terms of its derivatives is known as a **Taylor series**, named after the English mathematician Brook Taylor. If an analytic function $f(x)$ is infinitely differentiable close to some number $a$, then the Taylor series is given by the infinite sum
 >
@@ -42,7 +40,7 @@ fontsize: 12pt
 
 > More usefully, the Taylor series provides a good approximation of a function near any point. Note that the expansion is in powers of $(x-a)$. If we only care about values of $x$ near $a$, an so consider only these, then $(x-a)$ is small, $(x-a)^2$ is smaller, and so on. At some point, adding an additional term doesn't change the sum enough to be worth it, particularly with the $n!$ in the denominator. Se we can cut off the approximation there. [@moore2013mathematics, p. 162]
 
-## Critical points
+#### Critical points
 
 > A critical point is any point $x^*$ such that either $f^\prime (x^*) = 0$ or $f^\prime (x^*)$ doesn't exist. Loosely, critical points are points in the function's domain at which things _happen_. Either the function blows up, or it jumps, or it is stationary. [@moore2013mathematics, p. 162]
 
@@ -72,14 +70,14 @@ Procedure to find global maximum and minimum:
 6. Substitute the lower and upper bounds of the domain over which you are attempting to find the extrema into $f(x)$ to find the function's value at those points
 7. Find the smallest value of the function from those computed in the previous two steps. This is the global minimum, and the function attains this at the corresponding $x^*$ or boundary point. Find the largest value of the function from those computed in the previous two steps. This is the global maximum, and the function attains this at the corresponding $x^*$ or boundary point.
 
-# Anotações de aula {.unnumbered}
+## Anotações de aula
 
 Um estimador é uma fórmula para obter parâmetros. Parâmetros são quantias de interesse populacionais. Entendemos as quantias populacionais como:
 
 - "População finita": a "coisa em si", que existe, mas que não conseguimos observar de maneira perfeita. A diferença entre a coisa em si e o que você coletou pode ser chamada de erro amostral.
 - Processo gerador de dados: "máquina do mundo"
 
-## Métodos de obtenção de estimadores
+### Métodos de obtenção de estimadores
 
 Estratégias, hipóteses / pressupostos para obter estimadores
 
@@ -89,7 +87,7 @@ Estratégias, hipóteses / pressupostos para obter estimadores
 - método da máxima verossimilhança
 - ...  
 
-## Método dos Mínimos Quadrados
+### Método dos Mínimos Quadrados
 
 Suponha $Y = (y_1, y_2, y_3, \cdots, y_N)$. Quantia de interesse: $\alpha$, o valor que se subtraído de $Y$, faz com que os resíduos somem zero.
 

@@ -1,49 +1,71 @@
+# Lego II · anotações de aula.
+# Tema, fontes, navbar, idioma e congelamento vêm da extensão Course Notes
+# (_extensions/felipelmc/course-notes). Aqui ficam só os dados da disciplina.
 project:
-  type: book
-  output-dir: docs
+  type: course-notes
+  render:
+    - index.qmd
+    - aulas/*.qmd
+    - trabalhos/index.qmd
+    - trabalhos/*/index.qmd
+    - referencias.qmd
 
 book:
   title: "Lego II"
-  subtitle: "Modelos de Regressão Linear e extensões"
-  author: Felipe Lamarca
+  subtitle: "Modelos de regressão linear e extensões"
+  author: "Felipe Lamarca"
+  date: last-modified
+  site-url: https://felipelamarca.com/Lego-II/
+  repo-url: https://github.com/felipelmc/Lego-II
+  repo-actions: [source, issue]
+  navbar:
+    left:
+      - text: "Lego II"
+        href: index.qmd
   chapters:
     - index.qmd
-    - part: Nivelamento
+    - part: "Nivelamento"
       chapters:
-        - aulas/nivelamento.qmd
-    - part: Regressão Linear, o básico
+        - href: aulas/nivelamento.qmd
+          text: "Álgebra linear e cálculo"
+    - part: "Regressão linear, o básico"
       chapters:
-        - aulas/aula-1.qmd
-        - aulas/aula-2.qmd
-        - aulas/aula-3.qmd
-        - aulas/aula-4_5.qmd
-    - part: Incerteza e inferência
+        - href: aulas/aula-01.qmd
+          text: "01 · Derivando os estimadores da regressão"
+        - href: aulas/aula-02.qmd
+          text: "02 · Um pouco mais de cálculo"
+        - href: aulas/aula-03.qmd
+          text: "03 · O método dos mínimos quadrados"
+        - href: aulas/aula-04.qmd
+          text: "04–05 · Regressão linear múltipla"
+    - part: "Incerteza e inferência"
       chapters:
-        - aulas/aula-6.qmd
-        - aulas/aula-7.qmd
-        - aulas/aula-8.qmd
-        - aulas/aula-9.qmd
-    - part: Forma funcional e Predição
+        - href: aulas/aula-06.qmd
+          text: "06 · Variância dos estimadores"
+        - href: aulas/aula-07.qmd
+          text: "07 · Heterocedasticidade pt. 1"
+        - href: aulas/aula-08.qmd
+          text: "08 · Heterocedasticidade pt. 2"
+        - href: aulas/aula-09.qmd
+          text: "09 · Multicolinearidade"
+    - part: "Forma funcional e predição"
       chapters:
-        - aulas/aula-10.qmd
-        - aulas/aula-11.qmd
-        - aulas/aula-12.qmd
-    - part: Modelos para variáveis dependentes limitadas
+        - href: aulas/aula-10.qmd
+          text: "10 · Inferência em amostras pequenas e teste F"
+        - href: aulas/aula-11.qmd
+          text: "11 · Valores preditos como estratégia de apresentação de dados"
+        - href: aulas/aula-12.qmd
+          text: "12 · Forma funcional, uso de logs, interações"
+    - part: "Modelos para variáveis dependentes limitadas"
       chapters:
-        - aulas/aula-13.qmd
-    - part: Listas
+        - href: aulas/aula-13.qmd
+          text: "13 · Revisão de probabilidade"
+    - part: "Trabalhos"
       chapters:
-        - listas/listas.qmd
-    - part: Bibliografia
-      chapters:
-        - aulas/bibliography.qmd
-format:
-  html:
-    theme: 
-      light: cosmo
-      dark: [cosmo, theme-dark.scss]
-    css: styles.css
-    toc: true
+        - trabalhos/index.qmd
+        - trabalhos/nivelamento/index.qmd
+        - trabalhos/lista-1/index.qmd
+        - trabalhos/lista-2/index.qmd
+    - referencias.qmd
 
-
-
+bibliography: [references.bib]

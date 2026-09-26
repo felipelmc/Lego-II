@@ -1,10 +1,6 @@
 ---
 title: "Revisão de probabilidade"
-bibliography: ../bibliography.bib
-author:
-  - name: Felipe Lamarca
-    email: felipelamarca@iesp.uerj.br
-fontsize: 12pt
+aula: 13
 ---
 
 Uma variável aleatória $X$ é uma função que mapeia alternativas do espaço amostral $\Omega$ para o conjunto dos números reais: $X: \Omega \rightarrow \mathbb{R}$.
@@ -19,7 +15,7 @@ $$
 \end{align*}
 $$
 
-## Regras básicas {.unnumbered}
+## Regras básicas
 
 - $0 \leq \mathbb{P} \leq 1$
 - $\mathbb{P} (\Omega) = 1$ -- soma das barras discretas é 1, e a área sob a curva contínua é 1
@@ -38,9 +34,9 @@ E, por último:
 
 - $\mathbb{P}(A \cap B)$ é a probabilidade de co-ocorrência de eventos. Trata-se literalmente do cruzamento. Em caso de eventos independentes, $\mathbb{P}(A \cap B) = \mathbb{P}(A) \cdot \mathbb{P}(B)$; no caso de eventos não independentes, essa probabilidade é empírica. De fato, exemplo anterior sobre dados, os eventos são independentes, já que não há qualquer relação entre os dois dados.
 
-## Funções de Distribuição, ou Distribuições Paramétricas {.unnumbered}
+## Funções de Distribuição, ou Distribuições Paramétricas
 
-### Bernoulli {.unnumbered}
+### Bernoulli
 
 $$
 \begin{align*}
@@ -56,7 +52,7 @@ Seja $p = 0.7$:
 | 0        | $(0.7)^0 \cdot (0.3)^1 = 0.3$ |
 | 1        | $(0.7)^1 \cdot (0.3)^0 = 0.7$ |
 
-### Binomial {.unnumbered}
+### Binomial
 
 A distribuição Binomial representa a soma de várias variáveis Bernoulli independentes (com o mesmo valor de $p$) -- ou seja, a Bernoulli é um caso especial da Binomial. A Bernoulli, mas especificamente, modela um único experimento que pode resultar em sucesso (com probabilidade $p$) e fracasso (com probabilidade $1-p$).
 
@@ -97,7 +93,7 @@ points(x, fx, pch = 16)
 >
 > $\rightarrow$ Qual é o valor pré-determinado dos parâmetros?
 
-### Poisson {.unnumbered}
+### Poisson
 
 É uma distribuição com espaço amostral $x \in \mathbb{I}$ com um único parâmetro $\lambda$, que define, ao mesmo tempo, o ponto central e a dispersão.
 

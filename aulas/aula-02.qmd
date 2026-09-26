@@ -1,15 +1,13 @@
 ---
 title: "Um pouco mais de cálculo"
-bibliography: ../bibliography.bib
-author:
-  - name: Felipe Lamarca
-    email: felipelamarca@iesp.uerj.br
-fontsize: 12pt
+aula: 2
 ---
 
-# _Introduction to Calculus and the Derivative_, @moore2013mathematics {.unnumbered}
+## Leituras
 
-[Solução de alguns dos exercícios do capítulo](pdf-exercicios\moore2023mathematics_exercises_chapter_5.pdf).
+### @moore2013mathematics, cap. 5: *Introduction to Calculus and the Derivative*
+
+[Solução de alguns dos exercícios do capítulo](pdf-exercicios/moore2013mathematics_exercises_chapter_5.pdf).
 
 > Differential calculus thus deals with the study of infinitesimally small changes in a function. As we'll see in Section 3 below, the derivative of the function $f(x) = 3x$ is $3$, which is the slope (rate of change) of the line $y = 3x$. This example illustrates the way in which a derivative breaks down functions, removing information about their value at _any_ point and providing just the value of the change at that point. [@moore2013mathematics, p. 104]
 
@@ -39,9 +37,9 @@ $$
 
 > The only thing missing from this formal presentation is the existence of derivatives. Derivatives can only be calculated at points at which limits exist, because derivatives are in a sense limits themselves, but it is also necessary for a function to be continuous at a point to have a derivative at that point.
 
-# _The Rules of Differentiation_, @moore2013mathematics {.unnumbered}
+### @moore2013mathematics, cap. 6: *The Rules of Differentiation*
 
-[Solução de alguns dos exercícios do capítulo](pdf-exercicios\moore2023mathematics_exercises_chapter_6.pdf).
+[Solução de alguns dos exercícios do capítulo](pdf-exercicios/moore2013mathematics_exercises_chapter_6.pdf).
 
 The derivative is a **linear operator**, what implies that $\frac{ d(f+g) }{dx} = \frac{df}{dx} + \frac{dg}{dx}$ and $\frac{d(cf)}{dx} = c \frac{df}{dx}$.
 
@@ -59,7 +57,7 @@ The derivative is a **linear operator**, what implies that $\frac{ d(f+g) }{dx} 
 
 **[logarithms]**: $\dfrac{d \ln{(x)}}{dx} = \dfrac{1}{x}$, and $\dfrac{d \log_a{(x)}}{dx} = \dfrac{1}{x \ln{(a)}}$
 
-# Anotações de aula {.unnumbered}
+## Anotações de aula
 
 ```{r}
 set.seed(42)

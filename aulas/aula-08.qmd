@@ -1,10 +1,6 @@
 ---
 title: "Heterocedasticidade pt. 2"
-bibliography: ../bibliography.bib
-author:
-  - name: Felipe Lamarca
-    email: felipelamarca@iesp.uerj.br
-fontsize: 12pt
+aula: 8
 ---
 
 Na aula passada, vimos que podemos estimar a variância de $\beta$ assumindo heterocedasticidade -- em particular, assumindo que os elementos da diagonal principal na matriz de variância-covariância podem ser diferentes entre si, mantendo os zeros no entorno. Hoje, vamos relaxar a _assumption_ dos zeros ao redor da diagnonal (permitindo que eles difiram de zero). Em outras palavras, estamos falando de **erros clusterizados**, quando há covariância entre as observações.

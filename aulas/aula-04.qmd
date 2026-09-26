@@ -1,13 +1,11 @@
 ---
 title: "Regressão linear múltipla"
-bibliography: ../bibliography.bib
-author:
-  - name: Felipe Lamarca
-    email: felipelamarca@iesp.uerj.br
-fontsize: 12pt
+aula: "4–5"
 ---
 
-# _Multiple Regression Analysis: Estimation_, [@wooldridge2020intro, chapter 3] {.unnumbered}
+## Leituras
+
+### @wooldridge2020intro, cap. 3: *Multiple Regression Analysis: Estimation*
 
 > Multiple regression analysis is more amenable to ceteris paribus analysis because it allows us to explicitly control for many other factors that simultaneously affect the dependent variable. This is important for both testing economic theories and for evaluating policy effects when we must rely on nonexperimental data. [@wooldridge2020intro, p. 66]
 
@@ -27,9 +25,7 @@ fontsize: 12pt
 
 > Now suppose that, rather than including an irrelevant variable, we omit a variable that actually belongs in the true (or population) model. This is often called the problem of excluding a relevant variable or underspecifying the model. We claimed in Chapter 2 and earlier in this chapter that this problem generally causes the OLS estimators to be biased. It is time to show this explicitly and, just as importantly, to derive the direction and size of the bias. [@wooldridge2020intro, p. 84]
 
-
-
-# Anotações de aula {.unnumbered}
+## Anotações de aula
 
 Viés é uma propriedade do estimador, e não da amostra. Não existe "amostra viesada". Uma "amostra de Botafogo" não é viesada; ela pode ser não-representativa do Rio de Janeiro. Viés é uma diferença sistemática entre a estatística e o parâmetro.
 

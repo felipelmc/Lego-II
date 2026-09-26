@@ -1,10 +1,18 @@
 ---
-title: "Lego 2 -- 1ª Lista de Exercícios"
-subtitle: "Parte 2: Prática"
-date: "10/05/2025"
-author:
-  - name: Felipe Lamarca
-    email: felipelamarca@iesp.uerj.br
+title: "Desigualdade e expectativa de vida nos municípios (1991): MQO do zero"
+subtitle: "Lista 1 · parte prática"
+tipo: Lista
+date: 2025-10-05
+description: "Parte prática da lista 1: a esperança de vida ao nascer nos municípios brasileiros em 1991, explicada pela desigualdade da renda do trabalho (Gini). Uma regressão linear escrita do zero em R, comparada ao lm(), e o viés de variável omitida que inverte o sinal do Gini."
+image: destaque.png
+image-alt: "Histogramas das variáveis contínuas do banco de municípios brasileiros de 1991."
+metodos: [MQO matricial, Regressão múltipla, Viés de variável omitida]
+dados: ["Municípios brasileiros (1991)"]
+materiais:
+  - {text: Enunciado, href: enunciado.pdf}
+  - {text: Soluções (PDF), href: solucoes.pdf}
+  - {text: Código, href: "https://github.com/felipelmc/Lego-II/tree/main/trabalhos/lista-1"}
+author: "Felipe Lamarca"
 format:
   pdf:
     toc: false
@@ -19,12 +27,18 @@ format:
       - left=20mm
       - right=20mm
       - bottom=25mm
-lang: pt
 execute:
   echo: true
   warning: false
   message: false
 ---
+
+::: {.callout-tip .achados}
+## Principais resultados
+- A função de MQO escrita do zero, com $\hat{\beta} = (X^\top X)^{-1} X^\top y$, reproduz os coeficientes e os erros-padrão do `lm()`.
+- Sozinho, o Gini da renda do trabalho aparece associado a mais esperança de vida: 9,95 anos a mais por unidade (de 0 a 1), com $R^2$ de apenas 0,02, um resultado que o relatório atribui a viés de variável omitida.
+- Controlando pela renda domiciliar per capita média, o sinal se inverte (0,05 ano a menos por ponto do Gini, na escala de 0 a 100). Com todas as covariáveis e as regiões, o $R^2$ chega a 0,68.
+:::
 
 Agora, passemos à parte prática da lista, na qual desenvolveremos algumas análises em `R` utilizando um banco de dados com informações a respeito dos municípios brasileiros em 1991, como a expectativa de vida ao nascer, população do município, Índice de Gini etc. De saída, vamos começar importando as bibliotecas necessárias, organizando um setup e lendo o arquivo que será utilizado na análise:
 
@@ -64,6 +78,12 @@ dados_long <- dados_cont %>%
   labs(title = "Histogramas das variáveis contínuas",
        x = NULL, y = NULL) +
   theme_bw(base_size = 11)
+```
+
+```{r}
+#| include: false
+ggsave("destaque.png", last_plot() + theme(plot.margin = margin(18, 24, 18, 18)),
+       width = 8, height = 4.5, dpi = 150, bg = "#F6F6F3")
 ```
 
 Há alguns pontos que valem destaque. Em particular, está claro que a grande parte dos municípios brasileiros possui população (`populaca`) bem pequenas; além disso, boa parte também possui um baixo percentual de domicílios com esgotamento sanitário (`escoa2_p`). Vejamos na tabela abaixo algumas estatísticas descritivas para cada variável do banco: 

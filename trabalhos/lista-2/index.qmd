@@ -1,9 +1,18 @@
 ---
-title: "Lego 2 -- 2ª Lista de Exercícios"
-date: "10/27/2025"
-author:
-  - name: Felipe Lamarca
-    email: felipelamarca@iesp.uerj.br
+title: "Aceitação do aborto na RMBH (2002): erros-padrão clássicos, robustos e clusterizados"
+subtitle: "Lista 2"
+tipo: Lista
+date: 2025-10-27
+description: "A aceitação do aborto (escala de 1 a 10) na Região Metropolitana de Belo Horizonte em 2002, com regressões ponderadas e três hipóteses sobre os erros: homocedásticos, robustos de Huber-White e clusterizados pelo desenho amostral. Inclui a derivação da matriz de variância-covariância de β̂."
+image: destaque.png
+image-alt: "Média da aceitação do aborto por idade, com suavização não paramétrica."
+metodos: [Erros robustos, Erros clusterizados, Pesos amostrais, Polinômios]
+dados: ["BH Area Survey (2002)"]
+materiais:
+  - {text: Enunciado, href: enunciado.pdf}
+  - {text: Soluções (PDF), href: solucoes.pdf}
+  - {text: Código, href: "https://github.com/felipelmc/Lego-II/tree/main/trabalhos/lista-2"}
+author: "Felipe Lamarca"
 format:
   pdf:
     toc: false
@@ -18,17 +27,23 @@ format:
       - left=20mm
       - right=20mm
       - bottom=25mm
-header-includes:
-  - "\\usepackage{amsmath,amssymb}"
-  - "\\usepackage{cancel}"
-  - "\\usepackage{tabularray}"
-  # - "\\UseTblrLibrary{rotating}"
+    header-includes:
+      - "\\usepackage{amsmath,amssymb}"
+      - "\\usepackage{cancel}"
+      - "\\usepackage{tabularray}"
+      # - "\\UseTblrLibrary{rotating}"
 execute:
   echo: true
   warning: false
   message: false
-bibliography: ../../bibliography.bib
 ---
+
+::: {.callout-tip .achados}
+## Principais resultados
+- Cada ano de estudo a mais está associado a um aumento de 0,142 na aceitação do aborto, numa escala de 1 a 10, tudo mais constante, com significância sob os três tipos de erro-padrão.
+- Evangélicos aceitam menos o aborto: 0,832 ponto a menos que católicos não praticantes. As demais categorias de religião não são significativas, e o modelo final fica só com a variável binária de evangélico.
+- Os coeficientes são os mesmos nos três modelos; só os erros-padrão mudam. O efeito de ser mulher (-0,362) só é significativo com erros homocedásticos (erro-padrão de 0,179, contra 0,235 com erros clusterizados).
+:::
 
 # Parte 1: Conceitual
 
@@ -438,6 +453,12 @@ ggplot() +
 
 
 ```
+
+```{r}
+#| include: false
+ggsave("destaque.png", last_plot() + theme(plot.margin = margin(18, 24, 18, 18)),
+       width = 8, height = 4.5, dpi = 150, bg = "#F6F6F3")
+```
 De fato, parece que o efeito da idade não é exatamente linear. Com isso em mente, vamos ajustar 3 modelos, sendo o primeiro sem termo polinômial, e os outros dois incluindo um termo quadrático e um cúbico da idade, respectivamente. Os resultados estão discriminados na @tbl-polinomio-idade.
 
 ```{r}
@@ -474,9 +495,4 @@ tab
 ```
 
 É esperado, naturalmente, que os termos polinomiais não sejam estatisticamente significativos -- mesmo porque eles são altamente correlacionados com o termo de idade simples. De todo modo, a inclusão dos termos polinomiais adiciona uma complexidade ao modelo que, na prática, não parece se justificar. Ao contrário: não há ganhos significativos, por exemplo, em $R^2$ ou RMSE, enquanto há um incremento (marginal) no AIC e no BIC. Por isso, o modelo que não inclui termos polinomiais parece o mais adequado.
-
-# Referências
-
-::: {#refs}
-:::
 

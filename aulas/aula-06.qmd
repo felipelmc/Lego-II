@@ -1,13 +1,11 @@
 ---
 title: "Variância dos estimadores"
-bibliography: ../bibliography.bib
-author:
-  - name: Felipe Lamarca
-    email: felipelamarca@iesp.uerj.br
-fontsize: 12pt
+aula: 6
 ---
 
-# _Multiple Regression Analysis: Inference_, [@wooldridge2020intro, chapter 4] {.unnumbered}
+## Leituras
+
+### @wooldridge2020intro, cap. 4: *Multiple Regression Analysis: Inference*
 
 > Knowing the expected value and variance of the OLS estimators is useful for describing the precision of the OLS estimators. However, in order to perform statistical inference, we need to know more than just the first two moments of $\hat{\beta}_j$; we need to know the full sampling distribution of the $\hat{\beta}_j$. Even under the Gauss-Markov assumptions, the distribution of $\hat{\beta}_j$ can have virtually any shape. 
 >
@@ -23,8 +21,7 @@ $$
 
 where $x$ is again shorthand for $(x_1, ..., x_k)$. Thus, conditional on $x$, $y$ has a normal distribution with mean linear in $x_1, ..., x_k$ and a constant variance. 
 
-
-# Anotações de aula {.unnumbered}
+## Anotações de aula
 
 [Anotações dos vídeos recomendados.](pdf-aulas/Lego%20II%20-%20Aula%206.pdf)
 
@@ -36,7 +33,7 @@ $$
 
 Isso significa que beta converge em distribuição para uma normal. A lei dos grandes números, por sua vez, fala que a dispersão da distribuição dos $\hat{\beta}$ em torno de $\beta$ reduz quando $n \rightarrow \infty$.
 
-## Teste t
+### Teste t
 
 $$
 t = \dfrac{\hat{\theta} - H_0}{\text{se}(\theta)},
