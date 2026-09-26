@@ -70,7 +70,7 @@ $$
 y_i = \hat{\beta_0} + \hat{\beta_1}x_{i1} + \hat{\beta_2}x_{i2} + \cdots + \hat{\beta_k}x_{ik} + \hat{u_i}
 $$
 
-Then we substract the mean:
+Then we subtract the mean:
 
 $$
 y_i - \bar{y} = \hat{\beta_1}(x_{i1} - \bar{x_1}) + \hat{\beta_2}(x_{i2} - \bar{x_2}) + \cdots + \hat{\beta_k}(x_{ik} - \bar{x_k}) + \hat{u_i}
@@ -236,8 +236,8 @@ Dizer que "converge em distribuição" significa que cada amostra precisa ter $n
 
 Essa não é a versão formal do TCL. Seria mais correto dizer o seguinte:
 
-::: {.theorem}
-**Teorema (TCL clássico).**  
+::: {#thm-tcl}
+## TCL clássico
 Sejam $X_1, X_2, \ldots, X_n$ i.i.d. com $\mathbb{E}[X_i]=\mu$ e $\operatorname{Var}(X_i)=\sigma^2<\infty$.  
 Defina $\bar X_n=\frac{1}{n}\sum_{i=1}^n X_i$. Então
 
@@ -253,9 +253,9 @@ $$
 
 :::
 
-::: {.theorem}
-**Corolário (normalidade assintótica de estimadores).**  
-Um estimador $(\hat\theta_n)$ de $(\theta\)$ é *assintoticamente normal* se existe $(\Sigma)$ (escala ou matriz)
+::: {#cor-normalidade-assintotica}
+## Normalidade assintótica de estimadores
+Um estimador $\hat\theta_n$ de $\theta$ é *assintoticamente normal* se existe $\Sigma$ (escala ou matriz)
 tal que
 
 $$
@@ -265,11 +265,10 @@ $$
 Equivalentemente, para $n$ grande, $\hat\theta_n \approx \mathcal{N}\!\big(\theta,\ \Sigma/n\big)$.
 :::
 
-::: {.remark}
-**Observação.** A seta $\xrightarrow{d}$ indica **convergência em distribuição**.
+::: {#rem-convergencia}
+A seta $\xrightarrow{d}$ indica **convergência em distribuição**.
 :::
 
-\noindent
 Em outras palavras, a distribuição da média amostral (devidamente centrada e normalizada) 
 converge em distribuição para uma normal, independentemente da distribuição original das variáveis $X_i$, 
 desde que possuam variância finita.
@@ -356,7 +355,7 @@ Há várias estatísticas que medem a qualidade geral do ajuste do modelo. O tes
 **De onde vem a maior parte da variação:** entre grupos ou dentro dos grupos? É essa pergunta que o teste-F responde. 
 
 $$
-\operatorname{F} = \dfrac{ \operatorname{Variação entre grupos} }{ \operatorname{Variação dentro dos grupos} }
+\operatorname{F} = \dfrac{ \text{Variação entre grupos} }{ \text{Variação dentro dos grupos} }
 $$
 
 $$
@@ -385,7 +384,7 @@ Quando dizemos que algo é um teste estatístico, isso significa que queremos di
 >
 >
 > $$
-> t = \dfrac{ \operatorname{valor empírico} - H_0}{ \operatorname{erro-padrão} }.
+> t = \dfrac{ \text{valor empírico} - H_0}{ \text{erro-padrão} }.
 > $$
 >
 > Com isso, poderíamos fazer:

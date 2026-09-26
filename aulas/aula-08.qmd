@@ -3,7 +3,7 @@ title: "Heterocedasticidade pt. 2"
 aula: 8
 ---
 
-Na aula passada, vimos que podemos estimar a variância de $\beta$ assumindo heterocedasticidade -- em particular, assumindo que os elementos da diagonal principal na matriz de variância-covariância podem ser diferentes entre si, mantendo os zeros no entorno. Hoje, vamos relaxar a _assumption_ dos zeros ao redor da diagnonal (permitindo que eles difiram de zero). Em outras palavras, estamos falando de **erros clusterizados**, quando há covariância entre as observações.
+Na aula passada, vimos que podemos estimar a variância de $\beta$ assumindo heterocedasticidade -- em particular, assumindo que os elementos da diagonal principal na matriz de variância-covariância podem ser diferentes entre si, mantendo os zeros no entorno. Hoje, vamos relaxar a _assumption_ dos zeros ao redor da diagonal (permitindo que eles difiram de zero). Em outras palavras, estamos falando de **erros clusterizados**, quando há covariância entre as observações.
 
 Vamos pensar em um survey quando fazemos amostragem aleatória simples. Assumimos que há uma lista com todas as pessoas que moram no Brasil, e usamos um gerador de números aleatórios para sortear as pessoas a serem contactadas. Nesse caso, podemos assumir que não há correlação entre as observações. Isso é muito difícil de ser feito, mesmo porque uma lista como essa não existe. O que se faz, na prática, é sortear em etapas -- sorteamos municípios, depois alguns setores censitários, daí alguns domicílios. 
 

@@ -30,7 +30,7 @@ $$
 Now, let's proceed to derive the ordinary least squares estimates. Of course, I'm just going to describe the step-by-step specified in the section 2.2 of @wooldridge2020intro. Assume we have a random sample $\{ (x_i, y_i): i = 1, ..., n \}$. We can write a simple regression model as follows:
 
 $$
-y_i = \beta_0 + \beta_1 x_i + u_1
+y_i = \beta_0 + \beta_1 x_i + u_i
 $$
 
 for each $i$. 
@@ -44,7 +44,7 @@ $$
 \end{align*}
 $$
 
-These two equations imply two restrictins on the joint probability distribution of $\{x, y\}$ in the population. There are two unknown parameters to estimate, so we might hope that they can be used to obtain good estimators of $\beta_0$ and $\beta_1$. In fact, given a sample of data, we can choose estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ to solve the _sample_ counterparts of these two equations:
+These two equations imply two restrictions on the joint probability distribution of $\{x, y\}$ in the population. There are two unknown parameters to estimate, so we might hope that they can be used to obtain good estimators of $\beta_0$ and $\beta_1$. In fact, given a sample of data, we can choose estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ to solve the _sample_ counterparts of these two equations:
 
 $$
 \begin{align*}
@@ -64,7 +64,7 @@ $$
 \end{align*}
 $$
 
-We can then plug this result into the second equations (ignoring $n^{-1}$, which makes no difference in the equality), what gives us
+We can then plug this result into the second equation (ignoring $n^{-1}$, which makes no difference in the equality), what gives us
 
 $$
 \begin{align*}
@@ -110,13 +110,13 @@ The $\hat{\beta}_0$ and $\hat{\beta}_1$ estimates are the ordinary least squares
 
 #### Errors
 
-Define the total sume of squares (SST), the explained sum of squares (SSE), and the residual sum of squares (SSR):
+Define the total sum of squares (SST), the explained sum of squares (SSE), and the residual sum of squares (SSR):
 
 $$
 \begin{align*}
 &\text{SST} \equiv \sum^n_{i = 1} (y_i - \bar{y})^2 \\
 &\text{SSE} \equiv \sum^n_{i = 1} (\hat{y}_i - \bar{y})^2 \\
-&\text{SSR} \equiv \sum^n_{i = 1} \hat{u}_i^2 = \sum^n_{i = 1} (y_i - \hat{y}_i)
+&\text{SSR} \equiv \sum^n_{i = 1} \hat{u}_i^2 = \sum^n_{i = 1} (y_i - \hat{y}_i)^2
 \end{align*}
 $$
 
@@ -223,7 +223,7 @@ lm(formula = ln_renda ~ anosEst, data = pnad_rec)
 
 ```
 
-De fato, obtemos exatamente o mesmo resultado. Não poderia ser diferente, evidentemente. Quando `anosEst = 0`, `ln_renda = 6.0763`. Agora, para cada `anoEst`, `ln_renda` aumenta em `0.1024`. Essa é a interpretação substantiva.
+De fato, obtemos exatamente o mesmo resultado. Não poderia ser diferente, evidentemente. Quando `anosEst = 0`, `ln_renda = 6.0763`. Agora, para cada `anosEst`, `ln_renda` aumenta em `0.1024`. Essa é a interpretação substantiva.
 
 Agora, queremos incluir mais variáveis:
 

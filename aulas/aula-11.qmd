@@ -13,7 +13,7 @@ aula: 11
 
 > In Chapter 3, we defined the OLS predicted or fitted values and the OLS residuals. Predictions are certainly useful, but they are subject to sampling variation, because they are obtained using the OLS estimators. Thus, in this section, we show how to obtain confidence intervals for a prediction from the OLS regression line. [@wooldridge2020intro, p. 201]
 
-The fact is that, by default, the model returns a predicted value, which is point estimate. We want some measure of uncertainty in this predicted value.
+The fact is that, by default, the model returns a predicted value, which is a point estimate. We want some measure of uncertainty in this predicted value.
 
 The parameter we would like to estimate is
 

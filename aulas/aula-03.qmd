@@ -82,6 +82,7 @@ Um estimador é uma fórmula para obter parâmetros. Parâmetros são quantias d
 Estratégias, hipóteses / pressupostos para obter estimadores
 
 **Exemplos:**
+
 - método dos mínimos quadrados
 - método dos momentos
 - método da máxima verossimilhança

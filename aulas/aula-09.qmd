@@ -14,11 +14,11 @@ $$
 \vdots                    & \text{Var}(\hat{\beta_1}) & \cdots & 0 \\
 \vdots                    & \vdots                    & \ddots & \vdots \\
 \cdots                    & \cdots                    & \cdots & \text{Var}(\hat{\beta_k})
-\end{bmatrix} \\
+\end{bmatrix}
 $$
 
 $$
-\hat{\beta_j} = \dfrac{1}{n-1} \cdot \dfrac{\sigma^2_\epsilon}{\text{Var}(X)} \cdot \dfrac{1}{(1 - R^2_j)}
+\text{Var}(\hat{\beta}_j) = \dfrac{1}{n-1} \cdot \dfrac{\sigma^2_\epsilon}{\text{Var}(X)} \cdot \dfrac{1}{(1 - R^2_j)}
 $$
 
 Suponha um código em R:
@@ -44,7 +44,7 @@ vif_mulher = 1/(1 - r2_j_mulher)
 
 Nesse caso o VIF é 1, o menor possível (é claro, multiplica a variância por um, então não há inflação de variância).
 
-Multicolinearidade é um problema? Se sua amostra for grande, não. Aliás, ela é um problema porque ela significa o seguinte: você está usando variáveis explicativas reduntantes, então talvez você devesse pensar em outras explicações. Do ponto de vista da variância dos $\beta$, isso é um problema, claro, mas o efeito disso é fazer com que as coisas não sejam estatisticamente significativas. Se sua amostra é grande o suficiente ou seu $X$ varia bastante, então isso acaba sendo compensado e as coisas são estatisticamente significativas de qualquer jeito.
+Multicolinearidade é um problema? Se sua amostra for grande, não. Aliás, ela é um problema porque ela significa o seguinte: você está usando variáveis explicativas redundantes, então talvez você devesse pensar em outras explicações. Do ponto de vista da variância dos $\beta$, isso é um problema, claro, mas o efeito disso é fazer com que as coisas não sejam estatisticamente significativas. Se sua amostra é grande o suficiente ou seu $X$ varia bastante, então isso acaba sendo compensado e as coisas são estatisticamente significativas de qualquer jeito.
 
 
 

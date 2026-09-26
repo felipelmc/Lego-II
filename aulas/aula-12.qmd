@@ -9,7 +9,7 @@ aula: 12
 
 > The standard approximation of a natural logarithm in statistical analysis interprets a linear change of $p$ in $\ln (X)$ as a $(1 + p)$ proportional change in $X$, which is only accurate for small values of $p$. I suggest base-$(1+p)$ logarithms, where $p$ is chosen ahead of time. A one-unit change in $\log_{1+p} (X)$ is exactly equivalent to a $(1+p)$ proportional change in $X$. This avoids an approximation applied too broadly, makes exact interpretation easier and less error-prone, improves approximation quality when approximations are used, makes the change of interest a one-log-unit change like other regression variables, and reduces error from the use of $\log (1 + X)$. [@huntingtonklein2021linear, Abstract]
 
-> All three problems can be solved by simply changing the base of the logarithm. Selecting a percentage increase $p \times 100 %$ ahead of time and using $\log_{1+p} (X)$ in place of $\ln (X)$ means that a one-unit change in $\log_{1+p} (X)$ is exactly equivalent to a $p \times 100\%$ increase in $X$.
+> All three problems can be solved by simply changing the base of the logarithm. Selecting a percentage increase $p \times 100\%$ ahead of time and using $\log_{1+p} (X)$ in place of $\ln (X)$ means that a one-unit change in $\log_{1+p} (X)$ is exactly equivalent to a $p \times 100\%$ increase in $X$.
 
 ## Anotações de aula
 
@@ -45,7 +45,7 @@ Os termos interativos são multiplicações entre variáveis explicativas. Supon
 anosEst ~ sexo + raça
 ```  
 
-Para fins didáticos, suponha que as duas variáveis explicativas são binárias (mulher = 1, negro = 1) Suponha que estimamos essa regressão e observamos o seguinte:
+Para fins didáticos, suponha que as duas variáveis explicativas são binárias (mulher = 1, negro = 1). Suponha que estimamos essa regressão e observamos o seguinte:
 
 $$
 \text{anosEst} = \beta_0 + \beta_1 \text{sexo} + \beta_2 \text{raça}

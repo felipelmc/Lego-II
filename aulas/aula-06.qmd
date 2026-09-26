@@ -13,7 +13,7 @@ aula: 6
 
 > Assumption MLR.6 -- Normality: The population error $u$ is independent of the explanatory variables $x_1, x_2, ..., x_k$ and is normally distributed with zero mean and variance $\sigma^2: u \sim \mathcal{N}(0, \sigma^2)$.
 
-A succint way to summarize the population assumptions of the CLM is:
+A succinct way to summarize the population assumptions of the CLM is:
 
 $$
 y | x \sim \mathcal{N}( \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_k x_k, \sigma^2),
@@ -86,13 +86,9 @@ Uma nota breve sobre os vídeos, porque é importante saber das seguintes propri
 $$
 \begin{align*}
 &\text{Var}(a + X) = \text{Var}(X) \\
-
 \\
-
 &\text{Var}(aX) = a^2 \text{Var}(X) \\
-
 \\
-
 &\text{Var}(X) =
 \begin{bmatrix}
 \text{Var}(X_1) & \text{Cov}(X_1, X_2) & \cdots & \text{Cov}(X_1, X_n) \\
@@ -100,17 +96,11 @@ $$
 \vdots & \vdots & \ddots & \vdots \\
 \text{Cov}(X_n, X_1) & \text{Cov}(X_n, X_2) & \cdots & \text{Var}(X_n)
 \end{bmatrix} \\
-
 \\
-
 &\text{Var}(A \vec{x}) = A \ \text{Var}(\vec{x}) \ A^T \\
-
 \\
-
 &\text{Var}(A + \vec{x}) = \text{Var}(\vec{x})
-
 \end{align*}
-
 $$
 
 Agora, passemos à variância de $\hat{\beta}$:
@@ -123,7 +113,7 @@ $$
 \end{align*}
 $$
 
-Essa é uma matriz $k \times k$, já que $[X^T X]^{-1} X^T$ é $k \times n$ e a transporta é naturalmente $n \times k$. E o que é a variância do erro? Bom, é a variância da pessoa 1, a covariância do erro da pessoa 1 com a pessoa 2, e assim por diante.
+Essa é uma matriz $k \times k$, já que $[X^T X]^{-1} X^T$ é $k \times n$ e a transposta é naturalmente $n \times k$. E o que é a variância do erro? Bom, é a variância da pessoa 1, a covariância do erro da pessoa 1 com a pessoa 2, e assim por diante.
 
 
 $$
@@ -133,12 +123,12 @@ $$
 \text{Cov}(\epsilon_2, \epsilon_1) & \text{Var}(\epsilon_2) & \cdots & \text{Cov}(\epsilon_2, \epsilon_n) \\
 \vdots & \vdots & \ddots & \vdots \\
 \text{Cov}(\epsilon_n, \epsilon_1) & \text{Cov}(\epsilon_n, \epsilon_2) & \cdots & \text{Var}(\epsilon_n)
-\end{bmatrix} \\
+\end{bmatrix}
 $$
 
 As variâncias individuais são o "erro" de cada indivíduo, o componente estocástico associado à ação individual. Agora, os erros das "pessoas juntas" são aqueles erros em grupos ("a sorte de um grupo é o azar de outro", e assim por diante). Podemos ter correlação entre observações por razões inúmeras. 
 
-Trata-se, no entanto, de uma matriz teórica, que nunca será usada de fato -- mesmo porque os erros não são observáveis. Chegamos a um ponto, portanto, que $[X^T X]^{-1} X^T \ \text{Var}(\vec{\epsilon}) \ X [X^T X]^{-1}$ não nos leva a lugar nenhum. Mas e se supusséssemos que todas as covariâncias são zero, e que, mais do que isso, que todas as variâncias são iguais? Isto é, e se impormos a suposição da homocedasticidade?
+Trata-se, no entanto, de uma matriz teórica, que nunca será usada de fato -- mesmo porque os erros não são observáveis. Chegamos a um ponto, portanto, que $[X^T X]^{-1} X^T \ \text{Var}(\vec{\epsilon}) \ X [X^T X]^{-1}$ não nos leva a lugar nenhum. Mas e se supuséssemos que todas as covariâncias são zero, e que, mais do que isso, que todas as variâncias são iguais? Isto é, e se impuséssemos a suposição da homocedasticidade?
 
 Em particular, sob a hipótese da homocedasticidade, teríamos:
 
@@ -149,7 +139,7 @@ $$
 0 & \sigma^2 & \cdots & 0 \\
 \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & \cdots & \sigma^2
-\end{bmatrix} \\
+\end{bmatrix}
 $$
 
 Daí:
@@ -170,8 +160,8 @@ $$
 \text{Var}(\beta_0) & \text{Cov}(\beta_0, \beta_1) & \text{Cov}(\beta_0, \beta_2) \\
 \text{Cov}(\beta_1, \beta_0) & \text{Var}(\beta_1) & \text{Cov}(\beta_1, \beta_2) \\
 \text{Cov}(\beta_2, \beta_0) & \text{Cov}(\beta_2, \beta_1) & \text{Var}(\beta_2)
-\end{bmatrix} \\
+\end{bmatrix}
 $$
 
-É claro, isso tudo esta assentado sob a assumption de homocedasticidade. Há maneiras de remover essa suposição sob os erros individuais sem grandes complicações -- por heterocedasticidade, ou por hipótese dos erros clusterizados.
+É claro, isso tudo está assentado sobre a assumption de homocedasticidade. Há maneiras de remover essa suposição sobre os erros individuais sem grandes complicações -- por heterocedasticidade, ou por hipótese dos erros clusterizados.
 

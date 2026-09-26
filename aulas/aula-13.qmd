@@ -5,7 +5,7 @@ aula: 13
 
 Uma variável aleatória $X$ é uma função que mapeia alternativas do espaço amostral $\Omega$ para o conjunto dos números reais: $X: \Omega \rightarrow \mathbb{R}$.
 
-O espaço amostral $\Omega$ é o conjunto das alternativas possíveis de serem sorteados. Exemplo:
+O espaço amostral $\Omega$ é o conjunto das alternativas possíveis de serem sorteadas. Exemplo:
 
 $$
 \begin{align*}
@@ -32,7 +32,7 @@ $\mathbb{P}(A, B)$ é a probabilidade conjunta e $\mathbb{P}(B)$ é a probabilid
 
 E, por último:
 
-- $\mathbb{P}(A \cap B)$ é a probabilidade de co-ocorrência de eventos. Trata-se literalmente do cruzamento. Em caso de eventos independentes, $\mathbb{P}(A \cap B) = \mathbb{P}(A) \cdot \mathbb{P}(B)$; no caso de eventos não independentes, essa probabilidade é empírica. De fato, exemplo anterior sobre dados, os eventos são independentes, já que não há qualquer relação entre os dois dados.
+- $\mathbb{P}(A \cap B)$ é a probabilidade de co-ocorrência de eventos. Trata-se literalmente do cruzamento. Em caso de eventos independentes, $\mathbb{P}(A \cap B) = \mathbb{P}(A) \cdot \mathbb{P}(B)$; no caso de eventos não independentes, essa probabilidade é empírica. De fato, no exemplo anterior sobre dados, os eventos são independentes, já que não há qualquer relação entre os dois dados.
 
 ## Funções de Distribuição, ou Distribuições Paramétricas
 
@@ -54,7 +54,7 @@ Seja $p = 0.7$:
 
 ### Binomial
 
-A distribuição Binomial representa a soma de várias variáveis Bernoulli independentes (com o mesmo valor de $p$) -- ou seja, a Bernoulli é um caso especial da Binomial. A Bernoulli, mas especificamente, modela um único experimento que pode resultar em sucesso (com probabilidade $p$) e fracasso (com probabilidade $1-p$).
+A distribuição Binomial representa a soma de várias variáveis Bernoulli independentes (com o mesmo valor de $p$) -- ou seja, a Bernoulli é um caso especial da Binomial. A Bernoulli, mais especificamente, modela um único experimento que pode resultar em sucesso (com probabilidade $p$) e fracasso (com probabilidade $1-p$).
 
 $$
 \begin{align*}
@@ -147,7 +147,7 @@ $$
 
 ## Distribuições Discretas e Contínuas
 
-As distribuições discretas tem um espaço amostral enumerável, contável e é possível calcular a probabilidade de cada valor no espaço amostral exatamente. 
+As distribuições discretas têm um espaço amostral enumerável, contável e é possível calcular a probabilidade de cada valor no espaço amostral exatamente. 
 
 Distribuições contínuas, por sua vez, têm $\Omega$ não contável, não enumerável, e a probabilidade de um valor específico é irrisória e não é de interesse. Calculamos a probabilidade de intervalos. Valores na região da média são muito prováveis (i.e. há alta densidade de probabilidade). Nesse caso, o cálculo da probabilidade é a área na região entre dois valores.
 
